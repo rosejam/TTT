@@ -52,7 +52,7 @@ https://www.open-platform.or.kr/apt/content/openapi
 ## 3. 다른 여러 알고리즘과 딥러닝을 추가적으로 적용할 예정입니다.    
 
 # 서비스 플로우(시퀀스 다이어그램, 상태 전이 다이어그램)
-
+![flow](/readme/flow.png)  
 
 # 깃
 ![git-flo](/readme/git-flow.png)    
