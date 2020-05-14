@@ -29,6 +29,9 @@
 
 사용자가 작성한 알고리즘을 업로드하고 다른 사용자가 사용할 경우 매매 수수료를 받을 수 있는 알고리즘 마켓 기능
 
+# 우리 프로젝트 구조 다이어그램
+![diagram](/readme/diagram.png)
+
 # 증권사 API
 ![jungwon](/readme/jungwon.png)
 
