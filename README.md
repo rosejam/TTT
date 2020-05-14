@@ -40,6 +40,7 @@ https://www.open-platform.or.kr/apt/content/openapi
 ![bank](/readme/bank.png)
 
 # 매매 알고리즘
+
 [링크](https://lab.ssafy.com/s02-final/s02p31a105/wikis/%5B%EC%9D%B4%EC%9D%80%EA%B7%9C%5D-Zipline%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%B0%B1%ED%85%8C%EC%8A%A4%ED%8C%85-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98(%EA%B3%A8%EB%93%A0%ED%81%AC%EB%A1%9C%EC%8A%A4/%5B%EC%9D%B4%EC%9D%80%EA%B7%9C%5D-Zipline%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%B0%B1%ED%85%8C%EC%8A%A4%ED%8C%85-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98(%EA%B3%A8%EB%93%A0%ED%81%AC%EB%A1%9C%EC%8A%A4-%EB%8D%B0%EC%8A%A4%ED%81%AC%EB%A1%9C%EC%8A%A4-%EC%9D%B4%EC%9A%A9))    
 ## 1. 골든크로스 매수 - 데드크로스 매도 방식    
     : 주가 이동평균선을 이용하는 대표적인 기술적 분석 지표    
