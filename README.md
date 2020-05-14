@@ -29,6 +29,9 @@
 
 사용자가 작성한 알고리즘을 업로드하고 다른 사용자가 사용할 경우 매매 수수료를 받을 수 있는 알고리즘 마켓 기능
 
+# 서비스 플로우
+![flow](/readme/flow.png)  
+
 # 우리 프로젝트 구조 다이어그램
 ![diagram](/readme/diagram.png)
 
@@ -50,9 +53,6 @@ https://www.open-platform.or.kr/apt/content/openapi
     : 과거의 데이터를 바탕으로 테스트하는 것    
 ![backtest](/readme/backtest.png)    
 ## 3. 다른 여러 알고리즘과 딥러닝을 추가적으로 적용할 예정입니다.    
-
-# 서비스 플로우(시퀀스 다이어그램, 상태 전이 다이어그램)
-![flow](/readme/flow.png)  
 
 # 깃
 ![git-flo](/readme/git-flow.png)    
