@@ -62,6 +62,9 @@ https://www.open-platform.or.kr/apt/content/openapi
 ![backtest](/readme/backtest.png)    
 ## 3. 다른 여러 알고리즘과 딥러닝을 추가적으로 적용할 예정입니다.    
 
+# 요구사항 정의
+![reqs](/readme/reqs.png)
+
 # 깃
 ![git-flo](/readme/git-flow.png)    
 master-develop-프론트/백의 3단계 브랜치 구조    
