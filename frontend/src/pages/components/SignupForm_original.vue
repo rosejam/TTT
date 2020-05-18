@@ -1,8 +1,13 @@
 <template>
+  <div
+    class="section section-signup"
+    style="background-image: url('img/bg11.jpg'); background-size: cover; background-position: top center; min-height: 700px;"
+  >
+    <div class="container">
       <div class="row">
         <card class="card-signup" header-classes="text-center" color="orange">
           <template slot="header">
-            <h3 class="card-title title-up">회원 등록</h3>
+            <h3 class="card-title title-up">Sign Up</h3>
             <div class="social-line">
               <a
                 href="#pablo"
@@ -25,35 +30,42 @@
             </div>
           </template>
           <template>
-              <fg-input
-                class="no-border"
-                placeholder="이메일"
-                addon-left-icon="now-ui-icons ui-1_email-85"
-                type="email"
-              >
-              </fg-input>
+            <fg-input
+              class="no-border"
+              placeholder="First Name..."
+              addon-left-icon="now-ui-icons users_circle-08"
+            >
+            </fg-input>
 
-              <fg-input
-                class="no-border input-lg"
-                addon-left-icon="now-ui-icons ui-1_lock-circle-open"
-                placeholder="비밀번호"
-                type="password"
-              >
-              </fg-input>
+            <fg-input
+              class="no-border"
+              placeholder="Last Name..."
+              addon-left-icon="now-ui-icons text_caps-small"
+            >
+            </fg-input>
 
-              <fg-input
-                class="no-border input-lg"
-                addon-left-icon="now-ui-icons ui-1_lock-circle-open"
-                placeholder="비밀번호 확인"
-                type="password"
-              >
-              </fg-input>
+            <fg-input
+              class="no-border"
+              placeholder="Email"
+              addon-left-icon="now-ui-icons ui-1_email-85"
+            >
+            </fg-input>
           </template>
           <div class="card-footer text-center">
-            <n-button type="neutral" round size="lg">시작하기</n-button>
+            <n-button type="neutral" round size="lg">Get Started</n-button>
           </div>
         </card>
       </div>
+      <div class="col text-center">
+        <router-link
+          to="/login"
+          class="btn btn-simple btn-round btn-white btn-lg"
+        >
+          View Login Page
+        </router-link>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import { Card, FormGroupInput, Button } from '@/components';

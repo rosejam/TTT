@@ -13,91 +13,95 @@
       </div>
     </div>
     <div class="section">
-      <div class="container">
-        <h3 class="title">About me</h3>
-        <h5 class="description">
-          An artist of considerable range, Ryan — the name taken by
-          Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and
-          records all of his own music, giving it a warm, intimate feel with a
-          solid groove structure. An artist of considerable range.
-        </h5>
-        <div class="row">
-          <div class="col-md-6 ml-auto mr-auto">
-            <h4 class="title text-center">My Portfolio</h4>
-          </div>
-          <tabs
-            pills
-            class="nav-align-center"
-            tab-content-classes="gallery"
-            tab-nav-classes="nav-pills-just-icons"
-            type="primary"
-          >
-            <tab-pane title="Profile">
-              <i slot="label" class="now-ui-icons design_image"></i>
+      <div class="container text-center">
+        <h3>
+          알고리즘 수치를 조정해<br/>
+          <b>나만의 알고리즘</b>을 만들어보세요!
+        </h3>
+      </div>
+      <div class="row">
+          <fg-input  class="col-sm-6 col-12"
+                     label="원하는 수익률(%)"
+                     placeholder="Number"
+                     type="search">
+          </fg-input>
+          원금 보장(안전우선)
+          <n-switch v-model="switches.defaultOn" on-text="ON" off-text="OFF"></n-switch>
+          <!-- <n-switch v-model="switches.defaultOff" on-text="ON" off-text="OFF"></n-switch> -->
 
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="img/bg6.jpg" class="img-raised" />
-                    <img src="img/bg11.jpg" alt="" class="img-raised" />
-                  </div>
-                  <div class="col-md-6">
-                    <img src="img/bg7.jpg" alt="" class="img-raised" />
-                    <img src="img/bg8.jpg" alt="" class="img-raised" />
-                  </div>
-                </div>
+          <div class="col-5">
+          <drop-down class="btn-group">
+            <template slot="title">
+            <button type="button" class="btn btn-primary">TTT's 알고리즘</button>
+              <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+            </template>
+            <div v-popover:warning>
+            <h6 class="dropdown-header">TTT가 미리 만들어둔 알고리즘이에요!</h6>
+            <a class="dropdown-item" href="#">골든크로스-데드크로스 알고리즘</a>
+            <a class="dropdown-item" href="#">수익 우선 알고리즘</a>
+            <a class="dropdown-item" href="#">원금 보장 우선 알고리즘</a>
+            </div>
+            <el-popover
+              ref="warning"
+              popper-class="popover"
+              placement="bottom"
+              width="200"
+              trigger="hover"
+            >
+              <div class="popover-body">
+                ※주의:
+                클릭 시 기존 설정이 초기화됩니다.
               </div>
-            </tab-pane>
-
-            <tab-pane title="Home">
-              <i slot="label" class="now-ui-icons location_world"></i>
-
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="img/bg1.jpg" alt="" class="img-raised" />
-                    <img src="img/bg3.jpg" alt="" class="img-raised" />
-                  </div>
-                  <div class="col-md-6">
-                    <img src="img/bg8.jpg" alt="" class="img-raised" />
-                    <img src="img/bg7.jpg" alt="" class="img-raised" />
-                  </div>
-                </div>
-              </div>
-            </tab-pane>
-
-            <tab-pane title="Messages">
-              <i slot="label" class="now-ui-icons sport_user-run"></i>
-
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="img/bg3.jpg" alt="" class="img-raised" />
-                    <img src="img/bg8.jpg" alt="" class="img-raised" />
-                  </div>
-                  <div class="col-md-6">
-                    <img src="img/bg7.jpg" alt="" class="img-raised" />
-                    <img src="img/bg6.jpg" class="img-raised" />
-                  </div>
-                </div>
-              </div>
-            </tab-pane>
-          </tabs>
+            </el-popover>
+          </drop-down>
         </div>
+        <n-button type="primary" outline round @click.native="modals.save = true">
+          <i class="fa fa-save"></i> 알고리즘 저장
+        </n-button>
+        <modal :show.sync="modals.save" headerClasses="justify-content-center" style="color:black" modal-classes="modal-sm">
+          <h4 slot="header" class="title title-up">알고리즘 저장</h4>
+          <p>현재 알고리즘 설정을 저장하시겠습니까?</p>
+          <div class="pull-left">
+          <n-button type="neutral" round>취소</n-button>
+          </div>
+          <div class="pull-right">
+          <n-button type="primary" round>저장</n-button>
+          </div>
+        </modal>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { Tabs, TabPane } from '@/components';
+import { Button, DropDown, Tabs, TabPane, FormGroupInput, Switch, Modal } from '@/components';
+import { Popover } from 'element-ui';
 
 export default {
   name: 'profile',
   bodyClass: 'profile-page',
   components: {
+    [Button.name]:Button,
+    DropDown,
     Tabs,
-    TabPane
-  }
+    TabPane,
+    [FormGroupInput.name]: FormGroupInput,
+    [Switch.name]: Switch,
+    [Popover.name]: Popover,
+    Modal,
+  },
+  data() {
+    return {
+      modals: {
+        save: false
+      },
+      switches: {
+        defaultOn: true,
+        defaultOff: false
+      }
+    }
+  },
 };
 </script>
 <style></style>

@@ -4,6 +4,8 @@ import Index from './pages/Index.vue';
 import Landing from './pages/Landing.vue';
 import Login from './pages/Login.vue';
 import Signup from './pages/Signup.vue';
+import AlgoMarket from './pages/AlgoMarket.vue';
+import Asset from './pages/Asset.vue';
 import AlgoSetting from './pages/AlgoSetting.vue';
 import Profile from './pages/Profile.vue';
 import MainNavbar from './layout/MainNavbar.vue';
@@ -12,6 +14,7 @@ import MainFooter from './layout/MainFooter.vue';
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   linkExactActiveClass: 'active',
   routes: [
     {
@@ -49,6 +52,24 @@ export default new Router({
       }
     },
     {
+      path: '/algomarket',
+      name: 'algomarket',
+      components: { default: AlgoMarket, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/asset',
+      name: 'asset',
+      components: { default: Asset, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
       path: '/algosetting',
       name: 'algosetting',
       components: { default: AlgoSetting, header: MainNavbar, footer: MainFooter },
@@ -65,7 +86,8 @@ export default new Router({
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
       }
-    }
+    },
+
   ],
   scrollBehavior: to => {
     if (to.hash) {

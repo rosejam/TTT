@@ -34,23 +34,6 @@
         </a>
       </li>
       <drop-down
-        tag="li"
-        title="Components"
-        icon="now-ui-icons design_app"
-        class="nav-item"
-      >
-        <nav-link to="/">
-          <i class="now-ui-icons business_chart-pie-36"></i> All components
-        </nav-link>
-        <a
-          href="https://demos.creative-tim.com/vue-now-ui-kit/documentation"
-          target="_blank"
-          class="dropdown-item"
-        >
-          <i class="now-ui-icons design_bullet-list-67"></i> Documentation
-        </a>
-      </drop-down>
-      <drop-down
               tag="li"
               title="Examples"
               icon="now-ui-icons design_image"
@@ -66,13 +49,22 @@
           <i class="now-ui-icons users_single-02"></i> Profile
         </nav-link>
       </drop-down>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          href="/algomarket"
+        >
+          <i class="fas fa-shopping-cart"></i>
+          <p>알고리즘 마켓</p>
+        </a>
+      </li>
       <drop-down
               tag="li"
               title="마이페이지"
               icon="now-ui-icons business_badge"
               class="nav-item"
       >
-        <nav-link to="/landing">
+        <nav-link to="/asset">
           <i class="now-ui-icons business_money-coins"></i> 자산 현황
         </nav-link>
         <nav-link to="/algosetting">

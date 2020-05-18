@@ -10,13 +10,13 @@
           <card type="login" plain>
             <div slot="header" class="logo-container">
               <img v-lazy="'img/TTT-logo.png'" alt="" />
-              로그인
             </div>
 
             <fg-input
               class="no-border input-lg"
-              addon-left-icon="now-ui-icons users_circle-08"
+              addon-left-icon="now-ui-icons ui-1_email-85"
               placeholder="이메일"
+              type="email"
             >
             </fg-input>
 
@@ -24,6 +24,7 @@
               class="no-border input-lg"
               addon-left-icon="now-ui-icons ui-1_lock-circle-open"
               placeholder="비밀번호"
+              type="password"
             >
             </fg-input>
 
@@ -40,27 +41,30 @@
                   <!-- <router-link to="/signup" class="link footer-link">
                     TTT's 회원 되기 <i class="now-ui-icons sport_user-run"></i>
                   </router-link> -->
-                  <n-button type="neutral" @click.native="modals.classic = true" link>
+                  <n-button type="neutral" @click.native="modals.signup = true" link>
                     TTT's 회원 되기 <i class="now-ui-icons sport_user-run"></i>
                   </n-button>
-                  <modal :show.sync="modals.classic" headerClasses="justify-content-center">
+                  <modal :show.sync="modals.signup" headerClasses="justify-content-center">
                     <signup-form/>
-                    <!-- <h4 slot="header" class="title title-up">Modal title</h4>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live
-                      the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large
-                      language ocean. A small river named Duden flows by their place and supplies it with the necessary
-                      regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your
-                      mouth.</p>
-                    <template slot="footer">
-                      <n-button>Nice Button</n-button>
-                      <n-button type="danger" @click.native="modals.classic = false">Close</n-button>
-                    </template> -->
                   </modal>
                 </h6>
               </div>
               <div class="pull-right">
                 <h6>
-                  <a href="#pablo" class="link footer-link">도와줘요 TTT!</a>
+                  <n-button type="neutral" @click.native="modals.help = true" link>
+                    TTT가 뭐야?
+                  </n-button>
+                  <modal :show.sync="modals.help" headerClasses="justify-content-center" style="color:black">
+                    <h4 slot="header" class="title title-up">TTT?</h4>
+                    <p>
+                      1. auTo Trading sysTem의 줄임말입니다. <br/>
+                      2. 또한 Trust, Trend, Tactic 의 3T를 가치로 삼고 있습니다. <br/>
+                    </p>
+                    <!-- <template slot="footer">
+                      <n-button>Nice Button</n-button>
+                      <n-button type="danger" @click.native="modals.classic = false">Close</n-button>
+                    </template> -->
+                  </modal>
                 </h6>
               </div>
             </template>
@@ -89,7 +93,8 @@ export default {
   data(){
     return {
       modals: {
-        classic: false
+        signup: false,
+        help: false
       }
     }
   },

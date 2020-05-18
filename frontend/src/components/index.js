@@ -44,5 +44,5 @@ export {
   Modal,
   Parallax,
   Slider,
-  Button
+  Button,
 };
