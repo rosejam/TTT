@@ -10,6 +10,7 @@
           <card type="login" plain>
             <div slot="header" class="logo-container">
               <img v-lazy="'img/TTT-logo.png'" alt="" />
+              회원 가입
             </div>
 
             <fg-input
@@ -27,25 +28,20 @@
             >
             </fg-input>
 
+            <fg-input
+              class="no-border input-lg"
+              addon-left-icon="now-ui-icons ui-1_lock-circle-open"
+              placeholder="비밀번호 확인"
+            >
+            </fg-input>
+
             <template slot="raw-content">
               <div class="card-footer text-center">
                 <a
                   href="#pablo"
                   class="btn btn-primary btn-round btn-lg btn-block"
-                  >로그인</a
+                  >가입하기</a
                 >
-              </div>
-              <div class="pull-left">
-                <h6>
-                  <a href="/" class="link footer-link">
-                    TTT's 회원 되기 <i class="now-ui-icons sport_user-run"></i>
-                  </a>
-                </h6>
-              </div>
-              <div class="pull-right">
-                <h6>
-                  <a href="#pablo" class="link footer-link">도와줘요 TTT!</a>
-                </h6>
               </div>
             </template>
           </card>

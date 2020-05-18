@@ -10,6 +10,7 @@
           <card type="login" plain>
             <div slot="header" class="logo-container">
               <img v-lazy="'img/TTT-logo.png'" alt="" />
+              로그인
             </div>
 
             <fg-input
@@ -36,9 +37,25 @@
               </div>
               <div class="pull-left">
                 <h6>
-                  <a href="/" class="link footer-link">
+                  <!-- <router-link to="/signup" class="link footer-link">
                     TTT's 회원 되기 <i class="now-ui-icons sport_user-run"></i>
-                  </a>
+                  </router-link> -->
+                  <n-button type="neutral" @click.native="modals.classic = true" link>
+                    TTT's 회원 되기 <i class="now-ui-icons sport_user-run"></i>
+                  </n-button>
+                  <modal :show.sync="modals.classic" headerClasses="justify-content-center">
+                    <signup-form/>
+                    <!-- <h4 slot="header" class="title title-up">Modal title</h4>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live
+                      the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large
+                      language ocean. A small river named Duden flows by their place and supplies it with the necessary
+                      regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your
+                      mouth.</p>
+                    <template slot="footer">
+                      <n-button>Nice Button</n-button>
+                      <n-button type="danger" @click.native="modals.classic = false">Close</n-button>
+                    </template> -->
+                  </modal>
                 </h6>
               </div>
               <div class="pull-right">
@@ -55,8 +72,9 @@
   </div>
 </template>
 <script>
-import { Card, Button, FormGroupInput } from '@/components';
+import { Card, Button, FormGroupInput, Modal } from '@/components';
 import MainFooter from '@/layout/MainFooter';
+import SignupForm from '@/pages/components/SignupForm';
 export default {
   name: 'login-page',
   bodyClass: 'login-page',
@@ -64,8 +82,17 @@ export default {
     Card,
     MainFooter,
     [Button.name]: Button,
-    [FormGroupInput.name]: FormGroupInput
-  }
+    [FormGroupInput.name]: FormGroupInput,
+    Modal,
+    SignupForm
+  },
+  data(){
+    return {
+      modals: {
+        classic: false
+      }
+    }
+  },
 };
 </script>
 <style></style>

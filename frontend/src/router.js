@@ -3,6 +3,8 @@ import Router from 'vue-router';
 import Index from './pages/Index.vue';
 import Landing from './pages/Landing.vue';
 import Login from './pages/Login.vue';
+import Signup from './pages/Signup.vue';
+import AlgoSetting from './pages/AlgoSetting.vue';
 import Profile from './pages/Profile.vue';
 import MainNavbar from './layout/MainNavbar.vue';
 import MainFooter from './layout/MainFooter.vue';
@@ -22,6 +24,22 @@ export default new Router({
       }
     },
     {
+      path: '/login',
+      name: 'login',
+      components: { default: Login, header: MainNavbar },
+      props: {
+        header: { colorOnScroll: 400 }
+      }
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      components: { default: Signup, header: MainNavbar },
+      props: {
+        header: { colorOnScroll: 400 }
+      }
+    },
+    {
       path: '/landing',
       name: 'landing',
       components: { default: Landing, header: MainNavbar, footer: MainFooter },
@@ -31,11 +49,12 @@ export default new Router({
       }
     },
     {
-      path: '/login',
-      name: 'login',
-      components: { default: Login, header: MainNavbar },
+      path: '/algosetting',
+      name: 'algosetting',
+      components: { default: AlgoSetting, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 }
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
       }
     },
     {

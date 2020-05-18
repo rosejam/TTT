@@ -73,9 +73,9 @@
               class="nav-item"
       >
         <nav-link to="/landing">
-          <i class="now-ui-icons business_money-coins"></i> 내 자산현황
+          <i class="now-ui-icons business_money-coins"></i> 자산 현황
         </nav-link>
-        <nav-link to="/login">
+        <nav-link to="/algosetting">
           <i class="now-ui-icons design-2_ruler-pencil"></i> 알고리즘 설정
         </nav-link>
         <nav-link to="/profile">
