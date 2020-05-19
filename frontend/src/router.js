@@ -10,6 +10,7 @@ import AlgoSetting from './pages/AlgoSetting.vue';
 import Profile from './pages/Profile.vue';
 import MainNavbar from './layout/MainNavbar.vue';
 import MainFooter from './layout/MainFooter.vue';
+import Dashboard from './pages/Dashboard.vue';
 
 Vue.use(Router);
 
@@ -82,6 +83,15 @@ export default new Router({
       path: '/profile',
       name: 'profile',
       components: { default: Profile, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/dash',
+      name: 'dash',
+      components: { default: Dashboard, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }

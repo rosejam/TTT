@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "bootstrap": "^4.3.0",
+    "chart.js": "^2.9.3",
     "element-ui": "^2.5.4",
     "nouislider": "^11.1.0",
     "vue": "^2.6.6",
+    "vue-chartjs": "^3.5.0",
     "vue-lazy-load": "^0.0.7",
     "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.2",

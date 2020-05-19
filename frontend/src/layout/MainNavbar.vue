@@ -68,7 +68,7 @@
           <i class="now-ui-icons business_money-coins"></i> 자산 현황
         </nav-link>
         <nav-link to="/algosetting">
-          <i class="now-ui-icons design-2_ruler-pencil"></i> 알고리즘 설정
+          <i class="now-ui-icons ui-2_settings-90"></i> 알고리즘 설정
         </nav-link>
         <nav-link to="/profile">
           <i class="now-ui-icons users_single-02"></i> 내 정보
