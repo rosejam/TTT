@@ -17,7 +17,8 @@ from kiwoom import Kiwoom, logger
 from PyQt5.QtWidgets import QApplication
 
 SLEEP_TIME = 0.1
-
+#에러 때문에 dj가 추가
+sys.path.insert(0, 'C:\Users\Administrator\git\quantroa\trading_tutorial\김동주\systrader')
 
 class PriceHandler(RequestHandler):
     def __init__(self, application, request, **kwargs):

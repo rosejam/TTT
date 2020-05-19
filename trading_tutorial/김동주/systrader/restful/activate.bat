@@ -1,1 +1,1 @@
-C:\Anaconda3\Scripts\activate.bat C:\Anaconda3
+C:\Anaconda3\Scripts\activate.bat quantroa_382
