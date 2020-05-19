@@ -9,8 +9,13 @@ pip install pytz(장고에 포함된 것)
 pip install tornado
 pandas
 
+크레온 restapi
 set FLASK_app=bridge_flask.py
 flask run --host=0.0.0.0
 
 aws웹 말고 os내에서 방화벽과 백신프로그램의 방화벽 꺼줘야함!!
 
+키움 restapi 
+python kiwoom_restful.py
+
+root아래 빈 logs폴더 만들기!
