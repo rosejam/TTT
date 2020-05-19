@@ -13,3 +13,4 @@ set FLASK_app=bridge_flask.py
 flask run --host=0.0.0.0
 
 aws웹 말고 os내에서 방화벽과 백신프로그램의 방화벽 꺼줘야함!!
+

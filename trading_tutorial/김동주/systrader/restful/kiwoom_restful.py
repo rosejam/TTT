@@ -13,7 +13,7 @@ import pandas as pd
 import sys
 import time
 #에러 때문에 dj가 추가
-sys.path.insert(0, 'C:\\Users\\Administrator\\git\\quantroa\\trading_tutorial\\김동주\\systrader\\kiwoom')
+sys.path.insert(0, 'C:\\Users\\Administrator\\git\\quantroa\\trading_tutorial\\김동주\\systrader')
 
 from kiwoom import Kiwoom, logger
 from PyQt5.QtWidgets import QApplication
