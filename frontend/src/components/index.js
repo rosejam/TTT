@@ -10,6 +10,7 @@ import Button from './Button.vue';
 import DropDown from './Dropdown.vue';
 
 import Card from './Cards/Card.vue';
+import ChartCard from './Cards/ChartCard.vue';
 import Collapse from './Collapse/Collapse.vue';
 import CollapseItem from './Collapse/CollapseItem.vue';
 import Navbar from './Navbar/Navbar';
@@ -35,6 +36,7 @@ export {
   Radio,
   FormGroupInput,
   Card,
+  ChartCard,
   DropDown,
   Navbar,
   NavbarToggleButton,
