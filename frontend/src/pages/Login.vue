@@ -13,6 +13,7 @@
             </div>
 
             <fg-input
+              v-model="email"
               class="no-border input-lg"
               addon-left-icon="now-ui-icons ui-1_email-85"
               placeholder="이메일"
@@ -21,6 +22,7 @@
             </fg-input>
 
             <fg-input
+              v-model="pw"
               class="no-border input-lg"
               addon-left-icon="now-ui-icons ui-1_lock-circle-open"
               placeholder="비밀번호"
@@ -30,11 +32,20 @@
 
             <template slot="raw-content">
               <div class="card-footer text-center">
-                <a
-                  href="#pablo"
+                <!-- <a
+                  href="/"
                   class="btn btn-primary btn-round btn-lg btn-block"
+                  @click="login"
                   >로그인</a
+                > -->
+                <n-button
+                  @click="login"
+                  type="primary"
+                  block
+                  round
                 >
+                  로그인
+                </n-button>
               </div>
               <div class="pull-left">
                 <h6>
@@ -79,6 +90,8 @@
 import { Card, Button, FormGroupInput, Modal } from '@/components';
 import MainFooter from '@/layout/MainFooter';
 import SignupForm from '@/pages/components/SignupForm';
+import firebase from 'firebase';
+
 export default {
   name: 'login-page',
   bodyClass: 'login-page',
@@ -92,11 +105,28 @@ export default {
   },
   data(){
     return {
+      email:'',
+      pw:'',
       modals: {
         signup: false,
         help: false
       }
     }
+  },
+  methods: {
+    login() {
+      firebase.auth()
+        .signInWithEmailAndPassword(this.email, this.pw)
+        .then(
+          user => {
+            alert("로그인 완료!");
+            this.$router.replace("/");
+          },
+          function(err) {
+            alert("에러: " + err.message);
+          }
+        );
+    },
   },
 };
 </script>
