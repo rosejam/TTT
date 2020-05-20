@@ -23,6 +23,7 @@
 
             <fg-input
               v-model="pw"
+              @keyup.enter="login"
               class="no-border input-lg"
               addon-left-icon="now-ui-icons ui-1_lock-circle-open"
               placeholder="비밀번호"
@@ -119,7 +120,6 @@ export default {
         .signInWithEmailAndPassword(this.email, this.pw)
         .then(
           user => {
-            alert("로그인 완료!");
             this.$router.replace("/");
           },
           function(err) {
