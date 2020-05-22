@@ -80,8 +80,18 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        # mysql DB설정
+        'ENGINE': "django.db.backends.mysql",
+        'NAME': 'TTT_project',
+        'USER': 'ssafy105',
+        'PASSWORD': 'A105@ssafy',
+        'HOST': '13.125.184.230',
+        'PORT': '3306',
+        'CONN_MAX_AGE': 3600,
+        'OPTIONS': {
+            'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"',
+            'charset': 'utf8mb4',
+        }
     }
 }
 
