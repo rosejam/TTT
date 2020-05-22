@@ -8,7 +8,7 @@ import requests
 
 class KiwoomRestAPI:
     def __init__(self, server_url):
-        self.server_url = server_url # e.g., http://192.168.0.33:5000
+        self.server_url = server_url  # e.g., http://15.165.21.105:8000
         self.price_url = os.path.join(server_url, "price") # e.g., http://192.168.0.33:5000/price
         self.order_url = os.path.join(server_url, "order")
         self.balance_url = os.path.join(server_url, "balance")
@@ -92,9 +92,11 @@ class KiwoomRestAPI:
 
 if __name__ == "__main__":
     import json
-    with open(os.path.expanduser("~/.kiwoom.json")) as f:
-        args = json.load(f)
-    server_url = args["server_url"]
+
+    # 김동주windowws세팅을 바로 넣기
+#    with open(os.path.expanduser("~/.kiwoom.json")) as f:
+#        args = json.load(f)
+    server_url = "http://15.165.21.105:8000"
     account_num = args["account_num"]
 
     ex = KiwoomRestAPI(server_url)
