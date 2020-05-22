@@ -2,23 +2,16 @@ from django.utils import timezone
 from django.db import models
 
 
-class Store(models.Model):
-    id = models.IntegerField(primary_key=True)
-    store_name = models.CharField(max_length=50)
-    branch = models.CharField(max_length=20, null=True)
-    area = models.CharField(max_length=50, null=True)
-    tel = models.CharField(max_length=20, null=True)
-    address = models.CharField(max_length=200, null=True)
-    latitude = models.FloatField(max_length=10, null=True)
-    longitude = models.FloatField(max_length=10, null=True)
-    category = models.CharField(max_length=200, null=True)
-
-    @property
-    def category_list(self):
-        return self.category.split("|") if self.category else []
-
-
-class users(models.Model):
-    user_id=models.CharField(max_length=70,blank=False)
-    Current_assets=models.BigIntegerField(default=0)
-    
+class Stock(models.Model): 
+    code = models.IntegerField(primary_key=True)  #종목코드0
+    name= models.IntegerField(null=False)  # 종목명1
+    time= models.IntegerField(null=False)  # 시간4
+    cprice= models.IntegerField(null=False) # 종가11
+    diff= models.IntegerField(null=False)  # 대비12
+    open= models.IntegerField(null=False)  # 시가13
+    high= models.IntegerField(null=False)  # 고가14
+    low= models.IntegerField(null=False)   # 저가15
+    offer = models.IntegerField(null=False)  #매도호가16
+    bid = models.IntegerField(null=False)   #매수호가17
+    vol= models.IntegerField(null=False)   #거래량18
+    vol_value= models.IntegerField(null=False)  #거래대금19

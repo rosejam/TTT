@@ -8,23 +8,26 @@
       <nav>
         <ul>
           <li>
+            <a href="https:///blog.creative-tim.com">
+              TTT?
+            </a>
+          </li>
+          <li>
             <a href="https://www.creative-tim.com">
-              Creative Tim
+              Team ROA
             </a>
           </li>
           <li>
             <a href="https:///presentation.creative-tim.com">
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="https:///blog.creative-tim.com">
-              Blog
+              Contact Us
             </a>
           </li>
         </ul>
       </nav>
       <div class="copyright">
+        &copy; {{ year }}, Created By ROA
+      </div>
+      <!-- <div class="copyright">
         &copy; {{ year }}, Designed by
         <a href="https:///www.invisionapp.com" target="_blank" rel="noopener"
           >Invision</a
@@ -36,7 +39,7 @@
         <a href="https://www.creative-tim.com" target="_blank" rel="noopener"
           >Creative Tim</a
         >.
-      </div>
+      </div> -->
     </div>
   </footer>
 </template>

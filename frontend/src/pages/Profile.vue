@@ -14,16 +14,16 @@
         <p class="category">Photographer</p>
         <div class="content">
           <div class="social-description">
-            <h2>26</h2>
-            <p>Comments</p>
+            <h2>12</h2>
+            <p>보유 알고리즘</p>
           </div>
           <div class="social-description">
-            <h2>26</h2>
-            <p>Comments</p>
+            <h2>4</h2>
+            <p>마켓 등록 알고리즘</p>
           </div>
           <div class="social-description">
-            <h2>48</h2>
-            <p>Bookmarks</p>
+            <h2>4830</h2>
+            <p>보유 자산(만원)</p>
           </div>
         </div>
       </div>

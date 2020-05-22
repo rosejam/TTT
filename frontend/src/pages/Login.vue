@@ -13,6 +13,7 @@
             </div>
 
             <fg-input
+              v-model="email"
               class="no-border input-lg"
               addon-left-icon="now-ui-icons ui-1_email-85"
               placeholder="이메일"
@@ -21,26 +22,29 @@
             </fg-input>
 
             <fg-input
+              v-model="pw"
+              @keypress.enter="login"
               class="no-border input-lg"
               addon-left-icon="now-ui-icons ui-1_lock-circle-open"
               placeholder="비밀번호"
               type="password"
+              autocomplete="off"
             >
             </fg-input>
 
             <template slot="raw-content">
               <div class="card-footer text-center">
-                <a
-                  href="#pablo"
-                  class="btn btn-primary btn-round btn-lg btn-block"
-                  >로그인</a
+                <n-button
+                  @click="login"
+                  type="primary"
+                  block
+                  round
                 >
+                  로그인
+                </n-button>
               </div>
               <div class="pull-left">
                 <h6>
-                  <!-- <router-link to="/signup" class="link footer-link">
-                    TTT's 회원 되기 <i class="now-ui-icons sport_user-run"></i>
-                  </router-link> -->
                   <n-button type="neutral" @click.native="modals.signup = true" link>
                     TTT's 회원 되기 <i class="now-ui-icons sport_user-run"></i>
                   </n-button>
@@ -79,6 +83,8 @@
 import { Card, Button, FormGroupInput, Modal } from '@/components';
 import MainFooter from '@/layout/MainFooter';
 import SignupForm from '@/pages/components/SignupForm';
+import firebase from 'firebase';
+
 export default {
   name: 'login-page',
   bodyClass: 'login-page',
@@ -92,11 +98,29 @@ export default {
   },
   data(){
     return {
+      email:'',
+      pw:'',
       modals: {
         signup: false,
         help: false
       }
     }
+  },
+  methods: {
+    login() {
+      firebase.auth()
+        .signInWithEmailAndPassword(this.email, this.pw)
+        .then(
+          user => {
+            this.$session.set('user', user);
+            this.$router.replace("/");
+            location.reload();
+          },
+          function(err) {
+            alert("에러: " + err.message);
+          }
+        );
+    },
   },
 };
 </script>

@@ -7,90 +7,76 @@
     menu-classes="ml-auto"
   >
     <template slot-scope="{ toggle, isToggled }">
-      <router-link v-popover:popover1 class="navbar-brand" to="/">
+      <router-link class="navbar-brand" to="/">
         auto trading system
       </router-link>
-      <el-popover
-        ref="popover1"
-        popper-class="popover"
-        placement="bottom"
-        width="200"
-        trigger="hover"
-      >
-        <div class="popover-body">
-          Move to Main
-        </div>
-      </el-popover>
     </template>
     <template slot="navbar-menu">
-      <li class="nav-item">
+      <li v-if="userLogined" class="nav-item">
         <a
           class="nav-link"
-          href="https://www.creative-tim.com/product/vue-now-ui-kit"
-          target="_blank"
+          href="/stockinfo"
         >
-          <i class="now-ui-icons arrows-1_cloud-download-93"></i>
-          <p>Download</p>
+          <i class="now-ui-icons ui-1_zoom-bold"></i>
+          <p>증권 정보</p>
         </a>
       </li>
       <drop-down
+              v-if="userLogined"
               tag="li"
-              title="Examples"
-              icon="now-ui-icons design_image"
+              title="자산 관리"
+              icon="now-ui-icons business_bank"
               class="nav-item"
       >
-        <nav-link to="/landing">
-          <i class="now-ui-icons education_paper"></i> Landing
+        <nav-link to="/asset">
+          <!-- <i class="fa fa-chart-line"></i> 자산 현황 -->
+          <i class="now-ui-icons business_money-coins"></i> 자산 현황
         </nav-link>
-        <nav-link to="/login">
-          <i class="now-ui-icons users_circle-08"></i> Login
+        <nav-link to="/tr_history">
+          <i class="now-ui-icons files_paper"></i> 거래 내역
         </nav-link>
-        <nav-link to="/profile">
-          <i class="now-ui-icons users_single-02"></i> Profile
+        <nav-link to="/algosetting">
+          <i class="now-ui-icons ui-2_settings-90"></i> 알고리즘 설정
         </nav-link>
       </drop-down>
-      <li class="nav-item">
+      <li v-if="userLogined" class="nav-item">
         <a
           class="nav-link"
           href="/algomarket"
         >
-          <i class="fas fa-shopping-cart"></i>
+          <i class="now-ui-icons shopping_shop"></i>
           <p>알고리즘 마켓</p>
         </a>
       </li>
-      <drop-down
-              tag="li"
-              title="마이페이지"
-              icon="now-ui-icons business_badge"
-              class="nav-item"
-      >
-        <nav-link to="/asset">
-          <i class="now-ui-icons business_money-coins"></i> 자산 현황
-        </nav-link>
-        <nav-link to="/algosetting">
-          <i class="now-ui-icons design-2_ruler-pencil"></i> 알고리즘 설정
-        </nav-link>
-        <nav-link to="/profile">
-          <i class="now-ui-icons users_single-02"></i> 내 정보
-        </nav-link>
-      </drop-down>
-      <!-- <li class="nav-item">
+      <li v-if="userLogined" class="nav-item">
         <a
-          class="nav-link btn btn-neutral"
-          href="https://www.creative-tim.com/product/vue-now-ui-kit-pro"
-          target="_blank"
+          class="nav-link"
+          href="/profile"
         >
-          <i class="now-ui-icons arrows-1_share-66"></i>
-          <p>Premium 서비스로 업그레이드</p>
+          <i class="now-ui-icons users_single-02"></i>
+          <p>내정보</p>
         </a>
-      </li> -->
-      <li class="nav-item">
+      </li>
+      <li class="nav-item" v-if="!userLogined">
         <nav-link
           class="nav-link btn btn-neutral"
           to="/login">
-          <!-- <i class="now-ui-icons objects_key-25"></i> -->
           <p>로그인</p>
         </nav-link>
+      </li>
+      <li class="nav-item" v-else>
+        <!-- <nav-link
+          class="nav-link btn btn-neutral"
+          to="/"
+          @click="logout">
+          <p>로그아웃</p>
+        </nav-link> -->
+        <n-button
+          @click="logout"
+          type="neutral"
+        >
+          로그아웃
+        </n-button>
       </li>
       <li class="nav-item">
         <a
@@ -136,8 +122,10 @@
 </template>
 
 <script>
-import { DropDown, NavbarToggleButton, Navbar, NavLink } from '@/components';
+import { DropDown, NavbarToggleButton, Navbar, NavLink, Button } from '@/components';
 import { Popover } from 'element-ui';
+import firebase from 'firebase';
+
 export default {
   name: 'main-navbar',
   props: {
@@ -149,9 +137,43 @@ export default {
     Navbar,
     NavbarToggleButton,
     NavLink,
-    [Popover.name]: Popover
-  }
+    [Button.name]: Button,
+    [Popover.name]: Popover,
+  },
+  data() {
+    return {
+    }
+  },
+  computed: {
+    userLogined() {
+      var user = this.$session.get('user');
+      if(user) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  },
+  methods: {
+    logout() {
+      firebase.auth().signOut()
+              .then(() => {
+                this.$session.clear();
+                this.$router.replace("/").catch(err => {
+                  if(err.name != "NavigationDuplicated" ){
+                    throw error;
+                  }
+                });
+                location.reload();
+              });
+    }
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  [v-cloak] {
+    display: none;
+  }
+</style>
