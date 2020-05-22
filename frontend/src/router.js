@@ -7,6 +7,7 @@ import Login from './pages/Login.vue';
 import Signup from './pages/Signup.vue';
 // 증권 정보
 import StockInfo from './pages/StockInfo.vue';
+import StockDetail from './pages/StockDetail.vue';
 // 자산 관리
 import Asset from './pages/Asset.vue';
 import TradingHistory from './pages/TradingHistory.vue';
@@ -62,6 +63,16 @@ export default new Router({
       path: '/stockinfo',
       name: 'stockinfo',
       components: { default: StockInfo, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    // 상세 증권 정보
+    {
+      path: '/stockdetail',
+      name: 'stockdetail',
+      components: { default: StockDetail, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }

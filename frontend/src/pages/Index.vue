@@ -12,7 +12,7 @@
           <h1 class="h1-seo">Auto Trading Sytem</h1>
           <h3>주식 자동 매매 서비스</h3>
         </div>
-        <h6 class="category category-absolute">
+        <!-- <h6 class="category category-absolute">
           Designed by
           <a href="http://invisionapp.com/" target="_blank">
             <img src="img/invision-white-slim.png" class="invision-logo" /> </a
@@ -23,7 +23,7 @@
               class="creative-tim-logo"
             /> </a
           >.
-        </h6>
+        </h6> -->
       </div>
     </div>
     <!-- <div class="main">

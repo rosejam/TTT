@@ -20,9 +20,16 @@ import App from './App.vue';
 import router from './router';
 import NowUiKit from './plugins/now-ui-kit';
 import firebase from 'firebase';
+import VueSession from 'vue-session'
+
 
 Vue.config.productionTip = false;
 
+var sessionOptions = {
+  persist: true
+}
+
+Vue.use(VueSession, sessionOptions)
 Vue.use(NowUiKit);
 
 // EK web app's Firebase configuration

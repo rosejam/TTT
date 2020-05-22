@@ -77,7 +77,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <card class="chart">
-                      <h5 class="card-category">2019년 6월 ~ 2020년 5월</h5>
+                      <h5 class="card-category">2020년 1월 ~ 2020년 5월</h5>
                       <h3 class="card-title">월별 수익</h3>
                       <bar-chart
                               class="chart-area"
@@ -123,8 +123,8 @@
           <!-- 예상 수익 -->
         <div class="predict" v-if="tabs.predict">
             <card class="chart">
-            <h5 class="card-category">completedTasks</h5>
-            <h3 class="card-title"><i class="tim-icons icon-send text-success "></i> 12,100K</h3>
+            <h5 class="card-category">2020년 5월 ~ 2020년 9월</h5>
+            <h3 class="card-title"><i class="tim-icons icon-send text-success "></i> 예상 수익</h3>
             <line-chart
                     class="chart-area"
                     chart-id="purple-line-chart"
@@ -215,15 +215,15 @@ export default {
         blueBarChart: {
             extraOptions: chartConfigs.barChartOptions,
             chartData: {
-            labels: ['USA', 'GER', 'AUS', 'UK', 'RO', 'BR'],
+            labels: ['JAN', 'FAB', 'MAR', 'APR', 'MAY'],
             datasets: [{
-                label: "Countries",
+                label: "month",
                 fill: true,
                 borderColor: config.colors.info,
                 borderWidth: 2,
                 borderDash: [],
                 borderDashOffset: 0.0,
-                data: [53, 20, 10, 80, 100, 45],
+                data: [2039231, 1228051, 812293, 2001001, 633225],
             }]
             },
             gradientColors: config.colors.primaryGradient,
@@ -254,7 +254,7 @@ export default {
         purpleLineChart2: {
             extraOptions: chartConfigs.purpleChartOptions,
             chartData: {
-            labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
+            labels: ['MAY', 'JUL', 'AUG', 'SEP', 'OCT'],
             datasets: [{
                 label: "My First dataset",
                 fill: true,
@@ -269,7 +269,7 @@ export default {
                 pointHoverRadius: 4,
                 pointHoverBorderWidth: 15,
                 pointRadius: 4,
-                data: [90, 27, 60, 12, 80],
+                data: [902833, 2221371, 633210, 1442213, 822150],
             }]
             },
             gradientColors: ['rgba(66,134,121,0.15)', 'rgba(66,134,121,0.0)', 'rgba(66,134,121,0)'],

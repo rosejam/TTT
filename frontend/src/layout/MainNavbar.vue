@@ -7,20 +7,9 @@
     menu-classes="ml-auto"
   >
     <template slot-scope="{ toggle, isToggled }">
-      <router-link v-popover:popover1 class="navbar-brand" to="/">
+      <router-link class="navbar-brand" to="/">
         auto trading system
       </router-link>
-      <el-popover
-        ref="popover1"
-        popper-class="popover"
-        placement="bottom"
-        width="200"
-        trigger="hover"
-      >
-        <div class="popover-body">
-          Move to Main
-        </div>
-      </el-popover>
     </template>
     <template slot="navbar-menu">
       <li v-if="userLogined" class="nav-item">
@@ -153,35 +142,38 @@ export default {
   },
   data() {
     return {
-      userLogined: false
     }
   },
-  mounted() {
-    this.logined;
-  },
   computed: {
-    logined() {
-      console.log(firebase.auth().currentUser);
-      firebase.auth().onAuthStateChanged(user => {
-        if(user) {
-          this.userLogined = true;
-        }
-        else {
-          this.userLogined = false;
-        }
-      })
+    userLogined() {
+      var user = this.$session.get('user');
+      if(user) {
+        return true;
+      }
+      else {
+        return false;
+      }
     }
   },
   methods: {
     logout() {
       firebase.auth().signOut()
               .then(() => {
-                this.$router.replace("/");
-              })
-              .catch;
+                this.$session.clear();
+                this.$router.replace("/").catch(err => {
+                  if(err.name != "NavigationDuplicated" ){
+                    throw error;
+                  }
+                });
+                location.reload();
+              });
     }
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  [v-cloak] {
+    display: none;
+  }
+</style>

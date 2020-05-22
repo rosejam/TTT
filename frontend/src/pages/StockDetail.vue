@@ -18,52 +18,22 @@
           다양한 <b>증권 정보</b>를 검색해보세요!
         </h3>
       </div>
-      <div style="text-center">
+      <div>
           <fg-input  class="col-sm-6 col-12"
                      placeholder="종목명·지수명·펀드명·환율명·원자재명 입력"
                      type="search"
                      id="search">
           </fg-input>
       </div>
-          <n-button @click="showSamsung" round>검색</n-button>
+          <n-button round>검색</n-button>
     </div>
+    <img src="img/삼성전자주식.PNG"/>
 
-    <!-- 더미 테이블 -->
-    <div class="stock" v-if="ss" style="margin:auto; width: 50%" @click="goDetail">
-      <div class="col-12">
-        <card>
-          <template slot="header">
-            <h4 class="card-title">검색 결과</h4>
-          </template>
-          <div class="table-responsive text-left">
-            <base-table :data="table.data"
-                        :columns="table.columns"
-                        thead-classes="text-primary">
-            </base-table>
-          </div>
-        </card>
-      </div>
-      <div class="row">
-      </div>
-    </div>
   </div>
 </template>
 <script>
-import { Card } from "@/components/index";
 import { Button, DropDown, Tabs, TabPane, FormGroupInput, Switch, Modal } from '@/components';
 import { Popover } from 'element-ui';
-import BaseTable from "@/components/BaseTable";
-
-// 테이블 더미 데이터
-const tableColumns = ["종목", "현재주가"];
-const tableData = [
-  {
-    id: 1,
-    종목: "삼성전자",
-    현재주가: "49050"
-  },
-];
-
 
 export default {
   name: 'profile',
@@ -77,32 +47,16 @@ export default {
     [Switch.name]: Switch,
     [Popover.name]: Popover,
     Modal,
-    Card,
-    BaseTable
   },
   data() {
     return {
-      ss: false,
       modals: {
         save: false
       },
       switches: {
         defaultOn: true,
         defaultOff: false
-      },
-      table: {
-        title: "Simple Table",
-        columns: [...tableColumns],
-        data: [...tableData]
-      },
-    }
-  },
-  methods: {
-    showSamsung() {
-      this.ss = true;
-    },
-    goDetail() {
-      this.$router.replace("/stockdetail");
+      }
     }
   },
 };
