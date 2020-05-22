@@ -2,7 +2,7 @@ import pymongo
  
 class usersManager:
     _instance = None
-    client=pymongo.MongoClient("mongodb://root:ssafy@127.0.0.1:27017")
+    client=pymongo.MongoClient("mongodb://root:ssafy@localhost:27017")
     database = client['TTT']['users']
  
     def __new__(cls, *args, **kwargs):
@@ -19,3 +19,17 @@ class usersManager:
             return cls.database.insert_many( _data)
         else :
             return cls.database.insert_one( _data)
+
+    def update_user_on_collection(cls, _data):
+        return cls.database.save(_data)
+
+    def delete_user_on_collection(cls, _data):
+        return cls.database.delete_one(_data)
+
+if __name__=="__main__":
+    try:
+        client=pymongo.MongoClient("mongodb://root:ssafy@localhost:27017")
+        database = client['TTT']['users']
+        print(database.find())
+    except:
+        print("에러")

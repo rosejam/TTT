@@ -85,7 +85,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
+'''
 DATABASES = {
     "default": {
         "ENGINE": "djongo",
@@ -96,7 +96,7 @@ DATABASES = {
         "PASSWORD":"ssafy",
     }
 }
-
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
