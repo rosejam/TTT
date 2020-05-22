@@ -42,21 +42,6 @@
           </div>
         </card>
       </div>
-
-      <div class="col-12">
-        <card class="card-plain">
-          <template slot="header">
-                <h4 class="card-title"> Table on Plain Background</h4>
-                <p class="category"> Here is a subtitle for this table</p>
-              </template>
-          <div class="table-full-width table-responsive text-left">
-            <base-table :title="table2.title" :sub-title="table2.subTitle" :data="table2.data"
-                        :columns="table2.columns">
-            </base-table>
-          </div>
-        </card>
-      </div>
-
     </div>
   </div>
 </template>

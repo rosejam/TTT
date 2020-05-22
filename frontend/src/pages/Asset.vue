@@ -14,13 +14,6 @@
     </div>
     <div class="section">
       <div class="container">
-        <h3 class="title">About me</h3>
-        <h5 class="description">
-          An artist of considerable range, Ryan — the name taken by
-          Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and
-          records all of his own music, giving it a warm, intimate feel with a
-          solid groove structure. An artist of considerable range.
-        </h5>
         <div>
           <n-button :type="tabs.summary ? 'primary' : 'neutral'" outline round @click="clickTab('summary')">
             <i class="fa fa-chart-line"></i> 전체 현황
