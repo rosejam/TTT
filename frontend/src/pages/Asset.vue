@@ -14,13 +14,6 @@
     </div>
     <div class="section">
       <div class="container">
-        <h3 class="title">About me</h3>
-        <h5 class="description">
-          An artist of considerable range, Ryan — the name taken by
-          Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and
-          records all of his own music, giving it a warm, intimate feel with a
-          solid groove structure. An artist of considerable range.
-        </h5>
         <div>
           <n-button :type="tabs.summary ? 'primary' : 'neutral'" outline round @click="clickTab('summary')">
             <i class="fa fa-chart-line"></i> 전체 현황
@@ -77,7 +70,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <card class="chart">
-                      <h5 class="card-category">2019년 6월 ~ 2020년 5월</h5>
+                      <h5 class="card-category">2020년 1월 ~ 2020년 5월</h5>
                       <h3 class="card-title">월별 수익</h3>
                       <bar-chart
                               class="chart-area"
@@ -104,40 +97,27 @@
           </div>
           <!-- 보유 주식 -->
           <div class="stock" v-if="tabs.stock">
+            <div class="col-12">
+              <card>
+                <template slot="header">
+                  <h4 class="card-title">보유 주식</h4>
+                </template>
+                <div class="table-responsive text-left">
+                  <base-table :data="table.data"
+                              :columns="table.columns"
+                              thead-classes="text-primary">
+                  </base-table>
+                </div>
+              </card>
+            </div>
             <div class="row">
-                <div class="col-lg-6">
-                    <card class="chart">
-                      <h5 class="card-category">국내 주식</h5>
-                      <h3 class="card-title"><i class="tim-icons icon-send text-success "></i> 12,100K</h3>
-                      <bar-chart
-                              class="chart-area"
-                              chart-id="blue-bar-chart"
-                              :chart-data="blueBarChart.chartData"
-                              :gradient-stops="blueBarChart.gradientStops"
-                              :extra-options="blueBarChart.extraOptions">
-                      </bar-chart>
-                    </card>
-                </div>
-                <div class="col-lg-6">
-                    <card class="chart">
-                      <h5 class="card-category">해외 주식</h5>
-                      <h3 class="card-title"><i class="tim-icons icon-send text-success "></i> 12,100K</h3>
-                      <bar-chart
-                              class="chart-area"
-                              chart-id="blue-bar-chart"
-                              :chart-data="blueBarChart.chartData"
-                              :gradient-stops="blueBarChart.gradientStops"
-                              :extra-options="blueBarChart.extraOptions">
-                      </bar-chart>
-                    </card>
-                </div>
             </div>
           </div>
           <!-- 예상 수익 -->
         <div class="predict" v-if="tabs.predict">
             <card class="chart">
-            <h5 class="card-category">completedTasks</h5>
-            <h3 class="card-title"><i class="tim-icons icon-send text-success "></i> 12,100K</h3>
+            <h5 class="card-category">2020년 5월 ~ 2020년 9월</h5>
+            <h3 class="card-title"><i class="tim-icons icon-send text-success "></i> 예상 수익</h3>
             <line-chart
                     class="chart-area"
                     chart-id="purple-line-chart"
@@ -159,6 +139,54 @@ import LineChart from '@/components/Charts/LineChart.js'
 import BarChart from '@/components/Charts/BarChart.js'
 import * as chartConfigs from '@/components/Charts/config';
 import config from '@/config';
+import BaseTable from "@/components/BaseTable";
+
+// 보유 주식 테이블 더미 데이터
+const tableColumns = ["종목", "보유수량", "금액"];
+const tableData = [
+  {
+    id: 1,
+    종목: "SK하이닉스",
+    보유수량: "46",
+    금액: "10000000"
+  },
+  {
+    id: 2,
+    종목: "삼성전자",
+    보유수량: "36",
+    금액: "34000000"
+  },
+  {
+    id: 3,
+    종목: "현대자동차",
+    보유수량: "33",
+    금액: "26000000"
+  },
+  {
+    id: 4,
+    종목: "멀티캠퍼스",
+    보유수량: "68",
+    금액: "30000000"
+  },
+  {
+    id: 5,
+    종목: "현대모비스",
+    보유수량: "32",
+    금액: "33000000"
+  },
+  {
+    id: 6,
+    종목: 'SK텔레콤',
+    보유수량: '11',
+    금액: "4000000"
+  },
+  {
+    id: 7,
+    종목: '삼성SDS',
+    보유수량: '23',
+    금액: "12000000"
+  }
+];
 
 export default {
   name: 'profile',
@@ -168,6 +196,7 @@ export default {
     Card,
     LineChart,
     BarChart,
+    BaseTable,
   },
   data () {
       return {
@@ -179,15 +208,15 @@ export default {
         blueBarChart: {
             extraOptions: chartConfigs.barChartOptions,
             chartData: {
-            labels: ['USA', 'GER', 'AUS', 'UK', 'RO', 'BR'],
+            labels: ['JAN', 'FAB', 'MAR', 'APR', 'MAY'],
             datasets: [{
-                label: "Countries",
+                label: "month",
                 fill: true,
                 borderColor: config.colors.info,
                 borderWidth: 2,
                 borderDash: [],
                 borderDashOffset: 0.0,
-                data: [53, 20, 10, 80, 100, 45],
+                data: [2039231, 1228051, 812293, 2001001, 633225],
             }]
             },
             gradientColors: config.colors.primaryGradient,
@@ -218,7 +247,7 @@ export default {
         purpleLineChart2: {
             extraOptions: chartConfigs.purpleChartOptions,
             chartData: {
-            labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
+            labels: ['MAY', 'JUL', 'AUG', 'SEP', 'OCT'],
             datasets: [{
                 label: "My First dataset",
                 fill: true,
@@ -233,7 +262,7 @@ export default {
                 pointHoverRadius: 4,
                 pointHoverBorderWidth: 15,
                 pointRadius: 4,
-                data: [90, 27, 60, 12, 80],
+                data: [902833, 2221371, 633210, 1442213, 822150],
             }]
             },
             gradientColors: ['rgba(66,134,121,0.15)', 'rgba(66,134,121,0.0)', 'rgba(66,134,121,0)'],
@@ -256,6 +285,11 @@ export default {
             gradientColors: config.colors.primaryGradient,
             gradientStops: [1, 0.4, 0],
             categories: []
+        },
+        table: {
+          title: "Simple Table",
+          columns: [...tableColumns],
+          data: [...tableData]
         },
       }
   },

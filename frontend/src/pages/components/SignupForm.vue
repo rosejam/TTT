@@ -34,12 +34,14 @@
               >
               </fg-input>
 
+              <form>
               <fg-input
                 v-model="pw"
                 class="no-border input-lg"
                 addon-left-icon="now-ui-icons ui-1_lock-circle-open"
                 placeholder="비밀번호"
                 type="password"
+                autocomplete="off"
               >
               </fg-input>
 
@@ -49,8 +51,11 @@
                 addon-left-icon="now-ui-icons ui-1_lock-circle-open"
                 placeholder="비밀번호 확인"
                 type="password"
+                autocomplete="off"
               >
               </fg-input>
+              </form>
+
           </template>
           <div class="card-footer text-center">
             <n-button type="neutral" round size="lg" @click="signUp">시작하기</n-button>
