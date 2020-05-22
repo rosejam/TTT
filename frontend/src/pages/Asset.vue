@@ -294,10 +294,10 @@ export default {
             categories: []
         },
         table: {
-        title: "Simple Table",
-        columns: [...tableColumns],
-        data: [...tableData]
-      },
+          title: "Simple Table",
+          columns: [...tableColumns],
+          data: [...tableData]
+        },
       }
   },
   methods: {
