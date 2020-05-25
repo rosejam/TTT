@@ -87,7 +87,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 '''
 DATABASES = {
-    "db1": {
+    'default': {
         # mysql DB설정
         'ENGINE': "django.db.backends.mysql",
         'NAME': 'TTT_project',
