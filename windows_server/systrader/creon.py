@@ -85,6 +85,7 @@ class Creon:
         """
         if code in [constants.MARKET_CODE_KOSPI, constants.MARKET_CODE_KOSDAQ]:
             res = self.obj_CpUtil_CpCodeMgr.GetStockListByMarket(code)
+
             return res
         else:
             return None
@@ -313,3 +314,22 @@ class Creon:
             }
             res.append(item)
         return res
+
+        """
+        여기부터 유리  test 중
+        """
+    def get_codelistandprice(self,code):
+
+        if code in [constants.MARKET_CODE_KOSPI, constants.MARKET_CODE_KOSDAQ]:
+            res = self.obj_CpUtil_CpCodeMgr.GetStockListByMarket(code)
+            codeList=[]
+            for index, code in enumerate(res):
+                name = self.obj_CpUtil_CpCodeMgr.CodeToName(code)
+                stdPrice = self.obj_CpUtil_CpCodeMgr.GetStockStdPrice(code)
+                codeList.append(index,code,stdPrice,name)
+            return codeList   
+        else:
+            return None
+       
+
+
