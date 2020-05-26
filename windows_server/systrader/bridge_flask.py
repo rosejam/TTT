@@ -57,7 +57,7 @@ def handle_stockcandles():
     date_to = request.args.get('date_to')
     if not (n or date_from):
         return 'Need to provide "n" or "date_from" argument.', 400
-    stockcandles = c.get_chart(stockcode, target='A', unit='D', n=n, date_from=date_from, date_to=date_to)
+    stockcandles = c.get_chart(stockcode, target='A', unit='m', n=n, date_from=date_from, date_to=date_to)
     return jsonify(stockcandles)
 
 
