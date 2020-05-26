@@ -345,7 +345,7 @@ class Creon:
 
         # 현재가 통신 및 통신 에러 처리
         rqStatus = self.obj_CpSysDib_MarketEye.GetDibStatus()
-        # print("통신상태", rqStatus, self.obj_CpSysDib_MarketEye.GetDibMsg1())
+        print("통신상태", rqStatus, self.obj_CpSysDib_MarketEye.GetDibMsg1())
         if rqStatus != 0:
             return False
 
