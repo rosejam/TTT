@@ -358,7 +358,8 @@ class Creon:
             rpDiffFlag = self.obj_CpSysDib_MarketEye.GetDataValue(3, i)  # 대비부호
             rpDiff = self.obj_CpSysDib_MarketEye.GetDataValue(4, i)  # 대비
             rpCur = self.obj_CpSysDib_MarketEye.GetDataValue(5, i)  # 현재가
-            rpListedStock = self.obj_CpSysDib_MarketEye.GetDataValue(6, i)  # 상장주식수
+            rpVol = self.obj_CpSysDib_MarketEye.GetDataValue(6, i)  # 거래량
+            rpListedStock = self.obj_CpSysDib_MarketEye.GetDataValue(7, i)  # 상장주식수
 
             # maketAmt = listedStock * cur
             # if self.obj_CpUtil_CpCodeMgr.IsBigListingStock(code):
@@ -366,7 +367,8 @@ class Creon:
 #            print(code, maketAmt)
 
             # key(종목코드) = tuple(상장주식수, 시가총액)
-            dataInfo[rpCode] = {'종목명': rpTime, '시간': rpTime, '대비부호': rpDiffFlag, '대비': rpDiff, '현재가': rpCur, '상장주식수': rpListedStock}
+            dataInfo[rpCode] = {'종목명': rpName, '시간': rpTime, '대비부호': rpDiffFlag,
+                                '대비': rpDiff, '현재가': rpCur, '거래량': rpVol, '상장주식수': rpListedStock}
             # dict_item = {k: self.obj_CpSysDib_CpSvr7238.GetDataValue(j, cnt-1-i) for }
         # mylist.append(dataInfo)
         # return None
