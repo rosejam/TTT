@@ -175,7 +175,7 @@ class Creon:
                 stock[_keys[i]] = self.obj_CpSysDib_MarketEye.GetDataValue(i, 0)
         return stock
 
-    def get_chart(self, code, target='A', unit='D', n=None, date_from=None, date_to=None):
+    def get_chart(self, code, target='A', unit='m', n=None, date_from=None, date_to=None):
         """
         https://money2.creontrade.com/e5/mboard/ptype_basic/HTS_Plus_Helper/DW_Basic_Read_Page.aspx?boardseq=284&seq=102&page=1&searchString=StockChart&p=8841&v=8643&m=9505
         "전일대비"는 제공하지 않으므로 직접 계산해야 함
@@ -208,6 +208,7 @@ class Creon:
                 self.obj_CpSysDib_StockChart.SetInputValue(2, date_to)  # 종료일
         self.obj_CpSysDib_StockChart.SetInputValue(5, _fields)  # 필드
         self.obj_CpSysDib_StockChart.SetInputValue(6, ord(unit))
+        self.obj_CpSysDib_StockChart.SetInputValue(7, 1)  # 분틱차트 주기
         self.obj_CpSysDib_StockChart.SetInputValue(9, ord('1')) # 0: 무수정주가, 1: 수정주가
 
         def req(prev_result):
@@ -222,7 +223,6 @@ class Creon:
             list_item = []
             for i in range(cnt):
                 dict_item = {k: self.obj_CpSysDib_StockChart.GetDataValue(j, cnt-1-i) for j, k in enumerate(_keys)}
-                print(i)
                 # type conversion
                 dict_item['diffsign'] = chr(dict_item['diffsign'])
                 for k in ['open', 'high', 'low', 'close', 'diff']:
@@ -346,11 +346,11 @@ class Creon:
         self.obj_CpSysDib_MarketEye.BlockRequest()
 
         # 현재가 통신 및 통신 에러 처리
-        rqStatus = self.obj_CpSysDib_MarketEye.GetDibStatus()
-        print("통신상태", rqStatus, self.obj_CpSysDib_MarketEye.GetDibMsg1())
-        if rqStatus != 0:
-            return False
-        print("wyh?")
+        status = self.obj_CpSysDib_MarketEye.GetDibStatus()
+        msg = self.obj_CpSysDib_MarketEye.GetDibMsg1()
+        if status != 0:
+            return None
+
         cnt = self.obj_CpSysDib_MarketEye.GetHeaderValue(2)
         
         for i in range(cnt):
