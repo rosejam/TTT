@@ -232,6 +232,7 @@ class Creon:
 
         # 연속조회 처리
         result = req([])
+        print("why?")
         while self.obj_CpSysDib_StockChart.Continue:
             self.wait()
             _list_item = req(result)
