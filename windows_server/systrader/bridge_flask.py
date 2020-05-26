@@ -106,9 +106,6 @@ def handle_short():
     shorts = c.get_shortstockselling(stockcode, n=n)
     return jsonify(shorts)
 
-        """
-        여기부터 유리 test 중
-        """
 @app.route('/codeandprice', methods=['GET'])
 def handle_stockcodeandprice():
     c.wait()

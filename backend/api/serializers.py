@@ -1,7 +1,8 @@
-from .models import Store
+from .models import Stock
 from rest_framework import serializers
 
 
-class StoreSerializer(serializers.ModelSerializer):
+class StockSerializer(serializers.ModelSerializer):
     class Meta:
-        pass
+        model = Stock
+        fields = '__all__'
