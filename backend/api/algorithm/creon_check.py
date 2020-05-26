@@ -10,6 +10,9 @@ if (bConnect == 0):
 objStockMst = win32com.client.Dispatch("DsCbo1.StockMst")
 objStockMst.SetInputValue(0, 'A005930')   #종목 코드 - 삼성전자
 objStockMst.BlockRequest()
+# print(objStockMst)
+# for i in objStockMst:
+#     print(objStockMst.GetHeaderValue(i))
  
 # 현재가 통신 및 통신 에러 처리 
 rqStatus = objStockMst.GetDibStatus()
