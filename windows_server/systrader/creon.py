@@ -217,7 +217,7 @@ class Creon:
             list_item = []
             for i in range(cnt):
                 dict_item = {k: self.obj_CpSysDib_StockChart.GetDataValue(j, cnt-1-i) for j, k in enumerate(_keys)}
-                
+                print(i)
                 # type conversion
                 dict_item['diffsign'] = chr(dict_item['diffsign'])
                 for k in ['open', 'high', 'low', 'close', 'diff']:
