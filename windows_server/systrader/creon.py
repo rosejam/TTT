@@ -350,7 +350,7 @@ class Creon:
         print("통신상태", rqStatus, self.obj_CpSysDib_MarketEye.GetDibMsg1())
         if rqStatus != 0:
             return False
-
+        print("wyh?")
         cnt = self.obj_CpSysDib_MarketEye.GetHeaderValue(2)
         
         for i in range(cnt):
