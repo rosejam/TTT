@@ -16,6 +16,9 @@ class Creon:
         self.obj_CpSysDib_StockChart = win32com.client.Dispatch('CpSysDib.StockChart')
         self.obj_CpTrade_CpTdUtil = win32com.client.Dispatch('CpTrade.CpTdUtil')
         self.obj_CpSysDib_MarketEye = win32com.client.Dispatch('CpSysDib.MarketEye')
+        # 동주 추가
+        self.RpFiledIndex = 0
+        
 
         # 종목별 공매도 추이
         # https://money2.creontrade.com/e5/mboard/ptype_basic/HTS_Plus_Helper/DW_Basic_Read_Page.aspx?boardseq=284&seq=227&page=1&searchString=CpSysDib.CpSvr7238&p=8841&v=8643&m=9505
@@ -180,6 +183,7 @@ class Creon:
         """
         _fields = []
         _keys = []
+        print("why???")
         if unit == 'm':
             _fields = [0, 1, 2, 3, 4, 5, 6, 8, 9, 37]
             _keys = ['date', 'time', 'open', 'high', 'low', 'close', 'diff', 'volume', 'price', 'diffsign']
@@ -316,9 +320,7 @@ class Creon:
             res.append(item)
         return res
 
-        """
-        여기부터 유리  test 중
-        """
+    # 유리 테스트
     def get_codelistandprice(self,code):
 
         if code in [constants.MARKET_CODE_KOSPI, constants.MARKET_CODE_KOSDAQ]:
@@ -332,5 +334,69 @@ class Creon:
         else:
             return None
        
+    #동주 테스트
+    def CpMarketEyeRequest(self, codes):
+        dataInfo = {}
+        # 0: 종목코드 4: 현재가 20: 상장주식수
+        rqField = [0, 4, 20]  # 요청 필드
 
+        self.obj_CpSysDib_MarketEye.SetInputValue(0, rqField)  # 요청 필드
+        self.obj_CpSysDib_MarketEye.SetInputValue(1, codes)  # 종목코드 or 종목코드 리스트
+        self.obj_CpSysDib_MarketEye.BlockRequest()
+
+        # 현재가 통신 및 통신 에러 처리
+        rqStatus = self.obj_CpSysDib_MarketEye.GetDibStatus()
+        print("통신상태", rqStatus, self.obj_CpSysDib_MarketEye.GetDibMsg1())
+        if rqStatus != 0:
+            return False
+
+        cnt = self.obj_CpSysDib_MarketEye.GetHeaderValue(2)
+
+        for i in range(cnt):
+            code = self.obj_CpSysDib_MarketEye.GetDataValue(0, i)  # 코드
+            cur = self.obj_CpSysDib_MarketEye.GetDataValue(1, i)  # 종가
+            listedStock = self.obj_CpSysDib_MarketEye.GetDataValue(2, i)  # 상장주식수
+
+            maketAmt = listedStock * cur
+            if self.obj_CpUtil_CpCodeMgr.IsBigListingStock(code):
+                maketAmt *= 1000
+#            print(code, maketAmt)
+
+            # key(종목코드) = tuple(상장주식수, 시가총액)
+            dataInfo[code] = (listedStock, maketAmt)
+
+        return dataInfo
+
+
+    def GetAllMarketTotal(self):
+        codeList = self.obj_CpUtil_CpCodeMgr.GetStockListByMarket(1)  # 거래소
+        codeList2 = self.obj_CpUtil_CpCodeMgr.GetStockListByMarket(2)  # 코스닥
+        allcodelist = codeList + codeList2
+        print('전 종목 코드 %d, 거래소 %d, 코스닥 %d' %
+              (len(allcodelist), len(codeList), len(codeList2)))
+
+        rqCodeList = []
+        for i, code in enumerate(allcodelist):
+            rqCodeList.append(code)
+            if len(rqCodeList) == 200:
+                self.CpMarketEyeRequest(rqCodeList, self.dataInfo)
+                rqCodeList = []
+                continue
+        # end of for
+
+        if len(rqCodeList) > 0:
+            self.CpMarketEyeRequest(rqCodeList, self.dataInfo)
+
+    def PrintMarketTotal(self):
+        # 시가총액 순으로 소팅
+        data2 = sorted(self.dataInfo.items(),
+                       key=lambda x: x[1][1], reverse=True)
+
+        print('전종목 시가총액 순 조회 (%d 종목)' % (len(data2)))
+        for item in data2:
+            name = self.obj_CpUtil_CpCodeMgr.CodeToName(item[0])
+            listed = item[1][0]
+            markettot = item[1][1]
+            print('%s 상장주식수: %s, 시가총액 %s' %
+                  (name, format(listed, ','), format(markettot, ',')))
 
