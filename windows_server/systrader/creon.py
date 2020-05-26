@@ -91,7 +91,7 @@ class Creon:
             res = self.obj_CpUtil_CpCodeMgr.GetStockListByMarket(code)
             # for i in (range(0, 200, len(res))):
             #     mylist.append(self.CpMarketEyeRequest(res[i: i + 200]))
-            for i in (range(0, 10):
+            for i in (range(0, 10)):
                 mylist.append(self.CpMarketEyeRequest(res[i]))
             return mylist
 
