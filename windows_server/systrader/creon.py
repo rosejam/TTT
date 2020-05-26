@@ -92,6 +92,7 @@ class Creon:
             return dataInfo
             # return res
         else:
+            print("err")
             return None
 
     def get_stockstatus(self, code):
