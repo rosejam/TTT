@@ -337,7 +337,7 @@ class Creon:
             return None
        
     #동주 테스트
-    def CpMarketEyeRequest(self, codes, datInfo):
+    def CpMarketEyeRequest(self, codes, dataInfo):
         
         # 0: 종목코드 4: 현재가 20: 상장주식수
         rqField = [0, 4, 20]  # 요청 필드
