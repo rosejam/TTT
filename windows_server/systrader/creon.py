@@ -86,10 +86,12 @@ class Creon:
             [helpstring("KONEX")] CPC_MARKET_KONEX= 5,
             }CPE_MARKET_KIND; 
         """
+        mylist = []
         if code in [constants.MARKET_CODE_KOSPI, constants.MARKET_CODE_KOSDAQ]:
             res = self.obj_CpUtil_CpCodeMgr.GetStockListByMarket(code)
-
-            return self.CpMarketEyeRequest(res)
+            for i in (range(0, 200, len(res))):
+                mylist.add(self.CpMarketEyeRequest(res[i:i+200]))
+            return mylist
 
             # return res
         else:
