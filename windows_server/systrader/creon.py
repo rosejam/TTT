@@ -339,7 +339,7 @@ class Creon:
     def CpMarketEyeRequest(self, codes, dataInfo):
         
         # 0: 종목코드 4: 현재가 20: 상장주식수
-        rqField = [0, 17, 1, 2, 3, 4, 10, 20]  # 요청 필드
+        rqField = [0, 17, 1, 2, 3, 4, 10]  # 요청 필드
 
         self.obj_CpSysDib_MarketEye.SetInputValue(0, rqField)  # 요청 필드
         self.obj_CpSysDib_MarketEye.SetInputValue(1, codes)  # 종목코드 or 종목코드 리스트
@@ -361,7 +361,7 @@ class Creon:
             rpDiff = self.obj_CpSysDib_MarketEye.GetDataValue(4, i)  # 대비
             rpCur = self.obj_CpSysDib_MarketEye.GetDataValue(5, i)  # 현재가
             rpVol = self.obj_CpSysDib_MarketEye.GetDataValue(6, i)  # 거래량
-            rpListedStock = self.obj_CpSysDib_MarketEye.GetDataValue(7, i)  # 상장주식수
+            # rpListedStock = self.obj_CpSysDib_MarketEye.GetDataValue(7, i)  # 상장주식수
 
             # maketAmt = listedStock * cur
             # if self.obj_CpUtil_CpCodeMgr.IsBigListingStock(code):
