@@ -86,12 +86,12 @@ class Creon:
             [helpstring("KONEX")] CPC_MARKET_KONEX= 5,
             }CPE_MARKET_KIND; 
         """
-        mylist = []
+        dataInfo = {}
         if code in [constants.MARKET_CODE_KOSPI, constants.MARKET_CODE_KOSDAQ]:
             res = self.obj_CpUtil_CpCodeMgr.GetStockListByMarket(code)
             for i in (range(0, len(res), 200)):
-                self.CpMarketEyeRequest(res[i:i+200], mylist)
-            return mylist
+                self.CpMarketEyeRequest(res[i:i+200], dataInfo)
+            return dataInfo
             # return res
         else:
             return None
@@ -337,8 +337,8 @@ class Creon:
             return None
        
     #동주 테스트
-    def CpMarketEyeRequest(self, codes, mylist):
-        dataInfo = {}
+    def CpMarketEyeRequest(self, codes, datInfo):
+        
         # 0: 종목코드 4: 현재가 20: 상장주식수
         rqField = [0, 4, 20]  # 요청 필드
 
@@ -359,15 +359,15 @@ class Creon:
             cur = self.obj_CpSysDib_MarketEye.GetDataValue(1, i)  # 종가
             listedStock = self.obj_CpSysDib_MarketEye.GetDataValue(2, i)  # 상장주식수
 
-            maketAmt = listedStock * cur
-            if self.obj_CpUtil_CpCodeMgr.IsBigListingStock(code):
-                maketAmt *= 1000
+            # maketAmt = listedStock * cur
+            # if self.obj_CpUtil_CpCodeMgr.IsBigListingStock(code):
+            #     maketAmt *= 1000
 #            print(code, maketAmt)
 
             # key(종목코드) = tuple(상장주식수, 시가총액)
-            dataInfo[code] = {'상장주식수': listedStock, '종가' : maketAmt} 
+            dataInfo[code] = {'상장주식수': listedStock, '종가': cur}
             # dict_item = {k: self.obj_CpSysDib_CpSvr7238.GetDataValue(j, cnt-1-i) for }
-        mylist.append(dataInfo)
+        # mylist.append(dataInfo)
         # return None
 
 
