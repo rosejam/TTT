@@ -90,10 +90,10 @@ DATABASES = {
     "default": {
         # mysql DB설정
         'ENGINE': "django.db.backends.mysql",
-        'NAME': 'TTT_project',
-        'USER': 'ssafy105',
-        'PASSWORD': 'A105@ssafy',
-        'HOST': '13.125.184.230',
+        'NAME': 'TTT',
+        'USER': 'ttt',
+        'PASSWORD': 'a105A!)%',
+        'HOST': '3.34.96.193',
         'PORT': '3306',
         'CONN_MAX_AGE': 3600,
         'OPTIONS': {
