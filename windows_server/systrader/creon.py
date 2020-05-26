@@ -87,6 +87,7 @@ class Creon:
         if code in [constants.MARKET_CODE_KOSPI, constants.MARKET_CODE_KOSDAQ]:
             res = self.obj_CpUtil_CpCodeMgr.GetStockListByMarket(code)
             for i in (range(0, len(res), 200)):
+                self.wait()
                 self.CpMarketEyeRequest(res[i:i+200], dataInfo)
             return dataInfo
             # return res
