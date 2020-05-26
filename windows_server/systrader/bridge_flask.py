@@ -106,6 +106,16 @@ def handle_short():
     shorts = c.get_shortstockselling(stockcode, n=n)
     return jsonify(shorts)
 
+@app.route('/codeandprice', methods=['GET'])
+def handle_stockcodeandprice():
+    c.wait()
+    market = request.args.get('market')
+    if market == 'kospi':
+        return jsonify(c.get_codelistandprice(constants.MARKET_CODE_KOSPI))
+    elif market == 'kosdaq':
+        return jsonify(c.get_codelistandprice(constants.MARKET_CODE_KOSDAQ))
+    else:
+        return '"codeandprice" should be one of "kospi" and "kosdaq".', 400
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
