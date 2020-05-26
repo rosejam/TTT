@@ -9,14 +9,12 @@ class SmallPagination(PageNumberPagination):
     max_page_size = 50
 
 
-class StoreViewSet(viewsets.ModelViewSet):
-    serializer_class = serializers.StoreSerializer
+class StockViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.StockSerializer
     pagination_class = SmallPagination
 
     def get_queryset(self):
-        email = self.request.query_params.get("email", "")
-        queryset = (
-            models.Store.objects.all().filter(store_email__contains=email).order_by("id")
-        )
+        queryset = models.Stock.objects.all()
+        
         return queryset
 
