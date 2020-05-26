@@ -89,8 +89,10 @@ class Creon:
         mylist = []
         if code in [constants.MARKET_CODE_KOSPI, constants.MARKET_CODE_KOSDAQ]:
             res = self.obj_CpUtil_CpCodeMgr.GetStockListByMarket(code)
-            for i in (range(0, 200, len(res))):
-                mylist.append(self.CpMarketEyeRequest(res[i:i+200]))
+            # for i in (range(0, 200, len(res))):
+            #     mylist.append(self.CpMarketEyeRequest(res[i: i + 200]))
+            for i in (range(0, len(res))):
+                mylist.append(self.CpMarketEyeRequest(res[i]))
             return mylist
 
             # return res
@@ -187,7 +189,6 @@ class Creon:
         """
         _fields = []
         _keys = []
-        print("why???")
         if unit == 'm':
             _fields = [0, 1, 2, 3, 4, 5, 6, 8, 9, 37]
             _keys = ['date', 'time', 'open', 'high', 'low', 'close', 'diff', 'volume', 'price', 'diffsign']
