@@ -15,10 +15,7 @@ class Creon:
         self.obj_CpUtil_CpCybos = win32com.client.Dispatch('CpUtil.CpCybos')
         self.obj_CpSysDib_StockChart = win32com.client.Dispatch('CpSysDib.StockChart')
         self.obj_CpTrade_CpTdUtil = win32com.client.Dispatch('CpTrade.CpTdUtil')
-        self.obj_CpSysDib_MarketEye = win32com.client.Dispatch('CpSysDib.MarketEye')
-        # 동주 추가
-        self.RpFiledIndex = 0
-        
+        self.obj_CpSysDib_MarketEye = win32com.client.Dispatch('CpSysDib.MarketEye')    
 
         # 종목별 공매도 추이
         # https://money2.creontrade.com/e5/mboard/ptype_basic/HTS_Plus_Helper/DW_Basic_Read_Page.aspx?boardseq=284&seq=227&page=1&searchString=CpSysDib.CpSvr7238&p=8841&v=8643&m=9505
@@ -340,7 +337,7 @@ class Creon:
     def CpMarketEyeRequest(self, codes, dataInfo):
         
         # 0: 종목코드 4: 현재가 20: 상장주식수
-        rqField = [0, 4, 20]  # 요청 필드
+        rqField = [0, 17, 1, 2, 3, 4, 10, 20]  # 요청 필드
 
         self.obj_CpSysDib_MarketEye.SetInputValue(0, rqField)  # 요청 필드
         self.obj_CpSysDib_MarketEye.SetInputValue(1, codes)  # 종목코드 or 종목코드 리스트
@@ -348,16 +345,20 @@ class Creon:
 
         # 현재가 통신 및 통신 에러 처리
         rqStatus = self.obj_CpSysDib_MarketEye.GetDibStatus()
-        print("통신상태", rqStatus, self.obj_CpSysDib_MarketEye.GetDibMsg1())
+        # print("통신상태", rqStatus, self.obj_CpSysDib_MarketEye.GetDibMsg1())
         if rqStatus != 0:
             return False
 
         cnt = self.obj_CpSysDib_MarketEye.GetHeaderValue(2)
-
+        
         for i in range(cnt):
-            code = self.obj_CpSysDib_MarketEye.GetDataValue(0, i)  # 코드
-            cur = self.obj_CpSysDib_MarketEye.GetDataValue(1, i)  # 종가
-            listedStock = self.obj_CpSysDib_MarketEye.GetDataValue(2, i)  # 상장주식수
+            rpCode = self.obj_CpSysDib_MarketEye.GetDataValue(0, i)  # 코드
+            rpName = self.obj_CpSysDib_MarketEye.GetDataValue(1, i)  # 종목명
+            rpTime = self.obj_CpSysDib_MarketEye.GetDataValue(2, i)  # 시간
+            rpDiffFlag = self.obj_CpSysDib_MarketEye.GetDataValue(3, i)  # 대비부호
+            rpDiff = self.obj_CpSysDib_MarketEye.GetDataValue(4, i)  # 대비
+            rpCur = self.obj_CpSysDib_MarketEye.GetDataValue(5, i)  # 현재가
+            rpListedStock = self.obj_CpSysDib_MarketEye.GetDataValue(6, i)  # 상장주식수
 
             # maketAmt = listedStock * cur
             # if self.obj_CpUtil_CpCodeMgr.IsBigListingStock(code):
@@ -365,7 +366,7 @@ class Creon:
 #            print(code, maketAmt)
 
             # key(종목코드) = tuple(상장주식수, 시가총액)
-            dataInfo[code] = {'상장주식수': listedStock, '종가': cur}
+            dataInfo[rpCode] = {'종목명': rpTime, '시간': rpTime, '대비부호': rpDiffFlag, '대비': rpDiff, '현재가': rpCur, '상장주식수': rpListedStock}
             # dict_item = {k: self.obj_CpSysDib_CpSvr7238.GetDataValue(j, cnt-1-i) for }
         # mylist.append(dataInfo)
         # return None
