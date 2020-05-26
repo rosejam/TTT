@@ -367,8 +367,8 @@ class Creon:
             # key(종목코드) = tuple(상장주식수, 시가총액)
             dataInfo[code] = {'상장주식수': listedStock, '종가' : maketAmt} 
             # dict_item = {k: self.obj_CpSysDib_CpSvr7238.GetDataValue(j, cnt-1-i) for }
-            mylist.append(dataInfo)
-        return dataInfo
+        mylist.append(dataInfo)
+        # return None
 
 
     def GetAllMarketTotal(self):
