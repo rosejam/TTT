@@ -4,12 +4,12 @@ from rest_framework.response import Response
 from drf_yasg import openapi
 from rest_framework.pagination import PageNumberPagination
 
-'''
+
 class SmallPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = "page_size"
     max_page_size = 50
-'''
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset=models.User.objects.all()
@@ -28,15 +28,14 @@ class MarketViewSet(viewsets.ModelViewSet):
     queryset=models.Stock_Market.objects.all()
     serializer_class = serializers.MarketSerializer
 
-    '''
-    param_Market_hint=openapi.Parameter(
-        'Market',
-        openapi.IN_QUERY,
-        description="this is a description of Market",
-        type=openapi.TYPE_STRING
-    )
-    '''
+class StockViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.StockSerializer
+    pagination_class = SmallPagination
 
+    def get_queryset(self):
+        queryset = models.Stock.objects.all()
+        
+        return queryset
 
 class logViewSet(viewsets.ModelViewSet):
     queryset=models.log.objects.all()
