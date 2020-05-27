@@ -1,4 +1,4 @@
-from api.models import Stock, User, Stock_Market, log
+from api.models import Stock, User, Stock_Market, log, Algorithm, user_algo
 from rest_framework import serializers
 
 
@@ -24,4 +24,15 @@ class MarketSerializer(serializers.ModelSerializer):
 class logSerializer(serializers.ModelSerializer):
     class Meta:
         model = log
+        fields = "__all__"
+
+
+class AlgorithmSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Algorithm
+        fields = "__all__"
+
+class userAlgoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = user_algo
         fields = "__all__"

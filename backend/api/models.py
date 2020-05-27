@@ -22,7 +22,7 @@ class User(models.Model):
     email = models.CharField(max_length=100,null=False)
     account_no=models.IntegerField(null=False)
     account_bank=models.CharField(max_length=45,null=False)
-    
+    wallet = models.BigIntegerField(null=False,default=0)
     class Meta:
         db_table='user'
 
@@ -37,16 +37,32 @@ class Stock_Market(models.Model):
         db_table="stock_market"
 
 class Algorithm(models.Model):
-    pass
+    algo_code = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=45)
+
+    class Meta:
+        db_table="Algorithm"
 
 class log(models.Model):
     log_code=models.AutoField(primary_key=True)
-    user_pk=models.ForeignKey('User',on_delete=models.CASCADE,related_name='user_pk')
+    user_pk=models.ForeignKey('User',on_delete=models.CASCADE,related_name='log_fk1')
     timestamp=models.DateTimeField()
     buysell=models.IntegerField(null=False)
-    stock_pk=models.ForeignKey('Stock',on_delete=models.CASCADE,related_name="Stock_pk")
+    stock_pk=models.ForeignKey('Stock',on_delete=models.CASCADE,related_name="log_fk2")
     assets=models.BigIntegerField()
     balance=models.BigIntegerField()
     
     class Meta:
         db_table="log"
+
+
+class user_algo(models.Model):
+    useralgo_code = models.AutoField(primary_key=True)
+    user_pk=models.ForeignKey('User',on_delete=models.CASCADE,related_name='useralgo_fk1')
+    algo_pk=models.ForeignKey('Algorithm',on_delete=models.CASCADE,related_name='useralgo_fk2')
+    var1=models.FloatField()
+    var2=models.FloatField()
+    var3=models.FloatField()
+    var4=models.IntegerField()
+    var5=models.IntegerField()
+
