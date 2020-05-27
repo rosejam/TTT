@@ -328,9 +328,12 @@ class Creon:
             res = self.obj_CpUtil_CpCodeMgr.GetStockListByMarket(code)
             codeList=[]
             for index, code in enumerate(res):
-                name = self.obj_CpUtil_CpCodeMgr.CodeToName(code)
-                stdPrice = self.obj_CpUtil_CpCodeMgr.GetStockStdPrice(code)
-                codeList.append(index,code,stdPrice,name)
+                item ={
+                'code':code,
+                'name' : self.obj_CpUtil_CpCodeMgr.CodeToName(code),
+                'stdPrice' :self.obj_CpUtil_CpCodeMgr.GetStockStdPrice(code),
+                }
+                codeList.append(item)
             return codeList   
         else:
             return None

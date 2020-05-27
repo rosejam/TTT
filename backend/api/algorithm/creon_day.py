@@ -38,7 +38,8 @@ if (bConnect == 0):
  
 # 일자별 object 구하기
 objStockWeek = win32com.client.Dispatch("DsCbo1.StockWeek")
-objStockWeek.SetInputValue(0, 'A005930')   #종목 코드 - 삼성전자
+code = 'A005930' #종목 코드 - 삼성전자
+objStockWeek.SetInputValue(0, code)   
  
 # 최초 데이터 요청
 ret = ReqeustData(objStockWeek)
@@ -50,7 +51,7 @@ if ret == False:
 # 예제는 5번만 연속 통신 하도록 함.
 NextCount = 1
 while objStockWeek.Continue:  #연속 조회처리
-    NextCount+=1;
+    NextCount+=1
     if (NextCount > 5):
         break
     ret = ReqeustData(objStockWeek)
