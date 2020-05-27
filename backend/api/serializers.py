@@ -12,9 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = "__all__"
+        # fields=('user_code','email','account_no','account_bank')
 
 
-class StockMarketSerializer(serializers.ModelSerializer):
+class MarketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock_Market
         fields = "__all__"

@@ -1,6 +1,7 @@
 from api import models, serializers
 from rest_framework import viewsets
 from rest_framework.response import Response
+from drf_yasg import openapi
 from rest_framework.pagination import PageNumberPagination
 
 '''
@@ -14,11 +15,29 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset=models.User.objects.all()
     serializer_class = serializers.UserSerializer
 
+    '''
     def list(self, request, *args, **kwargs):
-        param_userpk=request.query_params.get('pk')
-        if param_userpk:
-            queryset = models.User.objects.filter(type_int__gt=1)
-            queryset = self.paginate_queryset(queryset)
-            serializer = self.get_serializer(queryset, many=True)
-            return self.get_paginated_response(serializer.data)
+        queryset = models.User.objects.all()
+        serializer = self.get_serializer(queryset, many=True)
+        # print(serializer)
         return super().list(request, *args, **kwargs)
+    '''
+
+
+class MarketViewSet(viewsets.ModelViewSet):
+    queryset=models.Stock_Market.objects.all()
+    serializer_class = serializers.MarketSerializer
+
+    '''
+    param_Market_hint=openapi.Parameter(
+        'Market',
+        openapi.IN_QUERY,
+        description="this is a description of Market",
+        type=openapi.TYPE_STRING
+    )
+    '''
+
+
+class logViewSet(viewsets.ModelViewSet):
+    queryset=models.log.objects.all()
+    serializer_class = serializers.logSerializer
