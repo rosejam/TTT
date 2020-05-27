@@ -40,3 +40,12 @@ class StockViewSet(viewsets.ModelViewSet):
 class logViewSet(viewsets.ModelViewSet):
     queryset=models.log.objects.all()
     serializer_class = serializers.logSerializer
+
+
+class AlgorithmViewSet(viewsets.ModelViewSet):
+    queryset=models.Algorithm.objects.all()
+    serializer_class = serializers.AlgorithmSerializer
+
+class userAlgoViewSet(viewsets.ModelViewSet):
+    queryset=models.user_algo.objects.all()
+    serializer_class = serializers.userAlgoSerializer
