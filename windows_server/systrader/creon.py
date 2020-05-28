@@ -175,7 +175,7 @@ class Creon:
                 stock[_keys[i]] = self.obj_CpSysDib_MarketEye.GetDataValue(i, 0)
         return stock
 
-    def get_chart(self, code, target='A', unit='m', n=None, date_from=None, date_to=None):
+    def get_chart(self, code, target='A', unit='D', n=None, date_from=None, date_to=None):
         """
         https://money2.creontrade.com/e5/mboard/ptype_basic/HTS_Plus_Helper/DW_Basic_Read_Page.aspx?boardseq=284&seq=102&page=1&searchString=StockChart&p=8841&v=8643&m=9505
         "전일대비"는 제공하지 않으므로 직접 계산해야 함
