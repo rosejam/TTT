@@ -189,8 +189,8 @@ class Creon:
             _fields = [0, 1, 2, 3, 4, 5, 6, 8, 9, 37]
             _keys = ['date', 'time', 'open', 'high', 'low', 'close', 'diff', 'volume', 'price', 'diffsign']
         else:
-            _fields = [0, 2, 3, 4, 5, 6, 8, 9, 37]
-            _keys = ['date', 'open', 'high', 'low', 'close', 'diff', 'volume', 'price', 'diffsign']
+            _fields = [0, 2, 3, 4, 5, 6, 8, 9] # , 37]
+            _keys = ['date', 'open', 'high', 'low', 'close', 'diff', 'volume', 'price'] # , 'diffsign']
 
         if date_to is None:
             date_to = util.get_str_today()
@@ -224,20 +224,19 @@ class Creon:
             for i in range(cnt):
                 dict_item = {k: self.obj_CpSysDib_StockChart.GetDataValue(j, cnt-1-i) for j, k in enumerate(_keys)}
                 # type conversion
-                dict_item['diffsign'] = chr(dict_item['diffsign'])
+                # dict_item['diffsign'] = chr(dict_item['diffsign'])
                 for k in ['open', 'high', 'low', 'close', 'diff']:
                     dict_item[k] = float(dict_item[k])
 
-                dict_item['average'] = dict_item['price'] / dict_item['volume']
-
                 # additional fields
                 dict_item['diffratio'] = (dict_item['diff'] / (dict_item['close'] - dict_item['diff'])) * 100
+                dict_item['average'] = dict_item['price'] / dict_item['volume']
+
                 list_item.append(dict_item)
             return list_item
 
         # 연속조회 처리
         result = req([])
-        print("why?")
         while self.obj_CpSysDib_StockChart.Continue:
             self.wait()
             _list_item = req(result)
