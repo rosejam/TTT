@@ -195,7 +195,7 @@ class Creon:
         if date_to is None:
             date_to = util.get_str_today()
 
-        self.obj_CpSysDib_StockChart.SetInputValue(0, target+code) # 주식코드: A, 업종코드: U
+        self.obj_CpSysDib_StockChart.SetInputValue(0, code) # ! 동주가 앞에 target직접 붙이는 거로 바꿈 # 주식코드: A, 업종코드: U
         if n is not None:
             self.obj_CpSysDib_StockChart.SetInputValue(1, ord('2'))  # 0: ?, 1: 기간, 2: 개수
             self.obj_CpSysDib_StockChart.SetInputValue(4, n)  # 요청 개수
