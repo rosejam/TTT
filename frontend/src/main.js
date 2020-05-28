@@ -24,6 +24,11 @@ import VueSession from 'vue-session'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
+import AutocompleteVue from 'autocomplete-vue';
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.min.css'
 
 Vue.config.productionTip = false;
 
@@ -32,11 +37,25 @@ var sessionOptions = {
 }
 
 Vue.use(VueSession, sessionOptions)
-Vue.use(NowUiKit);
+Vue.use(NowUiKit)
 // Install BootstrapVue
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+Vue.use(VueMaterial)
+
+Vue.component('v-select', vSelect)
+
+// vSelect.props.components.default = () => ({
+// 	Deselect: {
+// 	  render: createElement => createElement('span', '❌'),
+// 	},
+// 	OpenIndicator: {
+// 	  render: createElement => createElement('span', '🔽'),
+// 	},
+//   });
+
+Vue.component('autocomplete-vue', AutocompleteVue);
 
 // EK web app's Firebase configuration
 const firebaseConfig = {
