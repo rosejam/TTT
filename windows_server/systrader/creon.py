@@ -227,8 +227,8 @@ class Creon:
                 dict_item['diffsign'] = chr(dict_item['diffsign'])
                 for k in ['open', 'high', 'low', 'close', 'diff']:
                     dict_item[k] = float(dict_item[k])
-                for k in ['volume', 'price']:
-                    dict_item[k] = int(dict_item[k])
+
+                dict_item['average'] = dict_item['price'] / dict_item['volume']
 
                 # additional fields
                 dict_item['diffratio'] = (dict_item['diff'] / (dict_item['close'] - dict_item['diff'])) * 100
