@@ -61,7 +61,7 @@
                   <modal :show.sync="modals.help" headerClasses="justify-content-center" style="color:black">
                     <h4 slot="header" class="title title-up">TTT?</h4>
                     <p>
-                      1. Tiny Testing Tool의 줄임말입니다. <br/>
+                      1. auTo Trading sysTem의 줄임말입니다. <br/>
                       2. 또한 Trust, Trend, Tactic 의 3T를 가치로 삼고 있습니다. <br/>
                     </p>
                     <!-- <template slot="footer">
@@ -80,7 +80,6 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
 import { Card, Button, FormGroupInput, Modal } from '@/components';
 import MainFooter from '@/layout/MainFooter';
 import SignupForm from '@/pages/components/SignupForm';
@@ -108,26 +107,23 @@ export default {
     }
   },
   methods: {
-    ...mapActions("user", ["setUser"]),
-    async login() {
+    ...mapActions("user", ["login"]),
+    ...mapMutations("user", ["setUserInfo"]),
+    login: async function(event) {
+      event.preventDefault();
       await firebase.auth()
-                    .signInWithEmailAndPassword(this.email, this.pw)
-                    .then(
-                      user => {
-                        localStorage.setItem("email", this.email);
-                        // this.$session.set('user', user);
-                        // firebase.auth().currentUser.getIdToken().then(idToken => {
-                        //   console.log(idToken);
-                        // });
-                      },
-                      function(err) {
-                        alert("에러: " + err.message);
-                      }
-                    );
-      
-      const email = this.email;
-      await this.setUser();
-      this.$router.push("/");
+        .signInWithEmailAndPassword(this.email, this.pw)
+        .then(
+          user => {
+            this.$session.set('user', user);
+            this.$router.replace("/");
+            location.reload();
+          },
+          function(err) {
+            alert("에러: " + err.message);
+          }
+        );
+
     },
   },
 };

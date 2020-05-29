@@ -8,33 +8,49 @@
   >
     <template slot-scope="{ toggle, isToggled }">
       <router-link class="navbar-brand" to="/">
-        Tiny Testing Tool
+        auto trading system
       </router-link>
     </template>
     <template slot="navbar-menu">
-
       <!-- 테스트 페이지 이동 버튼 -->
       <li class="nav-item">
-          <router-link class="navbar-brand" to="/testing">
-            <i class="now-ui-icons design-2_ruler-pencil"></i> 테스트
-          </router-link>
-        <!-- <a
+        <a
           class="nav-link"
           href="/testing"
         >
           <i class="now-ui-icons design-2_ruler-pencil"></i>
           <p>테스트</p>
-        </a> -->
+        </a>
       </li>
-
+      <!-- <drop-down
+              v-if="userLogined"
+              tag="li"
+              title="자산 관리"
+              icon="now-ui-icons business_bank"
+              class="nav-item"
+      >
+        <nav-link to="/asset">
+          <i class="now-ui-icons business_money-coins"></i> 자산 현황
+        </nav-link>
+        <nav-link to="/tr_history">
+          <i class="now-ui-icons files_paper"></i> 거래 내역
+        </nav-link>
+        <nav-link to="/algosetting">
+          <i class="now-ui-icons ui-2_settings-90"></i> 알고리즘 설정
+        </nav-link>
+      </drop-down> -->
       <!-- 내 정보 페이지 이동 버튼 -->
-      <li v-if="userInfo.email!=null" class="nav-item">
-        <router-link class="navbar-brand" to="/profile">
-          <i class="now-ui-icons users_single-02"></i> 내 정보
-        </router-link>
+      <li v-if="userLogined" class="nav-item">
+        <a
+          class="nav-link"
+          href="/profile"
+        >
+          <i class="now-ui-icons users_single-02"></i>
+          <p>내정보</p>
+        </a>
       </li>
       <!-- 로그인 버튼 -->
-      <li class="nav-item" v-if="userInfo.email==null">
+      <li class="nav-item" v-if="!userLogined">
         <nav-link
           class="nav-link btn btn-neutral"
           to="/login">
@@ -55,7 +71,6 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
 import { DropDown, NavbarToggleButton, Navbar, NavLink, Button } from '@/components';
 import { Popover } from 'element-ui';
 import firebase from 'firebase';
@@ -79,21 +94,28 @@ export default {
     }
   },
   computed: {
-    ...mapState("user", ["userInfo"]),
+    userLogined() {
+      var user = this.$session.get('user');
+      if(user) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
   },
   methods: {
-    ...mapMutations("user", ["setUserInfo"]),
     logout() {
       firebase.auth().signOut()
               .then(() => {
-                this.setUserInfo(null);
+                this.$session.clear();
                 this.$router.replace("/").catch(err => {
                   if(err.name != "NavigationDuplicated" ){
                     throw error;
                   }
                 });
+                location.reload();
               });
-      
     }
   },
 };
