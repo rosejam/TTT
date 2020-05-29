@@ -175,7 +175,7 @@ class Creon:
                 stock[_keys[i]] = self.obj_CpSysDib_MarketEye.GetDataValue(i, 0)
         return stock
 
-    def get_chart(self, code, target='A', unit='m', n=None, date_from=None, date_to=None):
+    def get_chart(self, code, target='A', unit='D', n=None, date_from=None, date_to=None):
         """
         https://money2.creontrade.com/e5/mboard/ptype_basic/HTS_Plus_Helper/DW_Basic_Read_Page.aspx?boardseq=284&seq=102&page=1&searchString=StockChart&p=8841&v=8643&m=9505
         "전일대비"는 제공하지 않으므로 직접 계산해야 함
@@ -189,13 +189,13 @@ class Creon:
             _fields = [0, 1, 2, 3, 4, 5, 6, 8, 9, 37]
             _keys = ['date', 'time', 'open', 'high', 'low', 'close', 'diff', 'volume', 'price', 'diffsign']
         else:
-            _fields = [0, 2, 3, 4, 5, 6, 8, 9, 37]
-            _keys = ['date', 'open', 'high', 'low', 'close', 'diff', 'volume', 'price', 'diffsign']
+            _fields = [0, 2, 3, 4, 5, 6, 8, 9] # , 37]
+            _keys = ['date', 'open', 'high', 'low', 'close', 'diff', 'volume', 'price'] # , 'diffsign']
 
         if date_to is None:
             date_to = util.get_str_today()
 
-        self.obj_CpSysDib_StockChart.SetInputValue(0, target+code) # 주식코드: A, 업종코드: U
+        self.obj_CpSysDib_StockChart.SetInputValue(0, code) # ! 동주가 앞에 target직접 붙이는 거로 바꿈 # 주식코드: A, 업종코드: U
         if n is not None:
             self.obj_CpSysDib_StockChart.SetInputValue(1, ord('2'))  # 0: ?, 1: 기간, 2: 개수
             self.obj_CpSysDib_StockChart.SetInputValue(4, n)  # 요청 개수
@@ -224,20 +224,22 @@ class Creon:
             for i in range(cnt):
                 dict_item = {k: self.obj_CpSysDib_StockChart.GetDataValue(j, cnt-1-i) for j, k in enumerate(_keys)}
                 # type conversion
-                dict_item['diffsign'] = chr(dict_item['diffsign'])
+                # dict_item['diffsign'] = chr(dict_item['diffsign'])
                 for k in ['open', 'high', 'low', 'close', 'diff']:
                     dict_item[k] = float(dict_item[k])
-                for k in ['volume', 'price']:
-                    dict_item[k] = int(dict_item[k])
 
                 # additional fields
                 dict_item['diffratio'] = (dict_item['diff'] / (dict_item['close'] - dict_item['diff'])) * 100
+                if not (dict_item['volume'] == 0):
+                    dict_item['average'] = dict_item['price'] / dict_item['volume']
+                else:
+                    dict_item['average'] = dict_item['open']
+
                 list_item.append(dict_item)
             return list_item
 
         # 연속조회 처리
         result = req([])
-        print("why?")
         while self.obj_CpSysDib_StockChart.Continue:
             self.wait()
             _list_item = req(result)
