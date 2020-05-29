@@ -23,7 +23,7 @@ def handle_connect():
         # disconnect
         return jsonify(c.disconnect())
 
-
+# 지금 순간의 가격+정보
 @app.route('/stockcodes', methods=['GET'])
 def handle_stockcodes():
     c.wait()
@@ -45,7 +45,7 @@ def handle_stockstatus():
     status = c.get_stockstatus(stockcode)
     return jsonify(status)
 
-
+# 
 @app.route('/stockcandles', methods=['GET'])
 def handle_stockcandles():
     c.wait()
@@ -106,16 +106,21 @@ def handle_short():
     shorts = c.get_shortstockselling(stockcode, n=n)
     return jsonify(shorts)
 
-@app.route('/codeandprice', methods=['GET'])
-def handle_stockcodeandprice():
-    c.wait()
-    market = request.args.get('market')
-    if market == 'kospi':
-        return jsonify(c.get_codelistandprice(constants.MARKET_CODE_KOSPI))
-    elif market == 'kosdaq':
-        return jsonify(c.get_codelistandprice(constants.MARKET_CODE_KOSDAQ))
-    else:
-        return '"codeandprice" should be one of "kospi" and "kosdaq".', 400
+# 유리 테스트
+# @app.route('/codeandprice', methods=['GET'])
+# def handle_stockcodeandprice():
+#     c.wait()
+#     market = request.args.get('market')
+#     if market == 'kospi':
+#         return jsonify(c.get_codelistandprice(constants.MARKET_CODE_KOSPI))
+#     elif market == 'kosdaq':
+#         return jsonify(c.get_codelistandprice(constants.MARKET_CODE_KOSDAQ))
+#     else:
+#         return '"codeandprice" should be one of "kospi" and "kosdaq".', 400
+
+# 동주 테스트
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
+

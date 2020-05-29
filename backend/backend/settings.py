@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import pymysql
+pymysql.version_info = (1, 3, 13, "final", 0)
+pymysql.install_as_MySQLdb()
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,6 +46,7 @@ INSTALLED_APPS = [
     "pymongo",
     # CORS
     "corsheaders",
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -85,9 +90,9 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-'''
+
 DATABASES = {
-    "default": {
+    'default': {
         # mysql DB설정
         'ENGINE': "django.db.backends.mysql",
         'NAME': 'TTT',
@@ -102,7 +107,7 @@ DATABASES = {
         }
     }
 }
-'''
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
