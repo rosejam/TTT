@@ -13,6 +13,9 @@ import MainNavbar from './layout/MainNavbar.vue';
 // 푸터
 import MainFooter from './layout/MainFooter.vue';
 
+import Chart_practice from './pages/Chart_practice.vue'
+import Chart_practice2 from './pages/Chart_practice2.vue'
+
 Vue.use(Router);
 
 export default new Router({
@@ -59,15 +62,24 @@ export default new Router({
         footer: { backgroundColor: 'black' }
       }
     },
-    // {
-    //   path: '/practice',
-    //   name: 'practice',
-    //   components: { default: Chart_practice, header: MainNavbar, footer: MainFooter },
-    //   props: {
-    //     header: { colorOnScroll: 400 },
-    //     footer: { backgroundColor: 'black' }
-    //   }
-    // },
+    {
+      path: '/practice',
+      name: 'practice',
+      components: { default: Chart_practice, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/practice2',
+      name: 'practice2',
+      components: { default: Chart_practice2, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
 
   ],
   scrollBehavior: to => {

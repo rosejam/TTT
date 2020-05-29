@@ -18,6 +18,7 @@ import Vue from 'vue';
 import App from './App.vue';
 // You can change this import to `import router from './starterRouter'` to quickly start development from a blank layout.
 import router from './router';
+import store from "./store";
 import NowUiKit from './plugins/now-ui-kit';
 import firebase from 'firebase';
 import VueSession from 'vue-session'
@@ -29,6 +30,8 @@ import 'vue-select/dist/vue-select.css';
 import AutocompleteVue from 'autocomplete-vue';
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
+import zingchartVue from 'zingchart-vue';
+
 
 Vue.config.productionTip = false;
 
@@ -57,6 +60,8 @@ Vue.component('v-select', vSelect)
 
 Vue.component('autocomplete-vue', AutocompleteVue);
 
+Vue.component('zingchart', zingchartVue)
+
 // EK web app's Firebase configuration
 const firebaseConfig = {
 	apiKey: "AIzaSyAQcDuePSnmmdWecgcYpxkfg_qMsSWiRQk",
@@ -72,5 +77,6 @@ firebase.initializeApp(firebaseConfig);
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app');
