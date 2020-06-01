@@ -1,5 +1,7 @@
 from api import models, serializers
 from rest_framework import viewsets
+from rest_framework.response import Response
+from drf_yasg import openapi
 from rest_framework.pagination import PageNumberPagination
 
 
@@ -9,14 +11,41 @@ class SmallPagination(PageNumberPagination):
     max_page_size = 50
 
 
-class StoreViewSet(viewsets.ModelViewSet):
-    serializer_class = serializers.StoreSerializer
+class UserViewSet(viewsets.ModelViewSet):
+    queryset=models.User.objects.all()
+    serializer_class = serializers.UserSerializer
+
+    '''
+    def list(self, request, *args, **kwargs):
+        queryset = models.User.objects.all()
+        serializer = self.get_serializer(queryset, many=True)
+        # print(serializer)
+        return super().list(request, *args, **kwargs)
+    '''
+
+
+class MarketViewSet(viewsets.ModelViewSet):
+    queryset=models.Stock_Market.objects.all()
+    serializer_class = serializers.MarketSerializer
+
+class StockViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.StockSerializer
     pagination_class = SmallPagination
 
     def get_queryset(self):
-        email = self.request.query_params.get("email", "")
-        queryset = (
-            models.Store.objects.all().filter(store_email__contains=email).order_by("id")
-        )
+        queryset = models.Stock.objects.all()
+        
         return queryset
 
+class logViewSet(viewsets.ModelViewSet):
+    queryset=models.log.objects.all()
+    serializer_class = serializers.logSerializer
+
+
+class AlgorithmViewSet(viewsets.ModelViewSet):
+    queryset=models.Algorithm.objects.all()
+    serializer_class = serializers.AlgorithmSerializer
+
+class userAlgoViewSet(viewsets.ModelViewSet):
+    queryset=models.user_algo.objects.all()
+    serializer_class = serializers.userAlgoSerializer
