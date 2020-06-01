@@ -28,7 +28,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
 import AutocompleteVue from 'autocomplete-vue';
-import VueMaterial from 'vue-material'
+// import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import zingchartVue from 'zingchart-vue';
 
@@ -45,7 +45,7 @@ Vue.use(NowUiKit)
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
-Vue.use(VueMaterial)
+// Vue.use(VueMaterial)
 
 Vue.component('v-select', vSelect)
 
