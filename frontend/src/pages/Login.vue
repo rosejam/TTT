@@ -53,24 +53,6 @@
                   </modal>
                 </h6>
               </div>
-              <div class="pull-right">
-                <h6>
-                  <n-button type="neutral" @click.native="modals.help = true" link>
-                    TTT가 뭐야?
-                  </n-button>
-                  <modal :show.sync="modals.help" headerClasses="justify-content-center" style="color:black">
-                    <h4 slot="header" class="title title-up">TTT?</h4>
-                    <p>
-                      1. Tiny Testing Tool의 줄임말입니다. <br/>
-                      2. 또한 Trust, Trend, Tactic 의 3T를 가치로 삼고 있습니다. <br/>
-                    </p>
-                    <!-- <template slot="footer">
-                      <n-button>Nice Button</n-button>
-                      <n-button type="danger" @click.native="modals.classic = false">Close</n-button>
-                    </template> -->
-                  </modal>
-                </h6>
-              </div>
             </template>
           </card>
         </div>
@@ -109,12 +91,14 @@ export default {
   },
   methods: {
     ...mapActions("user", ["setUser"]),
+
+    // 로그인
     async login() {
       await firebase.auth()
                     .signInWithEmailAndPassword(this.email, this.pw)
                     .then(
                       user => {
-                        localStorage.setItem("email", this.email);
+                        localStorage.setItem("user_token", this.email);
                         // this.$session.set('user', user);
                         // firebase.auth().currentUser.getIdToken().then(idToken => {
                         //   console.log(idToken);

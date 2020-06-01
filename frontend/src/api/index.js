@@ -12,7 +12,7 @@ export default {
   },
   // 유저 관련 api
   async getUserInfo() {
-    let userInfo = localStorage.getItem("email");
+    let userInfo = localStorage.getItem("user_token");
     return userInfo;
   },
   async logout() {
