@@ -229,7 +229,10 @@ class Creon:
                     dict_item[k] = float(dict_item[k])
 
                 # additional fields
-                dict_item['diffratio'] = (dict_item['diff'] / (dict_item['close'] - dict_item['diff'])) * 100
+                if not (dict_item['close'] == dict_item['diff']):
+                    dict_item['diffratio'] = (dict_item['diff'] / (dict_item['close'] - dict_item['diff'])) * 100
+                else:
+                    dict_item['diffratio'] = 0
                 if not (dict_item['volume'] == 0):
                     dict_item['average'] = dict_item['price'] / dict_item['volume']
                 else:
