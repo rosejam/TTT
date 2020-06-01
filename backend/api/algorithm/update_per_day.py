@@ -6,6 +6,7 @@ import json
 import time
 from datetime import datetime
 import threading
+import time
 
 list_url= "http://15.165.21.105:5000/stockcodes?market=kospi"
 
@@ -31,19 +32,19 @@ for i in  enumerate(list_key):
     # print(stock_url)
     
     stock_result = requests.get(stock_url).json()
-    for j in  enumerate(stock_result):
-        current = j[1]
-        date=str(current['date'])
-        diff=str(current['diff'])
-        diffratio=str(current['diffratio'])
-        open=str(current['open'])
-        close=str(current['close'])
-        high=str(current['high'])
-        low=str(current['low'])
-        average=str(current['average'])
-        sql = "insert into api_stock(code, name, market, date, diff, diffratio, open, close, high, low, average) values('"+code+"','"+name+"',"+market+","+date+","+diff+","+diffratio+","+open+","+close+","+high+","+low+","+average+")"
-        # print(sql)
-        cur.execute(sql) 
+    current = j[0]
+    date=str(current['date'])
+    diff=str(current['diff'])
+    diffratio=str(current['diffratio'])
+    open=str(current['open'])
+    close=str(current['close'])
+    high=str(current['high'])
+    low=str(current['low'])
+    average=str(current['average'])
+    sql = "insert into api_stock(code, name, market, date, diff, diffratio, open, close, high, low, average) values('"+code+"','"+name+"',"+market+","+date+","+diff+","+diffratio+","+open+","+close+","+high+","+low+","+average+")"
+    # print(sql)
+    time.sleep(0.3)
+    cur.execute(sql) 
     conn.commit() 
 
 list_url= "http://15.165.21.105:5000/stockcodes?market=kosdaq"
@@ -65,17 +66,19 @@ for i in  enumerate(list_key):
     # print(stock_url)
     
     stock_result = requests.get(stock_url).json()
-    for j in  enumerate(stock_result):
-        current = j[1]
-        date=str(current['date'])
-        diff=str(current['diff'])
-        diffratio=str(current['diffratio'])
-        open=str(current['open'])
-        close=str(current['close'])
-        high=str(current['high'])
-        low=str(current['low'])
-        average=str(current['average'])
-        sql = "insert into api_stock(code, name, market, date, diff, diffratio, open, close, high, low, average) values('"+code+"','"+name+"',"+market+","+date+","+diff+","+diffratio+","+open+","+close+","+high+","+low+","+average+")"
-        # print(sql)
-        cur.execute(sql) 
-    conn.commit() 
+    # for j in  enumerate(stock_result):
+    current = j[0]
+    date=str(current['date'])
+    diff=str(current['diff'])
+    diffratio=str(current['diffratio'])
+    open=str(current['open'])
+    close=str(current['close'])
+    high=str(current['high'])
+    low=str(current['low'])
+    average=str(current['average'])
+    sql = "insert into api_stock(code, name, market, date, diff, diffratio, open, close, high, low, average) values('"+code+"','"+name+"',"+market+","+date+","+diff+","+diffratio+","+open+","+close+","+high+","+low+","+average+")"
+    print(sql)
+    
+    # time.sleep(0.3)
+    # cur.execute(sql) 
+    # conn.commit() 
