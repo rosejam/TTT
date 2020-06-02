@@ -16,9 +16,7 @@ export default {
       initAmount: data.initAmount,
       period: data.period.code,
       rebalancing: data.rebalancing.code,
-      stock1: data.stocks[0],
-      stock2: data.stocks[1],
-      stock3: data.stocks[2]
+      stocks: data.stocks
     });
 
     console.log('returned data...', stockData);
