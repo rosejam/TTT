@@ -7,12 +7,27 @@ const apiUrl = process.env.VUE_APP_API_URL;
 
 export default {
   // 주식 정보 관련 api
-  async getStockData(data) {
+  async getTestData(data) {
+    let stockData = await axios.post(`${apiUrl}/rebalance/`, {
+      startYear: data.startYear,
+      startMonth: data.startMonth,
+      endYear: data.endYear,
+      endMonth: data.endMonth,
+      initAmount: data.initAmount,
+      period: data.period.code,
+      rebalancing: data.rebalancing.code,
+      stock1: data.stocks[0],
+      stock2: data.stocks[1],
+      stock3: data.stocks[2]
+    });
+
+    console.log('returned data...', stockData);
+
     return data.stocks[0];
   },
   // 유저 관련 api
   async getUserInfo() {
-    let userInfo = localStorage.getItem("email");
+    let userInfo = localStorage.getItem("user_token");
     return userInfo;
   },
   async logout() {
