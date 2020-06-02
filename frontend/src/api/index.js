@@ -8,6 +8,16 @@ const apiUrl = process.env.VUE_APP_API_URL;
 export default {
   // 주식 정보 관련 api
   async getTestData(data) {
+    console.log({
+      startYear: data.startYear,
+      startMonth: data.startMonth,
+      endYear: data.endYear,
+      endMonth: data.endMonth,
+      initAmount: data.initAmount,
+      period: data.period.code,
+      rebalancing: data.rebalancing.code,
+      stocks: data.stocks
+    })
     let stockData = await axios.post(`${apiUrl}/rebalance/`, {
       startYear: data.startYear,
       startMonth: data.startMonth,

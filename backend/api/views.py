@@ -10,24 +10,6 @@ class SmallPagination(PageNumberPagination):
     page_size_query_param = "page_size"
     max_page_size = 50
 
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset=models.User.objects.all()
-    serializer_class = serializers.UserSerializer
-
-    '''
-    def list(self, request, *args, **kwargs):
-        queryset = models.User.objects.all()
-        serializer = self.get_serializer(queryset, many=True)
-        # print(serializer)
-        return super().list(request, *args, **kwargs)
-    '''
-
-
-class MarketViewSet(viewsets.ModelViewSet):
-    queryset=models.Stock_Market.objects.all()
-    serializer_class = serializers.MarketSerializer
-
 class StockViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.StockSerializer
     pagination_class = SmallPagination
@@ -36,16 +18,3 @@ class StockViewSet(viewsets.ModelViewSet):
         queryset = models.Stock.objects.all()
         
         return queryset
-
-class logViewSet(viewsets.ModelViewSet):
-    queryset=models.log.objects.all()
-    serializer_class = serializers.logSerializer
-
-
-class AlgorithmViewSet(viewsets.ModelViewSet):
-    queryset=models.Algorithm.objects.all()
-    serializer_class = serializers.AlgorithmSerializer
-
-class userAlgoViewSet(viewsets.ModelViewSet):
-    queryset=models.user_algo.objects.all()
-    serializer_class = serializers.userAlgoSerializer
