@@ -10,6 +10,8 @@ import Testing from './pages/Testing.vue';
 import Portfolio from './pages/Portfolio.vue';
 // 내 정보 페이지
 import Profile from './pages/Profile.vue';
+// 서비스 이용약관 페이지
+import Term from './pages/Term.vue';
 // 네비게이션 바
 import MainNavbar from './layout/MainNavbar.vue';
 // 푸터
@@ -93,6 +95,16 @@ export default new Router({
         footer: { backgroundColor: 'black' }
       },
       beforeEnter: requireLogin()
+    },
+    // 서비스 이용약관
+    {
+      path: '/term',
+      name: 'term',
+      components: { default: Term, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      },
     },
     // 연습용 페이지
     {
