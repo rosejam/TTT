@@ -6,6 +6,7 @@ import datetime
 def rebalancing(request):
     def post():
         received_json_data=json.loads(request.body)
+        print(received_json_data)
         period=received_json_data['period']
         endMonth=received_json_data['endMonth']
         endYear=received_json_data['endYear']
@@ -17,9 +18,9 @@ def rebalancing(request):
         stock_list=[{},{},{}]
         for i in range(0,len(stocks)):
             stockname=stocks[i]['stock'].split('[')[0]
-            stock_list[0][stockname]=stocks[i]['portfolio1']
-            stock_list[1][stockname]=stocks[i]['portfolio2']
-            stock_list[2][stockname]=stocks[i]['portfolio3']
+            stock_list[0][stockname]=int(stocks[i]['portfolio1'])
+            stock_list[1][stockname]=int(stocks[i]['portfolio2'])
+            stock_list[2][stockname]=int(stocks[i]['portfolio3'])
         ret = []
         if(period=='M'):
             if(rebalancefreq==-1):

@@ -37,7 +37,6 @@ schema_view = get_schema_view(
 )
 
 router=routers.DefaultRouter()
-# fmt: off
 
 urlpatterns=[
     path("admin/", admin.site.urls),
