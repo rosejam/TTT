@@ -15,7 +15,7 @@ class StockViewSet(viewsets.ModelViewSet):
     pagination_class = SmallPagination
 
     def get_queryset(self):
-        code = self.request.query_params.get("code", "")
+        code = self.request.query_params.get("code", "A000020")
         month = self.request.query_params.get("month", 0)
         queryset = models.Stock.objects.all().order_by("date")
         if code is not "":
