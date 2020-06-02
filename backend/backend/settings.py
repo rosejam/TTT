@@ -154,8 +154,19 @@ PASSWORD_HASHERS = (
     "django.contrib.auth.hashers.CryptPasswordHasher",
 )
 
+from corsheaders.defaults import default_headers
 
-CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8081',
+CORS_ALLOW_HEADERS = default_headers + (
+    'Access-Control-Allow-Origin',
 )
+
+
+CORS_ORIGIN_WHITELIST=[
+    'http://127.0.0.1:8080',
+    'http://localhost:8080',
+    'http://172.30.1.31:8080'
+
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
+

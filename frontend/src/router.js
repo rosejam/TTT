@@ -1,31 +1,41 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// 메인
+// 메인 페이지
 import Index from './pages/Index.vue';
-// 로그인
+// 로그인 페이지
 import Login from './pages/Login.vue';
-import Signup from './pages/Signup.vue';
-// 증권 정보
-import StockInfo from './pages/StockInfo.vue';
-import StockDetail from './pages/StockDetail.vue';
-// 자산 관리
-import Asset from './pages/Asset.vue';
-import TradingHistory from './pages/TradingHistory.vue';
-import AlgoSetting from './pages/AlgoSetting.vue';
-// 알고리즘마켓
-import AlgoMarket from './pages/AlgoMarket.vue';
-// 내 정보
+// 테스트 페이지
+import Testing from './pages/Testing.vue';
+// 포트폴리오
+import Portfolio from './pages/Portfolio.vue';
+// 내 정보 페이지
 import Profile from './pages/Profile.vue';
 // 네비게이션 바
 import MainNavbar from './layout/MainNavbar.vue';
 // 푸터
 import MainFooter from './layout/MainFooter.vue';
-// 기타 페이지
-import Dashboard from './pages/Dashboard.vue';
-import Landing from './pages/Landing.vue';
-// import Chart_practice from './pages/Chart_practice.vue';
+
+import Chart_practice from './pages/Chart_practice.vue'
+import practice from './pages/practice.vue'
+import Chart_practice2 from './pages/Chart_practice2.vue'
 
 Vue.use(Router);
+
+// 로그인 안하면 접근 불가
+const requireLogin = () => (to, from, next) => {
+  if (localStorage.getItem("user_token")) {
+    return next();
+  }
+  next("/");
+};
+
+// 로그인하면 접근 불가
+const requireNotLogin = () => (to, from, next) => {
+  if (!localStorage.getItem("user_token")) {
+    return next();
+  }
+  next("/");
+};
 
 export default new Router({
   mode: 'history',
@@ -48,73 +58,30 @@ export default new Router({
       components: { default: Login, header: MainNavbar },
       props: {
         header: { colorOnScroll: 400 }
-      }
+      },
+      beforeEnter: requireNotLogin()
     },
+    
+    // 테스트 페이지
     {
-      path: '/signup',
-      name: 'signup',
-      components: { default: Signup, header: MainNavbar },
-      props: {
-        header: { colorOnScroll: 400 }
-      }
-    },
-    // 증권 정보
-    {
-      path: '/stockinfo',
-      name: 'stockinfo',
-      components: { default: StockInfo, header: MainNavbar, footer: MainFooter },
+      path: '/testing',
+      name: 'testing',
+      components: { default: Testing, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
       }
     },
-    // 상세 증권 정보
+    // 포트폴리오 페이지
     {
-      path: '/stockdetail',
-      name: 'stockdetail',
-      components: { default: StockDetail, header: MainNavbar, footer: MainFooter },
+      path: '/portfolio',
+      name: 'portfolio',
+      components: { default: Portfolio, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
-      }
-    },
-    // 자산 관리
-    {
-      path: '/asset',
-      name: 'asset',
-      components: { default: Asset, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
-    },
-    {
-      path: '/tr_history',
-      name: 'tr_history',
-      components: { default: TradingHistory, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
-    },
-    {
-      path: '/algosetting',
-      name: 'algosetting',
-      components: { default: AlgoSetting, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
-    },
-    // 알고리즘 마켓
-    {
-      path: '/algomarket',
-      name: 'algomarket',
-      components: { default: AlgoMarket, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
+      },
+      beforeEnter: requireLogin()
     },
     // 내 정보
     {
@@ -124,36 +91,37 @@ export default new Router({
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
-      }
+      },
+      beforeEnter: requireLogin()
     },
-    // 기타 페이지
+    // 연습용 페이지
     {
-      path: '/dash',
-      name: 'dash',
-      components: { default: Dashboard, header: MainNavbar, footer: MainFooter },
+      path: '/practice',
+      name: 'practice',
+      components: { default: practice, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
       }
     },
     {
-      path: '/landing',
-      name: 'landing',
-      components: { default: Landing, header: MainNavbar, footer: MainFooter },
+      path: '/chart',
+      name: 'chart',
+      components: { default: Chart_practice, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
       }
     },
-    // {
-    //   path: '/practice',
-    //   name: 'practice',
-    //   components: { default: Chart_practice, header: MainNavbar, footer: MainFooter },
-    //   props: {
-    //     header: { colorOnScroll: 400 },
-    //     footer: { backgroundColor: 'black' }
-    //   }
-    // },
+    {
+      path: '/chart2',
+      name: 'chart2',
+      components: { default: Chart_practice2, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
 
   ],
   scrollBehavior: to => {
