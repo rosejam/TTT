@@ -32,7 +32,7 @@ for i in  enumerate(list_key):
     # print(stock_url)
     
     stock_result = requests.get(stock_url).json()
-    current = j[0]
+    current = stock_result[0]
     date=str(current['date'])
     diff=str(current['diff'])
     diffratio=str(current['diffratio'])
@@ -67,7 +67,7 @@ for i in  enumerate(list_key):
     
     stock_result = requests.get(stock_url).json()
     # for j in  enumerate(stock_result):
-    current = j[0]
+    current = stock_result[0]
     date=str(current['date'])
     diff=str(current['diff'])
     diffratio=str(current['diffratio'])
