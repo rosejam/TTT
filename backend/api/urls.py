@@ -5,6 +5,6 @@ from django.urls import path
 
 router = DefaultRouter(trailing_slash=False)
 router.register(r"stocks", views.StockViewSet, basename="stocks")
-router.register(r"stockinfoinfo", views.StockViewSet, basename="stockinfo")
+router.register(r"stockinfo", views.StockViewSet, basename="stockinfo")
 
 urlpatterns = router.urls
