@@ -11,7 +11,7 @@ class StockSerializer(serializers.ModelSerializer):
             "market",
             "date",
             "diff",
-            "diffration",
+            "diffratio",
             "open", 
             "close",
             "high",
