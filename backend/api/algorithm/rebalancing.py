@@ -1,7 +1,8 @@
 from django.db import connection
 import datetime
-# import pymysql
+#import pymysql
 from dateutil.relativedelta import relativedelta
+
 '''
 temp_db = pymysql.connect(
         user='ttt', 
@@ -10,8 +11,6 @@ temp_db = pymysql.connect(
         db='TTT',
         port=3306)
 '''
-
-
 
 def rebalance(stock_list, s_date, e_date,assets,freq):
     cursor=connection.cursor()
@@ -34,6 +33,7 @@ def rebalance(stock_list, s_date, e_date,assets,freq):
         else:
             s_dict[tdate[0]]=s_date
     '''
+    print(stock_list)
     for idx, stock in enumerate(stock_list[0].keys()):
         if(idx==0):
             query_string="select code, date, close from api_stock where code='"+stock+"'"
@@ -94,8 +94,10 @@ def rebalance(stock_list, s_date, e_date,assets,freq):
         for i, stocks in enumerate(stock_list):
             rret={}
             drebal_date=datetime.datetime.strptime(str(s_date),"%Y%m%d").date()
-            cp_idx=s_idx
+            cp_idx=s_idx.copy()
             cp_sdate=s_date
+            cp_asset=assets
+            ccp_asset=0
             for j in range(int(subMonth/freq)+1):
                 drebal_date=drebal_date+relativedelta(months=freq)
                 rebal_date=min(int(drebal_date.strftime("%Y%m%d")),e_date)
@@ -121,23 +123,22 @@ def rebalance(stock_list, s_date, e_date,assets,freq):
                         if len(dd)==1:
                             dd="0"+dd
                         tempdate=str(int(item[1]/10000))+"-"+mm+"-"+dd
-                        rret[tempdate]=assets
+                        rret[tempdate]=cp_asset
                         if flag:
                             stock_amount=int(stock_asset/item[2])
                             sub_asset=stock_amount*item[2]
                             flag=False
                         else:
                             rret[tempdate]=rret[tempdate]-sub_asset+stock_amount*item[2]
-
+                            ccp_asset=rret[tempdate]
+                            
+                cp_asset=ccp_asset
                 cp_sdate=rebal_date    
-
-            # print(rret)
             ret.append(rret)
-
     return ret
         
 # query 문 넣고 확인해보기!
     
 
 if __name__=="__main__":
-    print(rebalance([{"A000087":50,"A000020":50,"A000050":0,"A000040":0,"A000060":0,"A000075":0},{"A000050":50,"A000040":50},{"A000060":50,"A000075":50}],20101201,20110307,100000,3))
+    print(rebalance([{'A066570': 50, 'A000070': 20, 'A000060': 30}, {'A066570': 30, 'A000070': 30, 'A000060': 40}, {'A066570': 20, 'A000070': 50, 'A000060': 30}],20101201,20110307,100000,3))
