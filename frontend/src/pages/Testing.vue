@@ -89,7 +89,7 @@
       <br/>
 
       <!-- 설정한 기간 -->
-      <div class="period">
+      <div class="period" v-if="testData.period != null">
         <span>설정 기간: {{testData.startYear}} 년</span> <span v-if="isMonth"> {{testData.startMonth}} 월</span> <span>~ {{testData.endYear}} 년</span> <span v-if="isMonth"> {{testData.endMonth}} 월 </span>
       </div>
       <br/>
