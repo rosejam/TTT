@@ -8,7 +8,7 @@
   >
     <template slot-scope="{ toggle, isToggled }">
       <router-link class="navbar-brand" to="/">
-        Tiny Testing Tool
+        <img v-if="$route.path != '/'" class="n-logo" src="img/TTT-logo.png" alt="" style="width:40px; height:auto"/>
       </router-link>
     </template>
     <template slot="navbar-menu">
@@ -39,11 +39,17 @@
 
       <!-- 로그인 버튼 -->
       <li class="nav-item" v-if="userInfo.email==null">
-        <nav-link
+        <!-- <nav-link
           class="nav-link btn btn-neutral"
           to="/login">
           <p>로그인</p>
-        </nav-link>
+        </nav-link> -->
+        <n-button
+          @click="$router.push('/login')"
+          type="neutral"
+        >
+          로그인
+        </n-button>
       </li>
 
       <!-- 로그아웃 버튼 -->
