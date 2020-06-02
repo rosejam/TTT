@@ -1,6 +1,7 @@
 from django.db import connection
 import datetime
-# import pymysql
+#import pymysql
+from dateutil.relativedelta import relativedelta
 
 '''
 temp_db = pymysql.connect(
@@ -11,63 +12,133 @@ temp_db = pymysql.connect(
         port=3306)
 '''
 
-
-
-def rebalance(stock_list, s_date, e_date,assets):
+def rebalance(stock_list, s_date, e_date,assets,freq):
     cursor=connection.cursor()
     # cursor=temp_db.cursor()
     rret=0;
-    s_year=s_date.year
-    s_month=s_date.month
-    e_year=e_date.year
-    e_month=e_date.month
+    ret=[]
     '''
-    cnt=0
-    for i in range(s_year,e_year+1):
-        for j in range(1,13):
-            if(i==s_year and j<s_month):
-                continue
-            if(i==e_year and j>e_month):
-                continue
-            cnt+=1
-    ret=[0]*cnt
+    for idx, key in enumerate(stock_list[0].keys()):
+        if(idx==0):
+            query_string="select code,startdate from api_stockinfo where code='"+key+"'"
+        else:
+            query_string=query_string+" or code='"+key+"'"
+    
+    s_dict={}
+    cursor.execute(query_string)
+    ss_date=cursor.fetchall()
+    for tdate in ss_date:
+        if(tdate[1]>s_date):
+            s_dict[tdate[0]]=tdate[1]
+        else:
+            s_dict[tdate[0]]=s_date
     '''
-    ret={}
-    for key, value in stock_list.items():
-        stock_asset=(assets*value/100)
-        query_string="select close from api_stock where name='"+key+"' and date like '"+s_date.strftime('%Y%m')+"%' order by date desc limit 1;"
-        cursor.execute(query_string)
-        rows=cursor.fetchall()
-
-        stock=int(stock_asset/rows[0][0])
-        rret=stock_asset-stock*rows[0][0]
-        idx=0;
-        for i in range(s_year,e_year+1):
-            for j in range(1,13):
-                if(i==s_year and j<s_month):
+    print(stock_list)
+    for idx, stock in enumerate(stock_list[0].keys()):
+        if(idx==0):
+            query_string="select code, date, close from api_stock where code='"+stock+"'"
+        else:
+            query_string=query_string+" or code='"+stock+"'"
+    cursor.execute(query_string)
+    stock_data=cursor.fetchall()
+    
+    s_idx={}
+    for idx, data in enumerate(stock_data):
+        if not data[0] in s_idx:
+            s_idx[data[0]]=idx
+    
+    subYear=int(e_date/10000)-int(s_date/10000)
+    subMonth=int(e_date%10000/100)-int(s_date%10000/100)
+    subDay=e_date%100-s_date%100
+    if subDay<0:
+        subMonth=subMonth-1
+    if subMonth<0:
+        subYear=subYear-1
+        subMonth=subMonth+12
+    subMonth=subMonth+subYear*12
+    
+    if freq==-1:
+        for i, stocks in enumerate(stock_list):
+            rret={}
+            for key, value in stocks.items():
+                if(value==0):
                     continue
-                if(i==e_year and j>e_month):
-                    continue
-                yy=str(i)
-                mm=str(j)
-                if(len(mm)==1):
-                    mm='0'+mm
-                dd=yy+mm+"01"
-                query_string2="select close from api_stock where name='"+key+"' and date like '"+yy+mm+"%' order by date desc limit 1;"
-                print(query_string2)
-                cursor.execute(query_string2)
-                rows=cursor.fetchall()
-                if(dd in ret):
-                    ret[dd]+=rret+rows[0][0]*stock
-                else:
-                    ret[dd]=rret+rows[0][0]*stock
+                stock_asset=assets*value/100
+                flag=True
+                sub_asset=0
+                for item in stock_data[s_idx[key]:]:
+                    if item[0]!=key:
+                        break
+                    if item[1]<s_date:
+                        continue
+                    if item[1]>e_date:
+                        break
 
-        
-
+                    mm=str(int(item[1]%10000/100))
+                    if len(mm)==1:
+                        mm="0"+mm
+                    dd=str(item[1]%100)
+                    if len(dd)==1:
+                        dd="0"+dd
+                    tempdate=str(int(item[1]/10000))+"-"+mm+"-"+dd
+                    rret[tempdate]=assets
+                    if flag:
+                        stock_amount=int(stock_asset/item[2])
+                        sub_asset=stock_amount*item[2]
+                        flag=False
+                    else:
+                        rret[tempdate]=rret[tempdate]-sub_asset+stock_amount*item[2]
+                    
+            ret.append(rret)
+    else:
+        for i, stocks in enumerate(stock_list):
+            rret={}
+            drebal_date=datetime.datetime.strptime(str(s_date),"%Y%m%d").date()
+            cp_idx=s_idx.copy()
+            cp_sdate=s_date
+            cp_asset=assets
+            ccp_asset=0
+            for j in range(int(subMonth/freq)+1):
+                drebal_date=drebal_date+relativedelta(months=freq)
+                rebal_date=min(int(drebal_date.strftime("%Y%m%d")),e_date)
+                for key,value in stocks.items():
+                    if(value==0):
+                        continue
+                    stock_asset=assets*value/100
+                    flag=True
+                    sub_asset=0
+                    for item in stock_data[cp_idx[key]:]:
+                        if item[0]!=key:
+                            break
+                        if item[1]<cp_sdate:
+                            cp_idx[key]+=1
+                            continue
+                        if item[1]>rebal_date:
+                            break
+                        cp_idx[key]+=1
+                        mm=str(int(item[1]%10000/100))
+                        if len(mm)==1:
+                            mm="0"+mm
+                        dd=str(item[1]%100)
+                        if len(dd)==1:
+                            dd="0"+dd
+                        tempdate=str(int(item[1]/10000))+"-"+mm+"-"+dd
+                        rret[tempdate]=cp_asset
+                        if flag:
+                            stock_amount=int(stock_asset/item[2])
+                            sub_asset=stock_amount*item[2]
+                            flag=False
+                        else:
+                            rret[tempdate]=rret[tempdate]-sub_asset+stock_amount*item[2]
+                            ccp_asset=rret[tempdate]
+                            
+                cp_asset=ccp_asset
+                cp_sdate=rebal_date    
+            ret.append(rret)
     return ret
         
 # query 문 넣고 확인해보기!
     
 
 if __name__=="__main__":
-    print(rebalance({"삼성전자":50, "SK하이닉스":50},datetime.date(2015,1,7),datetime.date(2015,10,7),100000))
+    print(rebalance([{'A066570': 50, 'A000070': 20, 'A000060': 30}, {'A066570': 30, 'A000070': 30, 'A000060': 40}, {'A066570': 20, 'A000070': 50, 'A000060': 30}],20101201,20110307,100000,3))
