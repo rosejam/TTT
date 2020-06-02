@@ -1,18 +1,43 @@
 from django.http import HttpResponse
 import json
 from api.algorithm.rebalancing import rebalance
+import datetime
 
 def rebalancing(request):
     def post():
-        dump_json_data=json.dumps(request.POST)
-        received_json_data=json.loads(dump_json_data)
-        #for key, value in received_json_data:
-        s_date=received_json_data['s_date']
-        del received_json_data['s_date']
-        e_date=received_json_data['e_date']
-        del received_json_data['e_date']
-        rebal_freq = received_json_data['rebal_freq']
-        del received_json_data['rebal_freq']
+        received_json_data=json.loads(request.body)
+        print(received_json_data)
+        period=received_json_data['period']['code']
+        endMonth=received_json_data['endMonth']
+        endYear=received_json_data['endYear']
+        assets=received_json_data['initAmount']
+        rebalancefreq=received_json_data['rebalancing']['code']
+        startMonth=received_json_data['startMonth']
+        startYear=received_json_data['startYear']
+        stocks=received_json_data['stocks']
+        stock_list=[{},{},{}]
+        for i in range(0,len(stocks)):
+            stockname=stocks[i]['stock'].split('(')[0]
+            stock_list[0][stockname]=stocks[i]['portfolio1']
+            stock_list[1][stockname]=stocks[i]['portfolio2']
+            stock_list[2][stockname]=stocks[i]['portfolio3']
+        print(stock_list)
+        ret = []
+        if(period=='M'):
+            if(period==-1):
+                ret.append(rebalance(stock_list[0], datetime.datetime(startYear,startMonth,1),datetime.datetime(endYear,endMonth,1),assets))
+                ret.append(rebalance(stock_list[1], datetime.datetime(startYear,startMonth,1),datetime.datetime(endYear,endMonth,1),assets))
+                ret.append(rebalance(stock_list[2], datetime.datetime(startYear,startMonth,1),datetime.datetime(endYear,endMonth,1),assets))
+                return HttpResponse(ret);
 
+        else:
+            pass
+
+    if request.method=="POST":
+        return post()
+    else:
+        return HttpResponse(status=405)
+
+# def rebalance(stock_list, s_date, e_date,assets):
         
 
