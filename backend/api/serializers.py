@@ -1,4 +1,4 @@
-from api.models import Stock
+from api.models import Stock,StockInfo
 from rest_framework import serializers
 
 
@@ -18,4 +18,14 @@ class StockSerializer(serializers.ModelSerializer):
             "low",
             "average"
 
+        ]
+
+class StockInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StockInfo
+        fields = [
+            "code",
+            "name",
+            "market",
+            "startdate",
         ]

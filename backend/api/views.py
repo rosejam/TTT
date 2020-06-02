@@ -25,3 +25,11 @@ class StockViewSet(viewsets.ModelViewSet):
             
         return queryset
 
+class StockInfoViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.StockInfoSerializer
+    pagination_class = SmallPagination
+
+    def get_queryset(self):
+        queryset = models.StockInfo.objects.all()
+        return queryset
+
