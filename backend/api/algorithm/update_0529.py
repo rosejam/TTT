@@ -28,11 +28,13 @@ for i in  enumerate(list_key):
     print('current   ',code)
     print('name   ',name)
     print('i    ',i)
-    stock_url = base_url+code+"&n=1"
-    # print(stock_url)
+    stock_url = base_url+code+"&date_from=20200601"
+    print(stock_url)
     
     stock_result = requests.get(stock_url).json()
-    current = j[0]
+    # for j in  enumerate(stock_result):
+    current = stock_result[0]
+    print(current)
     date=str(current['date'])
     diff=str(current['diff'])
     diffratio=str(current['diffratio'])
@@ -42,8 +44,8 @@ for i in  enumerate(list_key):
     low=str(current['low'])
     average=str(current['average'])
     sql = "insert into api_stock(code, name, market, date, diff, diffratio, open, close, high, low, average) values('"+code+"','"+name+"',"+market+","+date+","+diff+","+diffratio+","+open+","+close+","+high+","+low+","+average+")"
-    # print(sql)
-    time.sleep(0.3)
+    print(sql)
+    # time.sleep(0.3)
     cur.execute(sql) 
     conn.commit() 
 
@@ -62,12 +64,12 @@ for i in  enumerate(list_key):
     print('current   ',code)
     print('name   ',name)
     print('i    ',i)
-    stock_url = base_url+code+"&n=1"
+    stock_url = base_url+code+"&date_from=20200601"
     # print(stock_url)
     
     stock_result = requests.get(stock_url).json()
-    # for j in  enumerate(stock_result):
-    current = j[0]
+    
+    current = stock_result[0]
     date=str(current['date'])
     diff=str(current['diff'])
     diffratio=str(current['diffratio'])
@@ -77,7 +79,8 @@ for i in  enumerate(list_key):
     low=str(current['low'])
     average=str(current['average'])
     sql = "insert into api_stock(code, name, market, date, diff, diffratio, open, close, high, low, average) values('"+code+"','"+name+"',"+market+","+date+","+diff+","+diffratio+","+open+","+close+","+high+","+low+","+average+")"
-    # print(sql)
-    time.sleep(0.3)
+    print(sql)
+    
+    # time.sleep(0.3)
     cur.execute(sql) 
     conn.commit() 
