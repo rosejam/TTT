@@ -19,13 +19,15 @@ aws웹 말고 os내에서 방화벽과 백신프로그램의 방화벽 꺼줘야
 
 ## 크레온 restapi (flask로 구현됨)     
 conda activate quantroa_382     
-cd C:\Users\Administrator\git\quantroa\trading_tutorial\김동주\systrader     
+cd C:\Users\Administrator\git\quantroa\windows_server\systrader     
 (처음 시작 때, set FLASK_app=bridge_flask.py)     
-flask run --host=0.0.0.0     
+flask run --host=0.0.0.0   
+또는 
+python manage.py runserver 0.0.0.0:8000 --noreload
      
 ## 키움 restapi (tornado로 구현됨)     
 conda activate quantroa_382     
-cd C:\Users\Administrator\git\quantroa\trading_tutorial\김동주\systrader     
+cd C:\Users\Administrator\git\quantroa\windows_server\systrader    
 (처음 시작 전 root아래 빈 logs폴더 만들어야 서버가 실행되며 서버 로그가 저장된다!)     
 python restful/kiwoom_restful.py     
 한 후 뜨는 창 로그인     
