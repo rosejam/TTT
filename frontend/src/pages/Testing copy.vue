@@ -705,8 +705,12 @@ export default {
     }
   },
   methods:{
-    ...mapActions("stock", ["getTestData"]),
+    ...mapActions("stock", ["getTestData", "getStockList"]),
 
+    // 주식 목록 가져오는 함수
+    async stockList() {
+      await this.getStockList();
+    },
     // 테스트 버튼 클릭 시 실행되는 함수
     async test(data) {
       const stocks = data.stocks;
