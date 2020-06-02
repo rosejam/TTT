@@ -725,7 +725,7 @@ export default {
     }
   },
   methods:{
-    ...mapActions("stock", ["getStockData"]),
+    ...mapActions("stock", ["getTestData"]),
 
     // 테스트 버튼 클릭 시 실행되는 함수
     async test(data) {
@@ -783,7 +783,7 @@ export default {
 
       this.testClicked = false;
       console.log('test start...',data);
-      const result = await this.getStockData(data);
+      const result = await this.getTestData(data);
       // console.log(result);
       this.testClicked = true;
     },
