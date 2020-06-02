@@ -6,6 +6,7 @@ import datetime
 def rebalancing(request):
     def post():
         received_json_data=json.loads(request.body)
+        print(received_json_data)
         period=received_json_data['period']
         endMonth=received_json_data['endMonth']
         endYear=received_json_data['endYear']
