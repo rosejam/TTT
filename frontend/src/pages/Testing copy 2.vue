@@ -100,8 +100,8 @@
         <i class="fa fa-save"></i> &nbsp; 포트폴리오 저장
       </n-button> -->
 
-      <!-- 포트폴리오 테이블 영역 -->
-      <div class="table-container">
+      <!-- 포트폴리오 테이블 -->
+      <div style="width:95%; margin:auto">
         <table class="table" style="width:95%">
           <thead>
             <tr>
@@ -117,28 +117,29 @@
                 <td>
                   <v-select v-model="row.stock" :options="stockList" :reduce="content => content.code" label="content" />
                 </td>
-                <td nowrap width="110">
+                <!-- <td style="width:15%"><fg-input type="number" v-model="row.portfolio1" :disabled="row.stock==''" style="width:50%"></fg-input>%</td> -->
+                <td style="width:15%">
                   <fg-input type="number"
                             v-model="row.portfolio1"
                             placeholder="비율(%)"
                             :disabled="row.stock==null">
                   </fg-input>
                 </td>
-                <td nowrap width="110">
+                <td style="width:15%">
                   <fg-input type="number"
                             v-model="row.portfolio2"
                             placeholder="비율(%)"
                             :disabled="row.stock==null">
                   </fg-input>
                 </td>
-                <td nowrap width="110">
+                <td style="width:15%">
                   <fg-input type="number"
                             v-model="row.portfolio3"
                             placeholder="비율(%)"
                             :disabled="row.stock==null">
                   </fg-input>
                 </td>
-                <td style="width:1%">
+                <td style="width:5%">
                   <n-button @click="removeRow(index)" type="neutral">
                     <i class="fa fa-trash-alt"></i>
                   </n-button>
@@ -225,11 +226,10 @@ export default {
       testClicked: false,   // 테스트 버튼 눌렀는지 여부
 
       periodOptions: [{code: 'Y', content: 'Year to Year'}, {code: 'M', content: 'Month to Month'}],
-      yearOptions: [],
+      yearOptions: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
       monthOptions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       rebalancingOptions: [{code: -1, content: '재분배하지 않음'}, {code: 12, content: '1년마다'}, {code: 6, content: '6개월마다'}, {code: 3, content: '3개월마다'}],
-      // stockList: [{code: 'A066570', content: 'LG전자[A066570]'}, {code: 'A005930', content: '삼성전자[A005930]'}, {code: 'A005380', content: '현대자동차[A005380]'}],
-      stockList: [{code: 'LG전자[A066570]', content: 'LG전자[A066570]'}, {code: '삼성전자[A005930]', content: '삼성전자[A005930]'}, {code: '현대자동차[A005380]', content: '현대자동차[A005380]'}],
+      stockList: [{code: 'A066570', content: 'LG전자[A066570]'}, {code: 'A005930', content: '삼성전자[A005930]'}, {code: 'A005380', content: '현대자동차[A005380]'}],
       columns: ["stock", "portfolio1", "portfolio2", "portfolio3"],
       // 테스트 데이터
       testData: {
@@ -707,13 +707,6 @@ export default {
       ],
     }
   },
-  mounted() {
-    // 연도 선택 옵션 리스트 설정
-    let year = new Date().getFullYear();
-    for (let i = 2000; i <= year; i++) {
-      this.yearOptions.push(i);        
-    }
-  },
   methods:{
     ...mapActions("stock", ["getTestData"]),
 
@@ -779,7 +772,7 @@ export default {
     },
     // 행 추가
     addRow() {
-      this.testData.stocks.push({ stock: null, portfolio1: null, portfolio2: null, portfolio3: null });
+      this.testData.stocks.push({ stock: "", portfolio1: 0, portfolio2: 0, portfolio3: 0, });
     },
     // 행 삭제
     removeRow(index) {
@@ -830,12 +823,7 @@ export default {
   },
 };
 </script>
-<style scoped>
-.table-container {
-  width:95%;
-  margin:auto;
-  overflow-x:auto;
-}
+<style>
 .period {
   font-size: 3vh;
 }

@@ -3,23 +3,37 @@ axios.defaults.withCredentials = true;
 // axios.defaults.xsrfCookieName = 'csrftoken';
 // axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 // const apiUrl = "/api";
-const apiUrl = process.env.VUE_APP_API_URL;
+// const apiUrl = process.env.VUE_APP_API_URL;
+const apiUrl = 'http://3.34.96.193:8000'
 
 export default {
   // 주식 정보 관련 api
   async getTestData(data) {
-    let stockData = await axios.post(`${apiUrl}/rebalance/`, {
-      startYear: data.startYear,
-      startMonth: data.startMonth,
-      endYear: data.endYear,
-      endMonth: data.endMonth,
-      initAmount: data.initAmount,
-      period: data.period.code,
-      rebalancing: data.rebalancing.code,
-      stocks: data.stocks
-    });
+    // console.log({
+    //   startYear: data.startYear,
+    //   startMonth: data.startMonth,
+    //   endYear: data.endYear,
+    //   endMonth: data.endMonth,
+    //   initAmount: data.initAmount,
+    //   period: data.period.code,
+    //   rebalancing: data.rebalancing.code,
+    //   stocks: data.stocks
+    // })
 
-    console.log('returned data...', stockData);
+    // console.log(apiUrl);
+
+    // let stockData = await axios.post(`${apiUrl}/rebalance/`, {
+    //   startYear: data.startYear,
+    //   startMonth: data.startMonth,
+    //   endYear: data.endYear,
+    //   endMonth: data.endMonth,
+    //   initAmount: data.initAmount,
+    //   period: data.period.code,
+    //   rebalancing: data.rebalancing.code,
+    //   stocks: data.stocks
+    // });
+
+    // console.log('returned data...', stockData);
 
     return data.stocks[0];
   },
