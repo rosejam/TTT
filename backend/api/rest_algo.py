@@ -21,19 +21,22 @@ def rebalancing(request):
             stock_list[0][stockname]=stocks[i]['portfolio1']
             stock_list[1][stockname]=stocks[i]['portfolio2']
             stock_list[2][stockname]=stocks[i]['portfolio3']
-        print(stock_list)
+        # print(stock_list)
         ret = []
         if(period=='M'):
-            if(period==-1):
+            if(rebalancefreq==-1):
+                print(datetime.datetime(startYear,startMonth,1))
                 ret.append(rebalance(stock_list[0], datetime.datetime(startYear,startMonth,1),datetime.datetime(endYear,endMonth,1),assets))
                 ret.append(rebalance(stock_list[1], datetime.datetime(startYear,startMonth,1),datetime.datetime(endYear,endMonth,1),assets))
                 ret.append(rebalance(stock_list[2], datetime.datetime(startYear,startMonth,1),datetime.datetime(endYear,endMonth,1),assets))
+                print(ret)
                 return HttpResponse(ret);
 
         else:
             pass
 
     if request.method=="POST":
+        print("여기")
         return post()
     else:
         return HttpResponse(status=405)
