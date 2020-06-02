@@ -5,38 +5,47 @@ axios.defaults.withCredentials = true;
 // const apiUrl = "/api";
 // const apiUrl = process.env.VUE_APP_API_URL;
 const apiUrl = 'http://3.34.96.193:8000'
+// const apiUrl = 'http://localhost:8000'
 
 export default {
   // 주식 정보 관련 api
+
+  // 현재 주식 리스트 데이터 받아옴
+  async getStockList() {
+    const ret = await axios.get(`${apiUrl}/api/stockinfo`);
+    const stockList = ret.data.results;
+    return stockList;
+  },
+  // 테스트 결과 데이터 받아옴
   async getTestData(data) {
-    // console.log({
-    //   startYear: data.startYear,
-    //   startMonth: data.startMonth,
-    //   endYear: data.endYear,
-    //   endMonth: data.endMonth,
-    //   initAmount: data.initAmount,
-    //   period: data.period.code,
-    //   rebalancing: data.rebalancing.code,
-    //   stocks: data.stocks
-    // })
+    
+    console.log('getTestData Start...', {
+      startYear: data.startYear,
+      startMonth: data.startMonth,
+      endYear: data.endYear,
+      endMonth: data.endMonth,
+      initAmount: data.initAmount,
+      period: data.period,
+      rebalancing: data.rebalancing.code,
+      stocks: data.stocks
+    });
 
-    // console.log(apiUrl);
+    let testData = await axios.post(`${apiUrl}/rebalance/`, {
+      startYear: data.startYear,
+      startMonth: data.startMonth,
+      endYear: data.endYear,
+      endMonth: data.endMonth,
+      initAmount: data.initAmount,
+      period: data.period,
+      rebalancing: data.rebalancing.code,
+      stocks: data.stocks
+    });
 
-    // let stockData = await axios.post(`${apiUrl}/rebalance/`, {
-    //   startYear: data.startYear,
-    //   startMonth: data.startMonth,
-    //   endYear: data.endYear,
-    //   endMonth: data.endMonth,
-    //   initAmount: data.initAmount,
-    //   period: data.period.code,
-    //   rebalancing: data.rebalancing.code,
-    //   stocks: data.stocks
-    // });
-
-    // console.log('returned data...', stockData);
+    console.log('TestData returned data...', testData);
 
     return data.stocks[0];
   },
+
   // 유저 관련 api
   async getUserInfo() {
     let userInfo = localStorage.getItem("user_token");

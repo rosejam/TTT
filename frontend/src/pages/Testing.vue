@@ -115,7 +115,7 @@
           <tbody>
             <tr v-for="(row, index) in testData.stocks" :key="index" :row="row">
                 <td>
-                  <v-select v-model="row.stock" :options="stockList" :reduce="content => content.code" label="content" />
+                  <v-select v-model="row.stock" :options="stockOptions" :reduce="content => content.code" label="content" placeholder="클릭해서 종목 검색"/>
                 </td>
                 <td nowrap width="110">
                   <fg-input type="number"
@@ -228,8 +228,8 @@ export default {
       yearOptions: [],
       monthOptions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       rebalancingOptions: [{code: -1, content: '재분배하지 않음'}, {code: 12, content: '1년마다'}, {code: 6, content: '6개월마다'}, {code: 3, content: '3개월마다'}],
-      // stockList: [{code: 'A066570', content: 'LG전자[A066570]'}, {code: 'A005930', content: '삼성전자[A005930]'}, {code: 'A005380', content: '현대자동차[A005380]'}],
-      stockList: [{code: 'LG전자[A066570]', content: 'LG전자[A066570]'}, {code: '삼성전자[A005930]', content: '삼성전자[A005930]'}, {code: '현대자동차[A005380]', content: '현대자동차[A005380]'}],
+      stockOptions: [],
+      // stockOptions: [{code: 'A066570', content: 'LG전자[A066570]'}, {code: 'A005930', content: '삼성전자[A005930]'}, {code: 'A005380', content: '현대차[A005380]'}],
       columns: ["stock", "portfolio1", "portfolio2", "portfolio3"],
       // 테스트 데이터
       testData: {
@@ -707,15 +707,28 @@ export default {
       ],
     }
   },
-  mounted() {
+  async mounted() {
     // 연도 선택 옵션 리스트 설정
     let year = new Date().getFullYear();
     for (let i = 2000; i <= year; i++) {
       this.yearOptions.push(i);        
     }
+
+    // 종목 리스트 삽입
+    await this.setStockList();
+    const list = this.stockList.stockList;
+    for (let i = 0; i < list.length; i++) {
+      const stock = list[i];
+      this.stockOptions.push({code: stock.code, content: stock.name+'['+stock.code+']'});
+    }
   },
   methods:{
-    ...mapActions("stock", ["getTestData"]),
+    ...mapActions("stock", ["getTestData", "getStockList"]),
+
+    // 주식 목록 가져오는 함수
+    async setStockList() {
+      await this.getStockList();
+    },
 
     // 테스트 버튼 클릭 시 실행되는 함수
     async test(data) {
@@ -813,6 +826,7 @@ export default {
   },
   computed: {
     ...mapState("user", ["userInfo"]),
+    ...mapState("stock", ["stockList"]),
     // 기간이 월~월 인지 여부
     isMonth() {
       if(this.testData.period == 'M') return true;
