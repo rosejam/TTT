@@ -3,26 +3,6 @@
         <card class="card-signup" header-classes="text-center" color="orange">
           <template slot="header">
             <h3 class="card-title title-up">회원 등록</h3>
-            <div class="social-line">
-              <a
-                href="#pablo"
-                class="btn btn-neutral btn-facebook btn-icon btn-round"
-              >
-                <i class="fab fa-facebook-square"></i>
-              </a>
-              <a
-                href="#pablo"
-                class="btn btn-neutral btn-twitter btn-icon btn-lg btn-round"
-              >
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a
-                href="#pablo"
-                class="btn btn-neutral btn-google btn-icon btn-round"
-              >
-                <i class="fab fa-google-plus"></i>
-              </a>
-            </div>
           </template>
           <template>
               <fg-input

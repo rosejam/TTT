@@ -7,6 +7,7 @@
     <div class="container">
       <nav>
         <ul>
+          <!-- TTT 서비스 소개 -->
           <li>
             <div v-popover:info>
             <n-button type="neutral" link>TTT가 뭐야?</n-button>
@@ -25,6 +26,8 @@
               </div>
             </el-popover>
           </li>
+
+          <!-- ROA 팀 소개 -->
           <li>
             <div v-popover:team>
             <n-button type="neutral" link>Team ROA</n-button>
@@ -42,12 +45,14 @@
               </div>
             </el-popover>
           </li>
+
+          <!-- 문의 -->
           <li>
-            <div v-popover:warning>
+            <div v-popover:contact>
             <n-button type="neutral" link>Contact us</n-button>
             </div>
             <el-popover
-              ref="warning"
+              ref="contact"
               popper-class="popover"
               placement="bottom"
               width="200"
@@ -59,22 +64,28 @@
               </div>
             </el-popover>
           </li>
+
+          <li>
+            <n-button type="neutral" link @click="$router.push('/term')">서비스 이용약관</n-button>
+          </li>
+
         </ul>
       </nav>
       <div class="copyright">
-        &copy; {{ year }}, Created By ROA
+        <n-button type="neutral" link disabled>
+          &copy; {{ year }}, Created By ROA
+        </n-button>
       </div>
     </div>
   </footer>
 </template>
 <script>
-import { Button, Modal } from '@/components';
+import { Button } from '@/components';
 import { Popover } from 'element-ui';
 
 export default {
   components: {
     [Button.name]: Button,
-    Modal,
     [Popover.name]: Popover,
   },
   props: {
@@ -84,11 +95,6 @@ export default {
   data() {
     return {
       year: new Date().getFullYear(),
-      modals: {
-        desc: false,
-        team: false,
-        contact: false,
-      },
     };
   }
 };

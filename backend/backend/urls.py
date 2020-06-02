@@ -36,11 +36,7 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-
-# fmt: off
-
 router=routers.DefaultRouter()
-
 
 urlpatterns=[
     path("admin/", admin.site.urls),
