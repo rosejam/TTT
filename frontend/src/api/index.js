@@ -26,7 +26,7 @@ export default {
       endMonth: data.endMonth,
       initAmount: data.initAmount,
       period: data.period,
-      rebalancing: data.rebalancing.code,
+      rebalancing: data.rebalancing,
       stocks: data.stocks
     });
 
@@ -37,7 +37,7 @@ export default {
       endMonth: data.endMonth,
       initAmount: data.initAmount,
       period: data.period,
-      rebalancing: data.rebalancing.code,
+      rebalancing: data.rebalancing,
       stocks: data.stocks
     });
 

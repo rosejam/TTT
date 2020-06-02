@@ -35,7 +35,7 @@
           <p>기간 설정</p>
         </div>
         <div class="col-md-2">
-          <v-select v-model="testData.period" :options="periodOptions" :reduce="content => content.code" label="content" />
+          <v-select v-model="testData.period" :options="periodOptions" :reduce="content => content.code" label="content" placeholder="테스트 기간 선택"/>
         </div>
 
         <!-- 초기금액 설정 -->
@@ -51,12 +51,12 @@
           <p>재분배 주기</p>
         </div>
         <div class="col-md-2">
-          <v-select v-model="testData.rebalancing" :options="rebalancingOptions" :reduce="content => content.code" label="content" />
+          <v-select v-model="testData.rebalancing" :options="rebalancingOptions" :reduce="content => content.code" label="content" placeholder="재분배 주기 선택"/>
         </div>
       </div>
       <br/>
 
-      <div class="row">
+      <div class="row" v-if="testData.period != null">
 
         <!-- 시작일 select -->
         <div class="col-md-1">
@@ -65,10 +65,10 @@
         <div class="col-md-2">
           <v-select v-model="testData.startYear" :options=yearOptions></v-select>
         </div>
-        <div class="col-md-1" v-if="isMonth">
+        <div class="col-md-1" v-if="testData.period == 'M'">
           <p>시작 월</p>
         </div>
-        <div class="col-md-1" v-if="isMonth">
+        <div class="col-md-1" v-if="testData.period == 'M'">
           <v-select v-model="testData.startMonth" :options=monthOptions></v-select>
         </div>
 
@@ -79,10 +79,10 @@
         <div class="col-md-2">
           <v-select v-model="testData.endYear" :options=yearOptions></v-select>
         </div>
-        <div class="col-md-1" v-if="isMonth">
+        <div class="col-md-1" v-if="testData.period == 'M'">
           <p>종료 월</p>
         </div>
-        <div class="col-md-1" v-if="isMonth">
+        <div class="col-md-1" v-if="testData.period == 'M'">
           <v-select v-model="testData.endMonth" :options=monthOptions></v-select>
         </div>
       </div>
@@ -223,7 +223,6 @@ export default {
   data() {
     return {
       testClicked: false,   // 테스트 버튼 눌렀는지 여부
-
       periodOptions: [{code: 'Y', content: 'Year to Year'}, {code: 'M', content: 'Month to Month'}],
       yearOptions: [],
       monthOptions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -233,13 +232,13 @@ export default {
       columns: ["stock", "portfolio1", "portfolio2", "portfolio3"],
       // 테스트 데이터
       testData: {
-        period: {code: 'Y', content: 'Year to Year'},
+        period: null,
         startYear: 2000,
         startMonth: 1,
         endYear: 2020,
         endMonth: 4,
         initAmount: 1000000,
-        rebalancing: {code: -1, content: '재분배하지 않음'},
+        rebalancing: null,
         stocks: [
           { stock: null, portfolio1: null, portfolio2: null, portfolio3: null },
           { stock: null, portfolio1: null, portfolio2: null, portfolio3: null },
@@ -732,11 +731,26 @@ export default {
 
     // 테스트 버튼 클릭 시 실행되는 함수
     async test(data) {
+
+      // 기간 선택 여부 검사
+      if(data.period == 
+      null) {
+        alert('테스트 기간을 설정해주세요');
+        return;
+      }
+
+      // 재분배 주기 선택 여부 검사
+      if(data.rebalancing == null) {
+        alert('재분배 주기를 선택해주세요');
+        return;
+      }
+
+
+      // 입력받은 % 값 검사
       const stocks = data.stocks;
       for (let i = 0; i < stocks.length; i++) {
         const stock = stocks[i];
 
-        // 입력받은 % 값 검사
         if(stock.portfolio1 < 0 || stock.portfolio1 > 100 ||
            stock.portfolio2 < 0 || stock.portfolio2 > 100 ||
            stock.portfolio3 < 0 || stock.portfolio3 > 100) {
