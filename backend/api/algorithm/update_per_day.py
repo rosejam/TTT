@@ -8,9 +8,9 @@ from datetime import datetime
 import threading
 import time
 
-list_url= "http://15.165.21.105:5000/stockcodes?market=kospi"
+list_url= "http://localhost:5000/stockcodes?market=kospi"
 
-base_url= "http://15.165.21.105:5000/stockcandles?code=" # 035420&date_from=20000101 "
+base_url= "http://localhost:5000/stockcandles?code=" 
 conn = pymysql.connect(host="3.34.96.193", user="ttt", password="a105A!)%",
                        db="TTT", charset="utf8")  # 1. DB 연결
 cur = conn.cursor() # 2. 커서 생성 (트럭, 연결로프)
@@ -47,7 +47,7 @@ for i in  enumerate(list_key):
     cur.execute(sql) 
     conn.commit() 
 
-list_url= "http://15.165.21.105:5000/stockcodes?market=kosdaq"
+list_url= "http://localhost:5000/stockcodes?market=kosdaq"
 
 
 list_result = requests.get(list_url).json()
