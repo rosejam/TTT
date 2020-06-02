@@ -6,9 +6,8 @@ const state = {
 
 // actions
 const actions = {
-  async getStockData({commit}, data) {
-    console.log('stock.js.....', data);
-    const stockData = await api.getStockData(data);
+  async getTestData({commit}, data) {
+    const stockData = await api.getTestData(data);
     return stockData;
   }
 };
