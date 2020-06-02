@@ -36,17 +36,8 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-
-# fmt: off
-
 router=routers.DefaultRouter()
-
-router.register('User',views.UserViewSet)
-router.register("log",views.logViewSet)
-router.register("Market",views.MarketViewSet)
-router.register("Algorithm",views.AlgorithmViewSet)
-router.register("userAlgo",views.userAlgoViewSet)
-
+# fmt: off
 
 urlpatterns=[
     path("admin/", admin.site.urls),
