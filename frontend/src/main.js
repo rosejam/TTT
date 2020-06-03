@@ -21,46 +21,28 @@ import router from './router';
 import store from "./store";
 import NowUiKit from './plugins/now-ui-kit';
 import firebase from 'firebase';
-import VueSession from 'vue-session'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
-import AutocompleteVue from 'autocomplete-vue';
-// import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
-import zingchartVue from 'zingchart-vue';
 
 
 Vue.config.productionTip = false;
 
-var sessionOptions = {
-  persist: true
-}
+// import VueSession from 'vue-session'
+// var sessionOptions = {
+//   persist: true
+// }
 
-Vue.use(VueSession, sessionOptions)
+// Vue.use(VueSession, sessionOptions)
 Vue.use(NowUiKit)
 // Install BootstrapVue
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
-// Vue.use(VueMaterial)
 
 Vue.component('v-select', vSelect)
-
-// vSelect.props.components.default = () => ({
-// 	Deselect: {
-// 	  render: createElement => createElement('span', '❌'),
-// 	},
-// 	OpenIndicator: {
-// 	  render: createElement => createElement('span', '🔽'),
-// 	},
-//   });
-
-Vue.component('autocomplete-vue', AutocompleteVue);
-
-Vue.component('zingchart', zingchartVue)
 
 // EK web app's Firebase configuration
 const firebaseConfig = {

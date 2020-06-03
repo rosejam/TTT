@@ -6,7 +6,7 @@
     :color-on-scroll="colorOnScroll"
     menu-classes="ml-auto"
   >
-    <template slot-scope="{ toggle, isToggled }">
+    <template>
       <router-link class="navbar-brand" to="/">
         <img v-if="$route.path != '/'" class="n-logo" src="img/TTT-logo.png" alt="" style="width:40px; height:auto"/>
       </router-link>
@@ -24,26 +24,21 @@
       </li>
 
       <!-- 포트폴리오 페이지 이동 버튼 -->
-      <li v-if="userInfo.email!=null" class="nav-item">
+      <li v-if="userInfo.uid!=null" class="nav-item">
           <router-link class="navbar-brand" to="/portfolio">
             <i class="now-ui-icons files_paper"></i> 내 포트폴리오
           </router-link>
       </li>
 
       <!-- 내 정보 페이지 이동 버튼 -->
-      <li v-if="userInfo.email!=null" class="nav-item">
+      <!-- <li v-if="userInfo.uid!=null" class="nav-item">
         <router-link class="navbar-brand" to="/profile">
           <i class="now-ui-icons users_single-02"></i> 내 정보
         </router-link>
-      </li>
+      </li> -->
 
       <!-- 로그인 버튼 -->
-      <li class="nav-item" v-if="userInfo.email==null">
-        <!-- <nav-link
-          class="nav-link btn btn-neutral"
-          to="/login">
-          <p>로그인</p>
-        </nav-link> -->
+      <li class="nav-item" v-if="userInfo.uid==null">
         <n-button
           @click="$router.push('/login')"
           type="neutral"

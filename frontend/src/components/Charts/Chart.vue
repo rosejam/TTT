@@ -1,20 +1,15 @@
 <template>
   <div class="content">
     <div class="row" style="margin:auto">
-      <div class="col-md-6">
-        <card>
+      <div class="col-md-2"></div>
+      <div class="col-md-9">
           <div class="row">
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-8">
-              <h3>테스트 결과</h3>
-            </div>
+            <div class="col-md-10"></div>
             <div class="col-md-2">
                 <img src="img/chart_line_color.png" alt="">
             </div>
           </div>
           <div class="chart" ref="chart"></div>
-        </card>
       </div>
     </div>
   </div>
@@ -67,23 +62,17 @@ export default {
     });
 
     var porfolio1_series = chart.addAreaSeries({
-      topColor: 'rgba(67, 83, 254, 0.7)',
-      bottomColor: 'rgba(67, 83, 254, 0.3)',
       lineColor: 'rgba(67, 83, 254, 1)',
       lineWidth: 2,
     });
 
     var porfolio2_series = chart.addAreaSeries({
-      topColor: 'rgba(255, 192, 0, 0.7)',
-      bottomColor: 'rgba(255, 192, 0, 0.3)',
       lineColor: 'rgba(255, 192, 0, 1)',
       lineWidth: 2,
 	  });
 	
 	  var porfolio3_series = chart.addAreaSeries({
-      topColor: 'rgba(255, 192, 0, 0.7)',
-      bottomColor: 'rgba(255, 192, 0, 0.3)',
-      lineColor: 'rgba(255, 192, 0, 1)',
+      lineColor: 'rgba(255, 33, 102, 1)',
       lineWidth: 2,
 	  });
 	

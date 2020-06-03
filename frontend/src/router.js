@@ -17,10 +17,6 @@ import MainNavbar from './layout/MainNavbar.vue';
 // 푸터
 import MainFooter from './layout/MainFooter.vue';
 
-import Chart_practice from './pages/Chart_practice.vue'
-import practice from './pages/practice.vue'
-import Chart_practice2 from './pages/Chart_practice2.vue'
-
 Vue.use(Router);
 
 // 로그인 안하면 접근 불가
@@ -106,35 +102,6 @@ export default new Router({
         footer: { backgroundColor: 'black' }
       },
     },
-    // 연습용 페이지
-    {
-      path: '/practice',
-      name: 'practice',
-      components: { default: practice, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
-    },
-    {
-      path: '/chart',
-      name: 'chart',
-      components: { default: Chart_practice, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
-    },
-    {
-      path: '/chart2',
-      name: 'chart2',
-      components: { default: Chart_practice2, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
-    },
-
   ],
   scrollBehavior: to => {
     if (to.hash) {
