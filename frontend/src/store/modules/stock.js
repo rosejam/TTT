@@ -13,7 +13,6 @@ const actions = {
   },
   async getTestData({commit}, data) {
     const testData = await api.getTestData(data);
-    // console.log('TestData returned...', testData);
     return testData;
   },
 };
