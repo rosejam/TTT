@@ -41,7 +41,7 @@ export default {
       stocks: data.stocks
     });
 
-    console.log('TestData returned data...', testData);
+    console.log('TestData returned data...', testData.data);
 
     return data.stocks[0];
   },
