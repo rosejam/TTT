@@ -294,7 +294,7 @@ export default {
         startMonth: 1,
         endYear: 2020,
         endMonth: 4,
-        initAmount: 1000000,
+        initAmount: "1000000",
         rebalancing: null,
         stocks: [
           { stock: null, portfolio1: null, portfolio2: null, portfolio3: null },
@@ -339,6 +339,7 @@ export default {
 
       // 유효성 검증
       if(!this.validate(data)) return;
+      console.log(data);
 
       this.testClicked = false;
       this.loading = true;
@@ -387,18 +388,26 @@ export default {
       this.portfolio3_data = chartData;
     },
 
-    // 검증 함수
+    // 데이터 유효성 검증 함수
     validate(data) {
 
       // 기간 선택 여부 검사
-      if(data.period == 
-      null) {
+      if(!data.period) {
         alert('테스트 기간을 설정해주세요');
         return false;
       }
 
+      // 초기 금액 검사
+      if(data.initAmount=="") {
+        alert("초기 금액을 설정해주세요");
+        return;
+      }
+      else {
+        data.initAmount = Number(data.initAmount);
+      }
+
       // 재분배 주기 선택 여부 검사
-      if(data.rebalancing == null) {
+      if(!data.rebalancing) {
         alert('재분배 주기를 선택해주세요');
         return false;
       }
@@ -440,9 +449,9 @@ export default {
       for (let i = 0; i < data.stocks.length; i++) {
         const stock = data.stocks[i];
         if(stock.stock == null || stock.stock == "") {
-          stock.portfolio1 = 0;
-          stock.portfolio2 = 0;
-          stock.portfolio3 = 0;
+          stock.portfolio1 = "0";
+          stock.portfolio2 = "0";
+          stock.portfolio3 = "0";
         }
         else {
           if(tmpStockList.includes(stock.stock)) {
@@ -451,9 +460,9 @@ export default {
           }
           tmpStockList.push(stock.stock);
           isNull = false;
-          if(stock.portfolio1 == null || stock.portfolio1 == "") stock.portfolio1 = 0;
-          if(stock.portfolio2 == null || stock.portfolio2 == "") stock.portfolio2 = 0;
-          if(stock.portfolio3 == null || stock.portfolio3 == "") stock.portfolio3 = 0;
+          if(stock.portfolio1 == null || stock.portfolio1 == "") stock.portfolio1 = "0";
+          if(stock.portfolio2 == null || stock.portfolio2 == "") stock.portfolio2 = "0";
+          if(stock.portfolio3 == null || stock.portfolio3 == "") stock.portfolio3 = "0";
         }
       }
       if(isNull) {
