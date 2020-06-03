@@ -93,6 +93,14 @@ def rebalance(stock_list, s_date, e_date,assets,freq):
     else:
         for i, stocks in enumerate(stock_list):
             rret={}
+            mm=str(int(s_date%10000/100))
+            if len(mm)==1:
+                mm="0"+mm
+            dd=str(s_date%100)
+            if len(dd)==1:
+                dd="0"+dd
+            tempdate=str(int(s_date/10000))+"-"+mm+"-"+dd
+            rret[tempdate]=assets
             drebal_date=datetime.datetime.strptime(str(s_date),"%Y%m%d").date()
             cp_idx=s_idx.copy()
             cp_sdate=s_date
@@ -133,7 +141,18 @@ def rebalance(stock_list, s_date, e_date,assets,freq):
                             ccp_asset=rret[tempdate]
                             
                 cp_asset=ccp_asset
-                cp_sdate=rebal_date    
+                cp_sdate=rebal_date
+
+            mm=str(int(e_date%10000/100))
+            if len(mm)==1:
+                mm="0"+mm
+            dd=str(e_date%100)
+            if len(dd)==1:
+                dd="0"+dd
+            tempdate=str(int(e_date/10000))+"-"+mm+"-"+dd
+            if len(rret)==1:
+                rret[tempdate]=assets
+                print("상장이 안됨")    
             ret.append(rret)
     return ret
         
