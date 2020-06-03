@@ -101,7 +101,9 @@
       </n-button> -->
 
       <!-- 포트폴리오 테이블 영역 -->
-      <div class="table-container">
+      <div class="row">
+        <div class="col-md-2"></div>
+      <div class="table-container col-md-8">
         <table class="table" style="width:95%">
           <thead>
             <tr>
@@ -158,6 +160,8 @@
             </tr>
           </tbody>
         </table>
+      </div>
+        <div class="col-md-2"></div>
       </div>
       <!-- 포트폴리오 테이블 끝 -->
 
@@ -860,8 +864,6 @@ export default {
 </script>
 <style scoped>
 .table-container {
-  width:95%;
-  margin:auto;
   overflow-x:auto;
 }
 .period {
