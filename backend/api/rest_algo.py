@@ -16,6 +16,8 @@ def rebalancing(request):
         stocks=received_json_data['stocks']
         stock_list=[{},{},{}]
         for i in range(0,len(stocks)):
+            if(stocks[i]['stock'] is None):
+                continue
             stockcode=stocks[i]['stock']
             stock_list[0][stockcode]=int(stocks[i]['portfolio1'])
             stock_list[1][stockcode]=int(stocks[i]['portfolio2'])
