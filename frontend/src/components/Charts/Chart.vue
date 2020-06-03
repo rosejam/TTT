@@ -9,6 +9,7 @@
                 <img src="img/chart_line_color.png" alt="">
             </div>
           </div>
+          <br/>
           <div class="chart" ref="chart"></div>
       </div>
     </div>
@@ -46,8 +47,8 @@ export default {
         borderColor: 'rgba(197, 203, 206, 0.4)',
       },
       layout: {
-        backgroundColor: '#100841',
-        textColor: '#ffffff',
+        backgroundColor: '#EEEEEE',
+        textColor: '#000000',
       },
       grid: {
         vertLines: {
