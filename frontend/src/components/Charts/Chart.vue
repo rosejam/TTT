@@ -23,7 +23,7 @@ export default {
   name: 'chart',
   bodyClass: 'chart-body',
   components: {
-	Card,
+	  Card,
     LightweightCharts
   },
   props: {

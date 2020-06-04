@@ -6,6 +6,7 @@ import Index from './pages/Index.vue';
 import Login from './pages/Login.vue';
 // 테스트 페이지
 import Testing from './pages/Testing.vue';
+import Testing2 from './pages/Testing2.vue';
 // 포트폴리오
 import Portfolio from './pages/Portfolio.vue';
 // 내 정보 페이지
@@ -16,6 +17,7 @@ import Term from './pages/Term.vue';
 import MainNavbar from './layout/MainNavbar.vue';
 // 푸터
 import MainFooter from './layout/MainFooter.vue';
+
 
 Vue.use(Router);
 
@@ -39,6 +41,7 @@ export default new Router({
   mode: 'history',
   linkExactActiveClass: 'active',
   routes: [
+
     // 메인
     {
       path: '/',
@@ -65,6 +68,15 @@ export default new Router({
       path: '/testing',
       name: 'testing',
       components: { default: Testing, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/testing2',
+      name: 'testing2',
+      components: { default: Testing2, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }

@@ -218,13 +218,18 @@
         <div class="col-10">
           <card>
 
+            <!-- 결과창 닫기 버튼 -->
+            <n-button icon round @click="testClicked=false">
+              <i class="now-ui-icons ui-1_simple-remove"></i>
+            </n-button>
+
             <!-- 차트 -->
             <h3>자산 변화 추이</h3>
-              <line-chart
-                :portfolio1_data="portfolio1_data"
-                :portfolio2_data="portfolio2_data"
-                :portfolio3_data="portfolio3_data"
-              ></line-chart>
+            <chart
+              :portfolio1_data="portfolio1_data"
+              :portfolio2_data="portfolio2_data"
+              :portfolio3_data="portfolio3_data"
+            ></chart>
 
             <!-- 포트폴리오 저장 버튼 -->
             <n-button type="primary" outline round @click.native="modals.save = true"
@@ -258,7 +263,7 @@ import { mapState, mapActions, mapMutations } from "vuex";
 import api from "@/api";
 import { Button, FormGroupInput, Modal } from '@/components';
 import { Card } from "@/components/index";
-import LineChart from '@/components/Charts/LineChart.vue';
+import Chart from '@/components/Charts/Chart.vue';
 import { BSpinner } from 'bootstrap-vue'
 
 export default {
@@ -269,7 +274,7 @@ export default {
     [FormGroupInput.name]: FormGroupInput,
     Modal,
     Card,
-    LineChart,
+    Chart,
     BSpinner,
   },
   data() {
@@ -288,7 +293,7 @@ export default {
         startYear: 2000,
         startMonth: 1,
         endYear: 2020,
-        endMonth: new Date().getMonth(),
+        endMonth: 4,
         initAmount: "1000000",
         rebalancing: null,
         stocks: [
@@ -334,14 +339,13 @@ export default {
 
       // 유효성 검증
       if(!this.validate(data)) return;
-
-console.log(data);
+      console.log(data);
 
       this.testClicked = false;
       this.loading = true;
       
       // 테스트 데이터 get
-      const result = await this.getTestData(data);
+      let result = await this.getTestData(data);
 
       // 데이터 전처리
       this.preprocess(result);
@@ -352,7 +356,7 @@ console.log(data);
 
     // 전처리 함수
     preprocess(result) {
-      result = result.substring(1, result.length-1);
+      result = result.substring(1,result.length-1);
       result = result.replace(/ /gi, "");   // replaceall과 같은 효과 - /와 / 사이에 있는 문자를 ""로 변환. g - 전부, i - 대소문자 구분 없이
       const resultList = result.split("}{");
       const result1 = resultList[0].split(",");
@@ -363,10 +367,7 @@ console.log(data);
       let chartData = [];
       for (let i = 0; i < result1.length; i++) {
         const r = result1[i].split(":");
-        const date = r[0].substring(1, r[0].length-1).split("-");
-        let d = new Date(date[0], date[1]-1, date[2], 0, 0).getTime()
-
-        chartData.push([d, Number(r[1])]);
+        chartData.push({ time: r[0], value: Number(r[1]) });
       }
       this.portfolio1_data = chartData;
 
@@ -374,10 +375,7 @@ console.log(data);
       chartData = [];
       for (let i = 0; i < result2.length; i++) {
         const r = result2[i].split(":");
-        const date = r[0].substring(1, r[0].length-1).split("-");
-        let d = new Date(date[0], date[1]-1, date[2], 0, 0).getTime()
-
-        chartData.push([d, Number(r[1])]);
+        chartData.push({ time: r[0], value: Number(r[1]) });
       }
       this.portfolio2_data = chartData;
 
@@ -385,14 +383,9 @@ console.log(data);
       chartData = [];
       for (let i = 0; i < result3.length; i++) {
         const r = result3[i].split(":");
-        const date = r[0].substring(1, r[0].length-1).split("-");
-        let d = new Date(date[0], date[1]-1, date[2], 0, 0).getTime()
-
-        chartData.push([d, Number(r[1])]);
+        chartData.push({ time: r[0], value: Number(r[1]) });
       }
       this.portfolio3_data = chartData;
-
-      console.log(this.portfolio3_data);
     },
 
     // 데이터 유효성 검증 함수
@@ -419,27 +412,9 @@ console.log(data);
         return false;
       }
 
-      // 연도, 월 입력 여부 검사
-      if(data.startYear=="") {
-        alert("시작 연도를 입력해주세요");
-        return;
-      }
-      if(data.period=="M" && data.startMonth=="") {
-        alert("시작 월을 입력해주세요");
-        return;
-      }
-      if(data.endYear=="") {
-        alert("종료 연도를 입력해주세요");
-        return;
-      }
-      if(data.period=="M" && data.endMonth=="") {
-        alert("종료 월을 입력해주세요");
-        return;
-      }
-
       // 종료일자 검사
       const year = new Date().getFullYear();
-      const month = new Date().getMonth();
+      const month = new Date().getMonth() - 1;
       if(data.endYear >= year && data.endMonth > month) {
         let msg = "종료일자는 " + year.toString() + "년 " + month.toString() + "월 이전으로 설정해주세요"
         alert("종료일자는 " + year.toString() + "년 " + month.toString() + "월 이전으로 설정해주세요");

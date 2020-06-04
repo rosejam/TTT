@@ -27,15 +27,15 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
 
-
-Vue.config.productionTip = false;
-
 // import VueSession from 'vue-session'
 // var sessionOptions = {
 //   persist: true
 // }
 
 // Vue.use(VueSession, sessionOptions)
+
+Vue.config.productionTip = false;
+
 Vue.use(NowUiKit)
 // Install BootstrapVue
 Vue.use(BootstrapVue)
