@@ -16,7 +16,7 @@ export default {
   // 테스트 결과 데이터 받아옴
   async getTestData(data) {
 
-    let testData = await axios.post(`${apiUrl}/rebalance/`, {
+    const testData = await axios.post(`${apiUrl}/rebalance/`, {
       startYear: data.startYear,
       startMonth: data.startMonth,
       endYear: data.endYear,
@@ -31,8 +31,14 @@ export default {
   },
 
   // 유저 관련 api
-  async getUserInfo() {
-    let userInfo = localStorage.getItem("user_token");
+  async getUserInfo(uid) {
+    // const result = await axios.get(`${apiUrl}/userInfo/`+uid)
+
+    let userInfo = {
+      uid: uid,
+      portfolio: "포트폴리오~~"
+    };
+
     return userInfo;
   },
 };
