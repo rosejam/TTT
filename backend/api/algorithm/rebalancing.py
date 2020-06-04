@@ -1,6 +1,6 @@
 from django.db import connection
 import datetime
-#import pymysql
+# import pymysql
 from dateutil.relativedelta import relativedelta
 
 '''
@@ -11,6 +11,16 @@ temp_db = pymysql.connect(
         db='TTT',
         port=3306)
 '''
+
+def getHypenDate(int_date):
+    mm=str(int(int_date%10000/100))
+    if len(mm)==1:
+        mm="0"+mm
+    dd=str(int_date%100)
+    if len(dd)==1:
+        dd="0"+dd
+    tempdate=str(int(int_date/10000))+"-"+mm+"-"+dd
+    return tempdate
 
 def rebalance(stock_list, s_date, e_date,assets,freq):
     cursor=connection.cursor()
@@ -60,13 +70,7 @@ def rebalance(stock_list, s_date, e_date,assets,freq):
     if freq==-1:
         for i, stocks in enumerate(stock_list):
             rret={}
-            mm=str(int(s_date%10000/100))
-            if len(mm)==1:
-                mm="0"+mm
-            dd=str(s_date%100)
-            if len(dd)==1:
-                dd="0"+dd
-            tempdate=str(int(s_date/10000))+"-"+mm+"-"+dd
+            tempdate=getHypenDate(s_date)
             rret[tempdate]=assets
             for key, value in stocks.items():
                 if(value==0):
@@ -82,13 +86,7 @@ def rebalance(stock_list, s_date, e_date,assets,freq):
                     if item[1]>e_date:
                         break
 
-                    mm=str(int(item[1]%10000/100))
-                    if len(mm)==1:
-                        mm="0"+mm
-                    dd=str(item[1]%100)
-                    if len(dd)==1:
-                        dd="0"+dd
-                    tempdate=str(int(item[1]/10000))+"-"+mm+"-"+dd
+                    tempdate=getHypenDate(item[1])
                     rret[tempdate]=assets
                     if flag:
                         stock_amount=int(stock_asset/item[2])
@@ -97,32 +95,20 @@ def rebalance(stock_list, s_date, e_date,assets,freq):
                     else:
                         rret[tempdate]=rret[tempdate]-sub_asset+stock_amount*item[2]
 
-            mm=str(int(e_date%10000/100))
-            if len(mm)==1:
-                mm="0"+mm
-            dd=str(e_date%100)
-            if len(dd)==1:
-                dd="0"+dd
-            tempdate=str(int(e_date/10000))+"-"+mm+"-"+dd
+            tempdate=getHypenDate(e_date)
             if len(rret)==1:
                 rret[tempdate]=assets        
             ret.append(rret)
     else:
         for i, stocks in enumerate(stock_list):
             rret={}
-            mm=str(int(s_date%10000/100))
-            if len(mm)==1:
-                mm="0"+mm
-            dd=str(s_date%100)
-            if len(dd)==1:
-                dd="0"+dd
-            tempdate=str(int(s_date/10000))+"-"+mm+"-"+dd
+            tempdate=getHypenDate(s_date)
             rret[tempdate]=assets
             drebal_date=datetime.datetime.strptime(str(s_date),"%Y%m%d").date()
             cp_idx=s_idx.copy()
             cp_sdate=s_date
             cp_asset=assets
-            ccp_asset=0
+            ccp_asset=assets
             for j in range(int(subMonth/freq)+1):
                 drebal_date=drebal_date+relativedelta(months=freq)
                 rebal_date=min(int(drebal_date.strftime("%Y%m%d")),e_date)
@@ -141,13 +127,7 @@ def rebalance(stock_list, s_date, e_date,assets,freq):
                         if item[1]>rebal_date:
                             break
                         cp_idx[key]+=1
-                        mm=str(int(item[1]%10000/100))
-                        if len(mm)==1:
-                            mm="0"+mm
-                        dd=str(item[1]%100)
-                        if len(dd)==1:
-                            dd="0"+dd
-                        tempdate=str(int(item[1]/10000))+"-"+mm+"-"+dd
+                        tempdate=getHypenDate(item[1])
                         rret[tempdate]=cp_asset
                         if flag:
                             stock_amount=int(stock_asset/item[2])
@@ -160,13 +140,7 @@ def rebalance(stock_list, s_date, e_date,assets,freq):
                 cp_asset=ccp_asset
                 cp_sdate=rebal_date
 
-            mm=str(int(e_date%10000/100))
-            if len(mm)==1:
-                mm="0"+mm
-            dd=str(e_date%100)
-            if len(dd)==1:
-                dd="0"+dd
-            tempdate=str(int(e_date/10000))+"-"+mm+"-"+dd
+            tempdate=getHypenDate(e_date)
             if len(rret)==1:
                 rret[tempdate]=assets
  
@@ -177,4 +151,4 @@ def rebalance(stock_list, s_date, e_date,assets,freq):
     
 
 if __name__=="__main__":
-    print(rebalance([{'A066570': 50, 'A000070': 20, 'A000060': 30}, {'A066570': 30, 'A000070': 30, 'A000060': 40}, {'A066570': 20, 'A000070': 50, 'A000060': 30}],20101201,20110307,100000,3))
+    print(rebalance([{'A000080': 100}],20081201,20100307,100000,3))
