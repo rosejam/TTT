@@ -1,16 +1,16 @@
 from django.db import connection
 import datetime
-import pymysql
+# import pymysql
 from dateutil.relativedelta import relativedelta
 
-
+'''
 temp_db = pymysql.connect(
         user='ttt', 
         passwd='a105A!)%', 
         host='3.34.96.193', 
         db='TTT',
         port=3306)
-
+'''
 
 def getHypenDate(int_date):
     mm=str(int(int_date%10000/100))
@@ -23,8 +23,8 @@ def getHypenDate(int_date):
     return tempdate
 
 def rebalance(stock_list, s_date, e_date,assets,freq):
-    #cursor=connection.cursor()
-    cursor=temp_db.cursor()
+    cursor=connection.cursor()
+    # cursor=temp_db.cursor()
     rret=0;
     ret=[]
     '''
