@@ -32,7 +32,6 @@ export default {
 
   // 유저 관련 api
   async getUserInfo(uid) {
-    console.log('index.js....uid>>', uid);
     // const result = await axios.get(`${apiUrl}/userInfo/`+uid)
 
     let userInfo = {
@@ -40,7 +39,6 @@ export default {
       portfolio: "포트폴리오~~"
     };
 
-    console.log('index.js....userInfo>>', userInfo);
     return userInfo;
   },
 };
