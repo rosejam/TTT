@@ -254,8 +254,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
-import api from "@/api";
+import { mapState, mapActions } from "vuex";
 import { Button, FormGroupInput, Modal } from '@/components';
 import { Card } from "@/components/index";
 import LineChart from '@/components/Charts/LineChart.vue';
@@ -335,8 +334,6 @@ export default {
       // 유효성 검증
       if(!this.validate(data)) return;
 
-console.log(data);
-
       this.testClicked = false;
       this.loading = true;
       
@@ -392,7 +389,6 @@ console.log(data);
       }
       this.portfolio3_data = chartData;
 
-      console.log(this.portfolio3_data);
     },
 
     // 데이터 유효성 검증 함수

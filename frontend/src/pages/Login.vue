@@ -71,7 +71,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapActions } from "vuex";
 import { Card, Button, FormGroupInput, Modal } from '@/components';
 import MainFooter from '@/layout/MainFooter';
 import SignupForm from '@/pages/components/SignupForm';
@@ -99,7 +99,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("user", ["setUser"]),
+    ...mapActions("user", ["getUserInfo"]),
 
     // 로그인
     async login() {
@@ -109,6 +109,8 @@ export default {
                     .signInWithEmailAndPassword(this.email, this.pw)
                     .then(
                       user => {
+                        // 로그인 시 uid 저장
+                        localStorage.setItem("user", user.user.uid);
                         // 로그인 시 토큰 저장
                         firebase.auth().currentUser.getIdToken().then(idToken => {
                           localStorage.setItem("user_token", idToken);
@@ -121,7 +123,7 @@ export default {
 
       // 로그인 완료 후 동작
       if(localStorage.getItem("user_token")) {
-        await this.setUser();     // user state에 userInfo 세팅
+        await this.getUserInfo();     // user state에 userInfo 세팅
         this.$router.push("/");   // 메인페이지로 이동
       }
 

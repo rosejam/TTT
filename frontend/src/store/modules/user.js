@@ -4,13 +4,15 @@ import api from "../../api";
 const state = {
   userInfo: {
     uid: null,
+    portfolio: null,
   },
 };
 
 // actions
 const actions = {
-  async setUser({ commit }) {
-    const userInfo = await api.getUserInfo();
+  async getUserInfo({ commit }) {
+    const uid = localStorage.getItem("user");
+    const userInfo = await api.getUserInfo(uid);
     commit("setUserInfo", userInfo);
   },
 };
@@ -18,9 +20,19 @@ const actions = {
 // mutations
 const mutations = {
   setUserInfo(state, userInfo) {
-    state.userInfo = {
-      ...state.userInfo,
-      uid: userInfo,
+    if(userInfo == null) {
+      state.userInfo = {
+        ...state.userInfo,
+        uid: null,
+        portfolio: null,
+      }
+    }
+    else {
+      state.userInfo = {
+        ...state.userInfo,
+        uid: userInfo.uid,
+        portfolio: userInfo.portfolio,
+      }
     }
   },
 };
