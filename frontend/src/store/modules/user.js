@@ -15,6 +15,10 @@ const actions = {
     const userInfo = await api.getUserInfo(uid);
     commit("setUserInfo", userInfo);
   },
+
+  async postPortfolio({commit}, data) {
+    await api.postPortfolio(data);
+  }
 };
 
 // mutations

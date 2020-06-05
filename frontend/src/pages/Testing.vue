@@ -219,7 +219,7 @@
           <card>
 
             <!-- 차트 -->
-            <h3>자산 변화 추이</h3>
+            <h3>테스트 결과</h3>
               <line-chart
                 :portfolio1_data="portfolio1_data"
                 :portfolio2_data="portfolio2_data"
@@ -240,13 +240,14 @@
       <modal :show.sync="modals.save" headerClasses="justify-content-center" style="color:black" modal-classes="modal-sm">
         <h4 slot="header" class="title title-up">포트폴리오 저장</h4>
         <fg-input  class="col-12"
-                  placeholder="포트폴리오 이름">
+                   v-model="portName"
+                   placeholder="포트폴리오 이름">
         </fg-input>
         <div class="pull-left">
         <n-button type="neutral" round @click="modals.save = false">취소</n-button>
         </div>
         <div class="pull-right">
-        <n-button type="primary" round>저장</n-button>
+        <n-button type="primary" round @click="savePortfolio(testData)">저장</n-button>
         </div>
       </modal>
       
@@ -302,6 +303,7 @@ export default {
       portfolio1_data: [],
       portfolio2_data: [],
       portfolio3_data: [],
+      portName: '',
       loading: false,
     }
   },
@@ -322,6 +324,7 @@ export default {
   },
   methods:{
     ...mapActions("stock", ["getTestData", "getStockList"]),
+    ...mapActions("user", ["postPortfolio"]),
 
     // 주식 목록 가져오는 함수
     async setStockList() {
@@ -556,6 +559,19 @@ export default {
       }
 
       return sum;
+    },
+    // 포트폴리오 저장
+    async savePortfolio(data) {
+      if(this.portName == null || this.portName == "") {
+        alert("포트폴리오 이름을 입력하세요");
+        return;
+      }
+
+      const uid = localStorage.getItem("user");
+      data.uid = uid;
+      data.name = this.portName;
+
+      await this.postPortfolio(data);
     },
   },
   computed: {

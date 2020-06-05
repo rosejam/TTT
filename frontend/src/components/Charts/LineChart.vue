@@ -54,7 +54,7 @@ export default {
               size: 0,
             },
             title: {
-              text: '자산 변화 추이',
+              // text: '테스트 결과',
               align: 'left'
             },
             fill: {
