@@ -49,6 +49,25 @@ export default {
 
   // 포트폴리오 저장
   async postPortfolio(data) {
+
+    let stock = "";
+    let portfolio1 = "";
+    let portfolio2 = "";
+    let portfolio3 = "";
+
+    for (let i = 0; i < data.stocks.length; i++) {
+      const stockinfo = data.stocks[i];
+      stock += stockinfo.stock + '|';
+      portfolio1 += stockinfo.portfolio1 + '|';
+      portfolio2 += stockinfo.portfolio2 + '|';
+      portfolio3 += stockinfo.portfolio3 + '|';
+    }
+
+    stock = stock.substring(0, stock.length-1);
+    portfolio1 = portfolio1.substring(0, portfolio1.length-1);
+    portfolio2 = portfolio2.substring(0, portfolio2.length-1);
+    portfolio3 = portfolio3.substring(0, portfolio3.length-1);
+
     console.log('api save...', {
       uid: data.uid,
       name: data.name,
@@ -59,8 +78,13 @@ export default {
       initAmount: data.initAmount,
       period: data.period,
       rebalancing: data.rebalancing,
-      stocks: data.stocks
+      stock: stock,
+      portfolio1: portfolio1,
+      portfolio2: portfolio2,
+      portfolio3: portfolio3,
     })
+
+
     await axios.post(`${apiUrl}/api/portfolio`, {
       uid: data.uid,
       name: data.name,
@@ -71,7 +95,10 @@ export default {
       initAmount: data.initAmount,
       period: data.period,
       rebalancing: data.rebalancing,
-      stocks: data.stocks
+      stock: stock,
+      portfolio1: portfolio1,
+      portfolio2: portfolio2,
+      portfolio3: portfolio3,
     });
   }
 };
