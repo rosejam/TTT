@@ -51,16 +51,20 @@
               </div>
 
               <!-- 회원가입 버튼 -->
-              <div class="pull-left">
-                <h6>
-                  <n-button type="neutral" @click.native="modals.signup = true" link>
-                    TTT's 회원 되기 <i class="now-ui-icons sport_user-run"></i>
-                  </n-button>
-                  <modal :show.sync="modals.signup" headerClasses="justify-content-center">
-                    <signup-form/>
-                  </modal>
-                </h6>
+              <div class="card-footer text-center">
+                <n-button
+                  @click.native="modals.signup = true"
+                  type="info"
+                  block
+                  round
+                >
+                  TTT's 회원 되기 <i class="now-ui-icons sport_user-run"></i>
+                </n-button>
               </div>
+
+              <modal :show.sync="modals.signup" headerClasses="justify-content-center">
+                <signup-form/>
+              </modal>
 
             </template>
           </card>
