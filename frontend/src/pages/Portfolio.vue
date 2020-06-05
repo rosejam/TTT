@@ -68,13 +68,13 @@
               </div>
 
               <div class="col-md-7">
-                <div class="table-container col-md-8">
+                <div class="table-container">
                   <table class="table">
 
                     <!-- 테이블 column 이름 -->
                     <thead>
                       <tr>
-                        <td>종목 ({{portfolio.stocks.length}}개)</td>
+                        <td><strong>종목</strong> ({{portfolio.stocks.length}}개)</td>
                         <td><strong>#1</strong></td>
                         <td><strong>#2</strong></td>
                         <td><strong>#3</strong></td>
@@ -88,13 +88,13 @@
                         {{stock.name}}
                       </td>
                       <td>
-                        {{stock.portfolio1}}
+                        {{stock.portfolio1}}%
                       </td>
                       <td>
-                        {{stock.portfolio2}}
+                        {{stock.portfolio2}}%
                       </td>
                       <td>
-                        {{stock.portfolio3}}
+                        {{stock.portfolio3}}%
                       </td>
                     </tbody>
                   </table>

@@ -15,16 +15,16 @@
 
       <!-- 테스트 페이지 이동 버튼 -->
       <li class="nav-item">
-          <router-link class="navbar-brand" to="/testing">
-            <i class="now-ui-icons design-2_ruler-pencil"></i> 테스트
-          </router-link>
+        <router-link class="navbar-brand" to="/testing">
+          <i class="now-ui-icons design-2_ruler-pencil"></i> 테스트
+        </router-link>
       </li>
 
       <!-- 포트폴리오 페이지 이동 버튼 -->
       <li v-if="userInfo.uid!=null" class="nav-item">
-          <router-link class="navbar-brand" to="/portfolio">
-            <i class="now-ui-icons files_paper"></i> 내 포트폴리오
-          </router-link>
+        <router-link class="navbar-brand" to="/portfolio">
+          <i class="now-ui-icons files_paper"></i> 내 포트폴리오
+        </router-link>
       </li>
 
       <!-- 로그인 버튼 -->
