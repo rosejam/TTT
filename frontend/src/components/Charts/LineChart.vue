@@ -1,300 +1,97 @@
 <template>
-  <div class="content">
-    <div class="row" style="margin:auto">
-      <div class="col-md-6">
-        <card>
-			<zingchart :data="chartData"></zingchart>
-        </card>
-      </div>
-    </div>
-  </div>
+    <apexchart type="area" height="350" :options="chartOptions" :series="series"></apexchart>
 </template>
-<script>
-import { Button, DropDown, Tabs, TabPane, FormGroupInput, Switch, Modal } from '@/components';
-import { Popover } from 'element-ui';
-import { Card } from "@/components/index";
-import BaseTable from "@/components/BaseTable";
-import zingchartVue from "zingchart-vue";
 
+<script>
+import VueApexCharts from 'vue-apexcharts'
 
 export default {
-  name: 'testing',
-  bodyClass: 'testing-page',
+  name: 'chart',
+  bodyClass: 'chart',
   components: {
-    [Button.name]:Button,
-    DropDown,
-    Tabs,
-    TabPane,
-    [FormGroupInput.name]: FormGroupInput,
-    [Switch.name]: Switch,
-    [Popover.name]: Popover,
-    Modal,
-    Card,
-	BaseTable,
-	zingchart: zingchartVue
+    apexchart: VueApexCharts,
+  },
+  props: {
+	  portfolio1_data: { type: Array },
+	  portfolio2_data: { type: Array },
+	  portfolio3_data: { type: Array },
   },
   data() {
     return {
-	chartData: {
-		"globals": {
-			"font-family": "Roboto"
-		},
-		"graphset": [{
-			"type": "area",
-			"background-color": "#fff",
-			"utc": true,
-			"title": {
-			"y": "15px",
-			"text": "Website Traffic Metrics",
-			"background-color": "none",
-			"font-color": "#05636c",
-			"font-size": "24px",
-			"height": "25px",
-			"adjust-layout": true
-			},
-			"plotarea": {
-			"margin-top": "10%",
-			"margin-right": "dynamic",
-			"margin-bottom": "dynamic",
-			"margin-left": "dynamic",
-			"adjust-layout": true
-			},
-			"labels": [{
-				"text": "Visitors: %plot-2-value",
-				"default-value": "",
-				"color": "#8da0cb",
-				"x": "20%",
-				"y": 50,
-				"width": 120,
-				"text-align": "left",
-				"bold": 0,
-				"font-size": "14px",
-				"font-weight": "bold"
-			},
-			{
-				"text": "Clicks: %plot-1-value",
-				"default-value": "",
-				"color": "#66c2a5",
-				"x": "45%",
-				"y": 50,
-				"width": 120,
-				"text-align": "left",
-				"bold": 0,
-				"font-size": "14px",
-				"font-weight": "bold"
-			},
-			{
-				"text": "Returns: %plot-0-value",
-				"default-value": "",
-				"color": "#fc8d62",
-				"x": "70%",
-				"y": 50,
-				"width": 120,
-				"text-align": "left",
-				"bold": 0,
-				"font-size": "14px",
-				"font-weight": "bold"
-			}
-			],
-			"scale-x": {
-			"label": {
-				"text": "Date Range",
-				"font-size": "14px",
-				"font-weight": "normal",
-				"offset-x": "10%",
-				"font-angle": 360
-			},
-			"item": {
-				"text-align": "center",
-				"font-color": "#05636c"
-			},
-			"zooming": 1,
-			"max-labels": 12,
-			"labels": [
-				"Sept<br>19",
-				"Sept<br>20",
-				"Sept<br>21",
-				"Sept<br>22",
-				"Sept<br>23",
-				"Sept<br>24",
-				"Sept<br>25",
-				"Sept<br>26",
-				"Sept<br>27",
-				"Sept<br>28",
-				"Sept<br>29",
-				"Sept<br>30"
-			],
-			"max-items": 12,
-			"items-overlap": true,
-			"guide": {
-				"line-width": "0px"
-			},
-			"tick": {
-				"line-width": "2px"
-			},
-			},
-			"crosshair-x": {
-			"line-color": "#fff",
-			"line-width": 1,
-			"plot-label": {
-				"visible": false
-			}
-			},
-			"scale-y": {
-			"values": "0:2500:500",
-			"item": {
-				"font-color": "#05636c",
-				"font-weight": "normal"
-			},
-			"label": {
-				"text": "Metrics",
-				"font-size": "14px"
-			},
-			"guide": {
-				"line-width": "0px",
-				"alpha": 0.2,
-				"line-style": "dashed"
-			}
-			},
-			"plot": {
-			"line-width": 2,
-			"marker": {
-				"size": 1,
-				"visible": false
-			},
-			"tooltip": {
-				"font-family": "Roboto",
-				"font-size": "15px",
-				"text": "There were %v %t on %data-days",
-				"text-align": "left",
-				"border-radius": 5,
-				"padding": 10
-			}
-			},
-			"series": [{
-				"values": [
-				1204,
-				1179,
-				1146,
-				1182,
-				1058,
-				1086,
-				1141,
-				1105,
-				1202,
-				992,
-				373,
-				466
-				],
-				"data-days": [
-				"Sept 19",
-				"Sept 20",
-				"Sept 21",
-				"Sept 22",
-				"Sept 23",
-				"Sept 24",
-				"Sept 25",
-				"Sept 26",
-				"Sept 27",
-				"Sept 28",
-				"Sept 29",
-				"Sept 30"
-				],
-				"line-color": "#fc8d62",
-				"aspect": "spline",
-				"background-color": "#fc8d62",
-				"alpha-area": ".3",
-				"font-family": "Roboto",
-				"font-size": "14px",
-				"text": "returns"
-			},
-			{
-				"values": [
-				1625,
-				1683,
-				1659,
-				1761,
-				1904,
-				1819,
-				1631,
-				1592,
-				1498,
-				1594,
-				1782,
-				1644
-				],
-				"data-days": [
-				"Sept 19",
-				"Sept 20",
-				"Sept 21",
-				"Sept 22",
-				"Sept 23",
-				"Sept 24",
-				"Sept 25",
-				"Sept 26",
-				"Sept 27",
-				"Sept 28",
-				"Sept 29",
-				"Sept 30"
-				],
-				"line-color": "#66c2a5",
-				"background-color": "#66c2a5",
-				"alpha-area": ".3",
-				"text": "clicks",
-				"aspect": "spline",
-				"font-family": "Roboto",
-				"font-size": "14px"
-			},
-			{
-				"values": [
-				314,
-				1395,
-				1292,
-				1259,
-				1269,
-				1132,
-				1012,
-				1082,
-				1116,
-				1039,
-				1132,
-				1227
-				],
-				"data-days": [
-				"Sept 19",
-				"Sept 20",
-				"Sept 21",
-				"Sept 22",
-				"Sept 23",
-				"Sept 24",
-				"Sept 25",
-				"Sept 26",
-				"Sept 27",
-				"Sept 28",
-				"Sept 29",
-				"Sept 30"
-				],
-				"line-color": "#8da0cb",
-				"background-color": "#8da0cb",
-				"aspect": "spline",
-				"alpha-area": "0.2",
-				"text": "visitors",
-				"font-family": "Roboto",
-				"font-size": "14px"
-			}
-			]
-		}]
-      }
+          series: [
+            {
+              name: "#1",
+              data: this.portfolio1_data
+            },
+            {
+              name: "#2",
+              data: this.portfolio2_data
+            },
+            {
+              name: "#3",
+              data: this.portfolio3_data
+            //   data: [[1324508400000, 14], [1324594800000, 23] , [1326236400000, 18]]
+            },
+          ],
+          chartOptions: {
+            chart: {
+              type: 'area',
+              stacked: false,
+              height: 350,
+              zoom: {
+                type: 'x',
+                enabled: true,
+                autoScaleYaxis: true
+              },
+              toolbar: {
+                autoSelected: 'zoom'
+              }
+            },
+            dataLabels: {
+              enabled: false
+            },
+            markers: {
+              size: 0,
+            },
+            title: {
+              text: '자산 변화 추이',
+              align: 'left'
+            },
+            fill: {
+              type: 'gradient',
+              gradient: {
+                shadeIntensity: 1,
+                inverseColors: false,
+                opacityFrom: 0.5,
+                opacityTo: 0,
+                stops: [0, 90, 100]
+              },
+            },
+            yaxis: {
+              labels: {
+                formatter: function (val) {
+                  return val.toFixed(0);
+                },
+              },
+              title: {
+                text: 'Price'
+              },
+            },
+            xaxis: {
+              type: 'datetime',
+            },
+            tooltip: {
+              shared: false,
+              y: {
+                formatter: function (val) {
+                  return val.toFixed(0);
+                }
+              }
+            }
+          },
+          
     }
-  },
-  mounted() {
-
   },
 };
 </script>
-<style>
-  .chart {
-    height: 500px;
-    width: 100%;
-  }
-</style>
+<style></style>

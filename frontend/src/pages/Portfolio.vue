@@ -71,21 +71,15 @@
   </div>
 </template>
 <script>
-import { Button, DropDown, Tabs, TabPane, FormGroupInput, Switch, Modal } from '@/components';
-import { Popover } from 'element-ui';
+import { Button,FormGroupInput, Modal } from '@/components';
 import { Card } from "@/components/index";
 
 export default {
-  name: 'tr_history',
-  bodyClass: 'tr_history-page',
+  name: 'portfolio',
+  bodyClass: 'portfolio-page',
   components: {
     [Button.name]:Button,
-    DropDown,
-    Tabs,
-    TabPane,
     [FormGroupInput.name]: FormGroupInput,
-    [Switch.name]: Switch,
-    [Popover.name]: Popover,
     Modal,
     Card,
   },
