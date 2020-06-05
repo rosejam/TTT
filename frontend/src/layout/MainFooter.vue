@@ -60,7 +60,7 @@
             >
               <div class="popover-body">
                 <h4>Contact us</h4>
-                문의사항은 <a href="mailto:dongju.alex@gmail.com">dongju.alex@gmail.com</a> 으로 문의주세요.
+                문의사항은 <a href="mailto:ddason.inc@gmail.com">ddason.inc@gmail.com</a> 으로 문의주세요.
               </div>
             </el-popover>
           </li>

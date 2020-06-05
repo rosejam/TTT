@@ -1,7 +1,7 @@
 import axios from "axios";
 axios.defaults.withCredentials = true;
-const apiUrl = 'http://3.34.96.193:8000'
-// const apiUrl = 'http://localhost:8000'
+// const apiUrl = 'http://3.34.96.193:8000'
+const apiUrl = 'http://localhost:8000'
 
 export default {
   // 주식 정보 관련 api
@@ -32,7 +32,10 @@ export default {
 
   // 유저 관련 api
   async getUserInfo(uid) {
-    // const result = await axios.get(`${apiUrl}/userInfo/`+uid)
+    console.log('index.js....uid>>', uid);
+    const result = await axios.get(`${apiUrl}/porfolio?uid=`+uid);
+
+    console.log('index.js...result>>', result);
 
     let userInfo = {
       uid: uid,

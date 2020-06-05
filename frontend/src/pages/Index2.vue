@@ -8,12 +8,12 @@
       <div class="content">
         <div class="container">
           <div class="col-md-5 ml-auto mr-auto">
-            <!-- <card type="login" plain>
+            <card type="login" plain>
               <div slot="header" class="logo-container">
                 <img v-lazy="'img/TTT-logo.png'" alt="" />
               </div>
-            </card> -->
-            <img v-lazy="'img/TTT-logo.png'" alt="" />
+            </card>
+            <!-- <img v-lazy="'img/TTT-logo.png'" alt="" /> -->
           </div>
         </div>
       </div>
