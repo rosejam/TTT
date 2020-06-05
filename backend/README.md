@@ -1,6 +1,6 @@
-**# 백엔드 How To Run** 
+**백엔드 How To Run** 
 
-**## pip install** 
+**pip install** 
 
 ```
 django-cors-headers
