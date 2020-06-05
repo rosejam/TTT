@@ -32,7 +32,20 @@ class StockInfoViewSet(viewsets.ModelViewSet):
     pagination_class = SmallPagination
 
     def get_queryset(self):
+        code = self.request.query_params.get("code", "")
         queryset = models.StockInfo.objects.all()
+        if code is not "":
+            queryset = queryset.filter(code = code)
+            
         return queryset
 
+class PortfolioViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.PortfolioSerializer
+    pagination_class = SmallPagination
 
+    def get_queryset(self):
+        uid = self.request.query_params.get("uid", "") #4NecgnHktUMEeSRFtBQgu6gZUpW2
+        queryset = models.Portfolio.objects.all()
+        if uid is not "":
+            queryset = queryset.filter(uid = uid)
+        return queryset

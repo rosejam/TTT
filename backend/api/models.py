@@ -22,3 +22,18 @@ class StockInfo(models.Model):
     name= models.CharField(max_length=100, null=False, default="")   # 종목명
     market = models.IntegerField(null=False, default=0)  # 코스피코스닥구분 1:코스피 , 2:코스닥
     startdate= models.IntegerField(null=False, default=0)  # 날짜
+
+class Portfolio(models.Model):
+    uid = models.CharField(max_length=100, null=False)
+    name = models.CharField(max_length=100, null=False)
+    startMonth= models.IntegerField(null=True, default=0) 
+    startYear= models.IntegerField(null=False, default=0) 
+    endMonth= models.IntegerField(null=False, default=0) 
+    endYear= models.IntegerField(null=False, default=0) 
+    initAmount = models.CharField(max_length=30, null=False) 
+    period = models.CharField(max_length=30, null=False)
+    rebalancing= models.IntegerField(null=False, default=0) 
+    stock = models.CharField(max_length=300, null=False) 
+    portfolio1 = models.CharField(max_length=300, null=False)
+    portfolio2 = models.CharField(max_length=300, null=False)
+    portfolio3 = models.CharField(max_length=300, null=False)
