@@ -202,9 +202,11 @@
       <!-- 포트폴리오 설정 테이블 끝 -->
 
       <!-- 테스트 버튼 -->
-      <n-button type="primary" outline round @click="test(testData)">
-        <i class="now-ui-icons objects_spaceship"></i> &nbsp; 테스트
-      </n-button>
+      <div v-if="!loading" >
+        <n-button type="primary" outline round @click="test(testData)">
+          <i class="now-ui-icons objects_spaceship"></i> &nbsp; 테스트
+        </n-button>
+      </div>
 
       <!-- 테스트 결과 로딩중 -->
       <div v-if="loading">
