@@ -1,4 +1,4 @@
-from api.models import Stock,StockInfo
+from api.models import Stock,StockInfo,Portfolio
 from rest_framework import serializers
 
 
@@ -29,3 +29,8 @@ class StockInfoSerializer(serializers.ModelSerializer):
             "market",
             "startdate",
         ]
+
+class PortfolioSerializer(serializers.ModelSerializer):
+   class Meta:
+        model = Portfolio
+        fields = '__all__' 
