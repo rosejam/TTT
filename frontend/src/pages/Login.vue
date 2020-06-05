@@ -1,3 +1,4 @@
+<!-- /login -->
 <template>
   <div class="page-header clear-filter" filter-color="orange">
     <div
@@ -12,6 +13,7 @@
               <img v-lazy="'img/TTT-logo.png'" alt="" />
             </div>
 
+            <!-- 이메일 입력 -->
             <fg-input
               v-model="email"
               class="no-border input-lg"
@@ -21,6 +23,7 @@
             >
             </fg-input>
 
+            <!-- 비밀번호 입력 -->
             <fg-input
               v-model="pw"
               @keypress.enter="login"
@@ -32,7 +35,10 @@
             >
             </fg-input>
 
+            <!-- 로그인 창 하단 -->
             <template slot="raw-content">
+
+              <!-- 로그인 버튼 -->
               <div class="card-footer text-center">
                 <n-button
                   @click="login"
@@ -43,6 +49,8 @@
                   로그인
                 </n-button>
               </div>
+
+              <!-- 회원가입 버튼 -->
               <div class="pull-left">
                 <h6>
                   <n-button type="neutral" @click.native="modals.signup = true" link>
@@ -53,24 +61,7 @@
                   </modal>
                 </h6>
               </div>
-              <div class="pull-right">
-                <h6>
-                  <n-button type="neutral" @click.native="modals.help = true" link>
-                    TTT가 뭐야?
-                  </n-button>
-                  <modal :show.sync="modals.help" headerClasses="justify-content-center" style="color:black">
-                    <h4 slot="header" class="title title-up">TTT?</h4>
-                    <p>
-                      1. Tiny Testing Tool의 줄임말입니다. <br/>
-                      2. 또한 Trust, Trend, Tactic 의 3T를 가치로 삼고 있습니다. <br/>
-                    </p>
-                    <!-- <template slot="footer">
-                      <n-button>Nice Button</n-button>
-                      <n-button type="danger" @click.native="modals.classic = false">Close</n-button>
-                    </template> -->
-                  </modal>
-                </h6>
-              </div>
+
             </template>
           </card>
         </div>
@@ -80,14 +71,14 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapActions } from "vuex";
 import { Card, Button, FormGroupInput, Modal } from '@/components';
 import MainFooter from '@/layout/MainFooter';
 import SignupForm from '@/pages/components/SignupForm';
 import firebase from 'firebase';
 
 export default {
-  name: 'login-page',
+  name: 'login',
   bodyClass: 'login-page',
   components: {
     Card,
@@ -108,26 +99,34 @@ export default {
     }
   },
   methods: {
-    ...mapActions("user", ["setUser"]),
+    ...mapActions("user", ["getUserInfo"]),
+
+    // 로그인
     async login() {
+
+      // firebase 로그인
       await firebase.auth()
                     .signInWithEmailAndPassword(this.email, this.pw)
                     .then(
                       user => {
-                        localStorage.setItem("email", this.email);
-                        // this.$session.set('user', user);
-                        // firebase.auth().currentUser.getIdToken().then(idToken => {
-                        //   console.log(idToken);
-                        // });
+                        // 로그인 시 uid 저장
+                        localStorage.setItem("user", user.user.uid);
+                        // 로그인 시 토큰 저장
+                        firebase.auth().currentUser.getIdToken().then(idToken => {
+                          localStorage.setItem("user_token", idToken);
+                        });
                       },
                       function(err) {
                         alert("에러: " + err.message);
                       }
                     );
-      
-      const email = this.email;
-      await this.setUser();
-      this.$router.push("/");
+
+      // 로그인 완료 후 동작
+      if(localStorage.getItem("user_token")) {
+        await this.getUserInfo();     // user state에 userInfo 세팅
+        this.$router.push("/");   // 메인페이지로 이동
+      }
+
     },
   },
 };

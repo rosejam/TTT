@@ -1,51 +1,51 @@
 from api import models, serializers
 from rest_framework import viewsets
 from rest_framework.response import Response
+
 from drf_yasg import openapi
 from rest_framework.pagination import PageNumberPagination
+import pandas as pd
+import numpy as np
+from django.http import JsonResponse
 
 
 class SmallPagination(PageNumberPagination):
-    page_size = 10
+    page_size = 5000
     page_size_query_param = "page_size"
-    max_page_size = 50
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset=models.User.objects.all()
-    serializer_class = serializers.UserSerializer
-
-    '''
-    def list(self, request, *args, **kwargs):
-        queryset = models.User.objects.all()
-        serializer = self.get_serializer(queryset, many=True)
-        # print(serializer)
-        return super().list(request, *args, **kwargs)
-    '''
-
-
-class MarketViewSet(viewsets.ModelViewSet):
-    queryset=models.Stock_Market.objects.all()
-    serializer_class = serializers.MarketSerializer
+    max_page_size = 5000
 
 class StockViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.StockSerializer
     pagination_class = SmallPagination
 
     def get_queryset(self):
-        queryset = models.Stock.objects.all()
-        
+        code = self.request.query_params.get("code", "A000020")
+        month = self.request.query_params.get("month", 0)
+        queryset = models.Stock.objects.all().order_by("date")
+        if code is not "":
+            queryset = queryset.filter(code = code)
+            
         return queryset
 
-class logViewSet(viewsets.ModelViewSet):
-    queryset=models.log.objects.all()
-    serializer_class = serializers.logSerializer
+class StockInfoViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.StockInfoSerializer
+    pagination_class = SmallPagination
 
+    def get_queryset(self):
+        code = self.request.query_params.get("code", "")
+        queryset = models.StockInfo.objects.all()
+        if code is not "":
+            queryset = queryset.filter(code = code)
+            
+        return queryset
 
-class AlgorithmViewSet(viewsets.ModelViewSet):
-    queryset=models.Algorithm.objects.all()
-    serializer_class = serializers.AlgorithmSerializer
+class PortfolioViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.PortfolioSerializer
+    pagination_class = SmallPagination
 
-class userAlgoViewSet(viewsets.ModelViewSet):
-    queryset=models.user_algo.objects.all()
-    serializer_class = serializers.userAlgoSerializer
+    def get_queryset(self):
+        uid = self.request.query_params.get("uid", "") #4NecgnHktUMEeSRFtBQgu6gZUpW2
+        queryset = models.Portfolio.objects.all()
+        if uid is not "":
+            queryset = queryset.filter(uid = uid)
+        return queryset

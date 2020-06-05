@@ -8,15 +8,19 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
   created() {
     this.init();
   },
   methods: {
-    ...mapActions("user", ["setUser"]),
+    ...mapActions("user", ["getUserInfo"]),
+    
     async init() {
-      await this.setUser();
+      // 새로고침 시 state 초기화 방지
+      if(localStorage.getItem("user_token")) {
+        await this.getUserInfo();
+      }
     }
   },
 };

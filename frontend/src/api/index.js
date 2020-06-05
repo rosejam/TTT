@@ -1,81 +1,104 @@
 import axios from "axios";
 axios.defaults.withCredentials = true;
-// axios.defaults.xsrfCookieName = 'csrftoken';
-// axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-// const apiUrl = "/api";
-const apiUrl = process.env.VUE_APP_API_URL;
+// const apiUrl = 'http://3.34.96.193:8000'
+const apiUrl = 'http://localhost:8000'
 
 export default {
   // 주식 정보 관련 api
-  async getStockData(data) {
-    return data.stocks[0];
+
+  // 주식 리스트
+  async getStockList() {
+    const ret = await axios.get(`${apiUrl}/api/stockinfo`);
+    const stockList = ret.data.results;
+    return stockList;
   },
+
+  // 테스트 결과
+  async getTestData(data) {
+
+    const testData = await axios.post(`${apiUrl}/rebalance/`, {
+      startYear: data.startYear,
+      startMonth: data.startMonth,
+      endYear: data.endYear,
+      endMonth: data.endMonth,
+      initAmount: data.initAmount,
+      period: data.period,
+      rebalancing: data.rebalancing,
+      stocks: data.stocks
+    });
+
+    return testData.data;
+  },
+
   // 유저 관련 api
-  async getUserInfo() {
-    let userInfo = localStorage.getItem("email");
+
+  // 유저 정보
+  async getUserInfo(uid) {
+    console.log('index.js....uid>>', uid);
+    const result = await axios.get(`${apiUrl}/api/portfolio?uid=`+uid);
+
+    console.log('index.js...result>>', result);
+
+    let userInfo = {
+      uid: uid,
+      portfolio: "포트폴리오~~"
+    };
+
     return userInfo;
   },
-  async logout() {
-    const response = await axios.post(`${apiUrl}/rest-auth/logout/`);
-    return response.data;
-  },
-  async signUp(user) {
-    const response = await axios.post(
-      `${apiUrl}/rest-auth/registration/`,
-      user,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-  },
-  async regUserInfo(user) {
-    const response = await axios.post(`${apiUrl}/api/userinfo`, user, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-  },
-  async resetPw(email, csrftoken) {
-    const config = {
-      headers: { HTTP_X_CSRFTOKEN: csrftoken },
-    };
-    const response = await axios.post(
-      `${apiUrl}/accounts/password/reset/`,
-      { email: email },
-      config
-    );
-    return response.data;
-  },
 
-  // 회원 상세정보
-  async getUserInfoByPk(pk) {
-    const response = await axios.get(`${apiUrl}/api/userinfo/${pk}`);
-    return response.data;
-  },
-  async editUserInfoByPk(pk, userInfo) {
-    const response = await axios.patch(`${apiUrl}/api/userinfo/${pk}`, userInfo, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-  },
-  async editUserByPk(pk, user) {
-    const response = await axios.patch(`${apiUrl}/api/users/${pk}`, user);
-  },
+  // 포트폴리오 저장
+  async postPortfolio(data) {
 
-  // 회원 기본정보
-  async getUserByPk(pk) {
-    const response = await axios.get(`${apiUrl}/api/users/${pk}`);
-    return response.data;
-  },
-  async getUserById(id) {
-    const response = await axios.get(`${apiUrl}/api/users?username=${id}`);
-    return response.data.results;
-  },
-  async getUserByEmail(email) {
-    const response = await axios.get(`${apiUrl}/api/users?email=${email}`)
-    return response.data.results;
-  },
+    let stock = "";
+    let portfolio1 = "";
+    let portfolio2 = "";
+    let portfolio3 = "";
+
+    for (let i = 0; i < data.stocks.length; i++) {
+      const stockinfo = data.stocks[i];
+      stock += stockinfo.stock + '|';
+      portfolio1 += stockinfo.portfolio1 + '|';
+      portfolio2 += stockinfo.portfolio2 + '|';
+      portfolio3 += stockinfo.portfolio3 + '|';
+    }
+
+    stock = stock.substring(0, stock.length-1);
+    portfolio1 = portfolio1.substring(0, portfolio1.length-1);
+    portfolio2 = portfolio2.substring(0, portfolio2.length-1);
+    portfolio3 = portfolio3.substring(0, portfolio3.length-1);
+
+    console.log('api save...', {
+      uid: data.uid,
+      name: data.name,
+      startYear: data.startYear,
+      startMonth: data.startMonth,
+      endYear: data.endYear,
+      endMonth: data.endMonth,
+      initAmount: data.initAmount,
+      period: data.period,
+      rebalancing: data.rebalancing,
+      stock: stock,
+      portfolio1: portfolio1,
+      portfolio2: portfolio2,
+      portfolio3: portfolio3,
+    })
+
+
+    await axios.post(`${apiUrl}/api/portfolio`, {
+      uid: data.uid,
+      name: data.name,
+      startYear: data.startYear,
+      startMonth: data.startMonth,
+      endYear: data.endYear,
+      endMonth: data.endMonth,
+      initAmount: data.initAmount,
+      period: data.period,
+      rebalancing: data.rebalancing,
+      stock: stock,
+      portfolio1: portfolio1,
+      portfolio2: portfolio2,
+      portfolio3: portfolio3,
+    });
+  }
 };
