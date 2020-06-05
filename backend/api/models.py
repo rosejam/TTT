@@ -24,8 +24,9 @@ class StockInfo(models.Model):
     startdate= models.IntegerField(null=False, default=0)  # 날짜
 
 class Portfolio(models.Model):
-    uid = models.CharField(max_length=100, null=False) 
-    startMonth= models.IntegerField(null=False, default=0) 
+    uid = models.CharField(max_length=100, null=False)
+    name = models.CharField(max_length=100, null=False)
+    startMonth= models.IntegerField(null=True, default=0) 
     startYear= models.IntegerField(null=False, default=0) 
     endMonth= models.IntegerField(null=False, default=0) 
     endYear= models.IntegerField(null=False, default=0) 
