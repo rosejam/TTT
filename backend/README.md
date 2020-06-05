@@ -4,18 +4,14 @@
 
 ```
 django-cors-headers
-
 pymysql
-
 drf_yasg  
 ```
 
 
 ```
 cd backend
-
 pip install -r requirements.txt
-
 python manage.py runserver
 ```
 
