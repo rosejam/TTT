@@ -12,7 +12,9 @@ flask
 psutil     
 pytz(장고에 포함된 것)     
 tornado     
-pandas     
+pandas
+requests
+pymysql       
 
 aws웹 말고 os내에서 방화벽과 백신프로그램의 방화벽 꺼줘야함!!     
 (우분투꺼도 내부에서 열어주기!)     
@@ -25,6 +27,9 @@ flask run --host=0.0.0.0
 또는 
 python manage.py runserver 0.0.0.0:8000 --noreload
      
+### 그날 DB업뎃 파일
+ C:\Users\Administrator\git\quantroa\backend\api\algorithm\update_per_day.py
+
 ## 키움 restapi (tornado로 구현됨)     
 conda activate quantroa_382     
 cd C:\Users\Administrator\git\quantroa\windows_server\systrader    
