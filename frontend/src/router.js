@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 // 메인 페이지
 import Index from './pages/Index.vue';
-import Index2 from './pages/Index2.vue';
 // 로그인 페이지
 import Login from './pages/Login.vue';
 // 테스트 페이지
@@ -45,15 +44,6 @@ export default new Router({
       path: '/',
       name: 'index',
       components: { default: Index, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
-    },
-    {
-      path: '/2',
-      name: 'index2',
-      components: { default: Index2 },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
