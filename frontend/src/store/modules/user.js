@@ -10,6 +10,7 @@ const state = {
 
 // actions
 const actions = {
+  
   async getUserInfo({ commit }) {
     const uid = localStorage.getItem("user");
     const userInfo = await api.getUserInfo(uid);
@@ -18,7 +19,12 @@ const actions = {
 
   async postPortfolio({commit}, data) {
     await api.postPortfolio(data);
-  }
+  },
+
+  async deletePortfolio({commit}, id) {
+    await api.deletePortfolio(id);
+  },
+
 };
 
 // mutations

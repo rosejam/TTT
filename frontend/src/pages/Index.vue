@@ -1,3 +1,4 @@
+<!-- / -->
 <template>
   <div>
     <div class="page-header clear-filter" filter-color="orange">
