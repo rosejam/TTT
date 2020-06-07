@@ -106,17 +106,40 @@
             <div v-if="portfolio.testClicked" class="row text-center">
               <div class="col-1"></div>
               <div class="col-10">
+                <br/>
+                <h2>테스트 결과</h2>
+                
+                <!-- 차트 -->
+                <line-chart
+                  :portfolio1_data="portfolio.portfolio1_data"
+                  :portfolio2_data="portfolio.portfolio2_data"
+                  :portfolio3_data="portfolio.portfolio3_data"
+                ></line-chart>
+                <br/>
+
+                <!-- 도넛 차트 -->
                 <card>
-
-                  <!-- 차트 -->
-                  <h3>테스트 결과</h3>
-                    <line-chart
-                      :portfolio1_data="portfolio.portfolio1_data"
-                      :portfolio2_data="portfolio.portfolio2_data"
-                      :portfolio3_data="portfolio.portfolio3_data"
-                    ></line-chart>
-
+                  <donut-chart
+                    :title="title1"
+                    :donut_chart_labels="portfolio.donut_chart_labels1"
+                    :donut_chart_series="portfolio.donut_chart_series1"
+                  ></donut-chart>
                 </card>
+                <card>
+                  <donut-chart
+                    :title="title2"
+                    :donut_chart_labels="portfolio.donut_chart_labels2"
+                    :donut_chart_series="portfolio.donut_chart_series2"
+                  ></donut-chart>
+                </card>
+                <card>
+                  <donut-chart
+                    :title="title3"
+                    :donut_chart_labels="portfolio.donut_chart_labels3"
+                    :donut_chart_series="portfolio.donut_chart_series3"
+                  ></donut-chart>
+                </card>
+
               </div>
             </div>
 
@@ -167,6 +190,7 @@ import { mapState, mapActions } from "vuex";
 import { Button,FormGroupInput, Modal } from '@/components';
 import { Card } from "@/components/index";
 import LineChart from '@/components/Charts/LineChart.vue';
+import DonutChart from '@/components/Charts/DonutChart.vue';
 import { BSpinner } from 'bootstrap-vue';
 import test from "@/utils/test";
 
@@ -179,22 +203,33 @@ export default {
     Modal,
     Card,
     LineChart,
+    DonutChart,
     BSpinner,
   },
   data() {
     return {
       loading: false,
       testClicked: false,
+      title1: "#1",
+      title2: "#2",
+      title3: "#3",
     }
   },
   computed: {
     ...mapState("user", ["userInfo"]),
+    ...mapState("stock", ["stockList"]),
   },
-  created() {
+  async mounted() {
+    await this.setStockList();
   },
   methods: {
-    ...mapActions("stock", ["getTestData"]),
+    ...mapActions("stock", ["getTestData", "getStockList"]),
     ...mapActions("user", ["getUserInfo", "deletePortfolio"]),
+
+    // 주식 목록 가져오는 함수
+    async setStockList() {
+      await this.getStockList();
+    },
 
     // 테스트
     async test(data) {
@@ -206,19 +241,27 @@ export default {
       const result = await this.getTestData(data);
 
       // 데이터 전처리
-      const preocessed_data = test.preprocess(result);
+      const preocessed_data = test.preprocess(result, data, this.stockList.stockList);
       data.portfolio1_data = preocessed_data[0];
       data.portfolio2_data = preocessed_data[1];
       data.portfolio3_data = preocessed_data[2];
+      data.donut_chart_labels1 = preocessed_data[3];
+      data.donut_chart_labels2 = preocessed_data[4];
+      data.donut_chart_labels3 = preocessed_data[5];
+      data.donut_chart_series1 = preocessed_data[6];
+      data.donut_chart_series2 = preocessed_data[7];
+      data.donut_chart_series3 = preocessed_data[8];
 
       this.loading = false;
       data.testClicked = true;
     },
+
     // 포트폴리오 삭제
     async delPortfolio(i, portfolio) {
       await this.deletePortfolio(portfolio.id);
       await this.getUserInfo();
     },
+
     // 재분배 주기 문자열 리턴
     rebalncingValue(r) {
       if(r == -1) {
@@ -234,12 +277,19 @@ export default {
         return "3개월";
       }
     },
+
     // 차트 닫기
     closeChart(portfolio) {
       portfolio.testClicked = false;
       portfolio.portfolio1_data = null;
       portfolio.portfolio2_data = null;
       portfolio.portfolio3_data = null;
+      data.donut_chart_labels1 = null;
+      data.donut_chart_labels2 = null;
+      data.donut_chart_labels3 = null;
+      data.donut_chart_series1 = null;
+      data.donut_chart_series2 = null;
+      data.donut_chart_series3 = null;
     }
   },
 };

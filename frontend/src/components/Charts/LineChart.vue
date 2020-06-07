@@ -1,13 +1,13 @@
 <template>
-    <apexchart type="area" height="350" :options="chartOptions" :series="series"></apexchart>
+    <apexchart type="area" height="350" :options="options" :series="series"></apexchart>
 </template>
 
 <script>
 import VueApexCharts from 'vue-apexcharts'
 
 export default {
-  name: 'chart',
-  bodyClass: 'chart',
+  name: 'line-chart',
+  bodyClass: 'line-chart',
   components: {
     apexchart: VueApexCharts,
   },
@@ -30,10 +30,9 @@ export default {
             {
               name: "#3",
               data: this.portfolio3_data
-            //   data: [[1324508400000, 14], [1324594800000, 23] , [1326236400000, 18]]
             },
           ],
-          chartOptions: {
+          options: {
             chart: {
               type: 'area',
               stacked: false,
@@ -54,7 +53,7 @@ export default {
               size: 0,
             },
             title: {
-              // text: '테스트 결과',
+              text: '자산 변화',
               align: 'left'
             },
             fill: {
@@ -70,11 +69,11 @@ export default {
             yaxis: {
               labels: {
                 formatter: function (val) {
-                  return val.toFixed(0);
+                  return (val / 10000).toFixed(0);
                 },
               },
               title: {
-                text: 'Price'
+                text: '자산(만원)'
               },
             },
             xaxis: {
@@ -84,7 +83,7 @@ export default {
               shared: false,
               y: {
                 formatter: function (val) {
-                  return val.toFixed(0);
+                  return (val / 1000).toFixed(0);
                 }
               }
             }
