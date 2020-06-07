@@ -10,17 +10,19 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-  created() {
-    this.init();
+  async created() {
+    await this.init();
   },
   methods: {
     ...mapActions("user", ["getUserInfo"]),
     
     async init() {
+
       // 새로고침 시 state 초기화 방지
       if(localStorage.getItem("user_token")) {
         await this.getUserInfo();
       }
+
     }
   },
 };

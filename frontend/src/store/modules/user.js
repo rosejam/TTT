@@ -2,10 +2,12 @@ import api from "../../api";
 
 // initial state
 const state = {
+  
   userInfo: {
     uid: null,
     portfolio: null,
   },
+
 };
 
 // actions
@@ -29,7 +31,9 @@ const actions = {
 
 // mutations
 const mutations = {
+
   setUserInfo(state, userInfo) {
+
     if(userInfo == null) {
       state.userInfo = {
         ...state.userInfo,
@@ -44,12 +48,16 @@ const mutations = {
         portfolio: userInfo.portfolio,
       }
     }
+
   },
+
 };
 
 export default {
+
   namespaced: true,
   state,
   actions,
   mutations,
+  
 };

@@ -31,7 +31,7 @@
 
       <div class="row">
         <div class="col-md-2"></div>
-        <div class="row col-md-10 ym">
+        <div class="row col-md-10">
 
           <!-- 기간 select -->
           <div class="col-md-1">
@@ -63,7 +63,7 @@
       <!-- 시작일, 종료일 설정 -->
       <div class="row" v-if="testData.period != null">
         <div class="col-md-2"></div>
-        <div class="row col-md-8 ym">
+        <div class="row col-md-8">
 
           <!-- 시작일 select -->
           <div class="col-md-1">
@@ -125,7 +125,7 @@
 
                 <!-- 종목 검색 -->
                 <td>
-                  <v-select v-model="row.stock" :options="stockOptions" :reduce="content => content.code" label="content" placeholder="클릭해서 종목 검색"/>
+                  <v-select v-model="row.stock" :options="stockOptions" :reduce="content => content.code" label="content" placeholder="클릭해서 검색"/>
                 </td>
 
                 <!-- #1 -->
@@ -219,14 +219,40 @@
         <div class="col-1"></div>
         <div class="col-10">
           <card>
-
-            <!-- 차트 -->
             <h3>테스트 결과</h3>
+
+            <!-- 라인 차트 -->
             <line-chart
               :portfolio1_data="portfolio1_data"
               :portfolio2_data="portfolio2_data"
               :portfolio3_data="portfolio3_data"
             ></line-chart>
+            <br/><br/>
+
+            <!-- 도넛 차트 -->
+            <div class="row">
+              <div class="col-md-4">
+                <donut-chart
+                  :title="title1"
+                  :donut_chart_labels="donut_chart_labels1"
+                  :donut_chart_series="donut_chart_series1"
+                ></donut-chart>
+              </div>
+              <div class="col-md-4">
+                <donut-chart
+                  :title="title2"
+                  :donut_chart_labels="donut_chart_labels2"
+                  :donut_chart_series="donut_chart_series2"
+                ></donut-chart>
+              </div>
+              <div class="col-md-4">
+                <donut-chart
+                  :title="title3"
+                  :donut_chart_labels="donut_chart_labels3"
+                  :donut_chart_series="donut_chart_series3"
+                ></donut-chart>
+              </div>
+            </div>
 
             <!-- 포트폴리오 저장 버튼 -->
             <n-button type="primary" outline round @click.native="modals.save = true"
@@ -266,6 +292,7 @@ import { mapState, mapActions } from "vuex";
 import { Button, FormGroupInput, Modal } from '@/components';
 import { Card } from "@/components/index";
 import LineChart from '@/components/Charts/LineChart.vue';
+import DonutChart from '@/components/Charts/DonutChart.vue';
 import { BSpinner } from 'bootstrap-vue';
 import test from "@/utils/test";
 
@@ -278,6 +305,7 @@ export default {
     Modal,
     Card,
     LineChart,
+    DonutChart,
     BSpinner,
   },
   data() {
@@ -311,11 +339,21 @@ export default {
       portfolio1_data: [],
       portfolio2_data: [],
       portfolio3_data: [],
+      donut_chart_labels1: [],
+      donut_chart_labels2: [],
+      donut_chart_labels3: [],
+      donut_chart_series1: [],
+      donut_chart_series2: [],
+      donut_chart_series3: [],
+      title1: "#1",
+      title2: "#2",
+      title3: "#3",
       portName: '',
       loading: false,
     }
   },
   async mounted() {
+
     // 연도 선택 옵션 리스트 설정
     let year = new Date().getFullYear();
     for (let i = 2000; i <= year; i++) {
@@ -327,12 +365,12 @@ export default {
     const list = this.stockList.stockList;
     for (let i = 0; i < list.length; i++) {
       const stock = list[i];
-      this.stockOptions.push({code: stock.code, content: stock.name+'['+stock.code+']'});
+      this.stockOptions.push({code: stock.code, content: stock.name + '[' + stock.code + ']'});
     }
   },
   methods:{
-    ...mapActions("stock", ["getTestData", "getStockList"]),
     ...mapActions("user", ["getUserInfo", "postPortfolio"]),
+    ...mapActions("stock", ["getTestData", "getStockList"]),
 
     // 주식 목록 가져오는 함수
     async setStockList() {
@@ -352,10 +390,16 @@ export default {
       const result = await this.getTestData(data);
 
       // 데이터 전처리
-      const preocessed_data = test.preprocess(result);
+      const preocessed_data = test.preprocess(result, data, this.stockList.stockList);
       this.portfolio1_data = preocessed_data[0];
       this.portfolio2_data = preocessed_data[1];
       this.portfolio3_data = preocessed_data[2];
+      this.donut_chart_labels1 = preocessed_data[3];
+      this.donut_chart_labels2 = preocessed_data[4];
+      this.donut_chart_labels3 = preocessed_data[5];
+      this.donut_chart_series1 = preocessed_data[6];
+      this.donut_chart_series2 = preocessed_data[7];
+      this.donut_chart_series3 = preocessed_data[8];
 
       this.loading = false;
       this.testClicked = true;
@@ -386,19 +430,19 @@ export default {
       }
 
       // 연도, 월 입력 여부 검사
-      if(data.startYear=="") {
+      if(data.startYear==null) {
         alert("시작 연도를 입력해주세요");
         return;
       }
-      if(data.period=="M" && data.startMonth=="") {
+      if(data.period=="M" && data.startMonth==null) {
         alert("시작 월을 입력해주세요");
         return;
       }
-      if(data.endYear=="") {
+      if(data.endYear==null) {
         alert("종료 연도를 입력해주세요");
         return;
       }
-      if(data.period=="M" && data.endMonth=="") {
+      if(data.period=="M" && data.endMonth==null) {
         alert("종료 월을 입력해주세요");
         return;
       }
@@ -560,8 +604,5 @@ export default {
 }
 .period {
   font-size: 3vh;
-}
-.ym {
-  font-size: 1.5vh;
 }
 </style>
