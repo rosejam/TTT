@@ -93,7 +93,7 @@ export default {
             width: 1,
             dashArray: 0,
         },
-        colors: ['#ff5c33', '#3366ff', '#00ff00'],
+        colors: ['#00BCD4', '#FF9800', '#E91E63'],
       },
           
     }

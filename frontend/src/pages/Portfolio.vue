@@ -227,12 +227,9 @@ export default {
       title1: "#1",
       title2: "#2",
       title3: "#3",
-      colors1: ['#660000', '#990000', '#cc0000', '#ff0000', '#ff3333', '#ff6666', '#ff9999', '#ffcccc',
-                '#ffe6e6', '#800000', '#b30000', '#e60000', '#ff1a1a', '#ff4d4d', '#ff8080', '#ffb3b3'],
-      colors2: ['#000066', '#000099', '#0000cc', '#0000ff', '#3333ff', '#6666ff', '#9999ff', '#ccccff',
-                '#e6e6ff', '#000080', '#0000b3', '#0000e6', '#1a1aff', '#4d4dff', '#8080ff', '#b3b3ff'],
-      colors3: ['#006600', '#009900', '#00cc00', '#00ff00', '#33ff33', '#66ff66', '#99ff99', '#ccffcc',
-                '#e6ffe6', '#008000', '#00b300', '#00e600', '#1aff1a', '#4dff4d', '#80ff80', '#b3ffb3'],
+      colors1: ['#00BCD4', '#00ACC1', '#0097A7', '#00838F', '#006064', '#E0F7FA', '#B2EBF2', '#80DEEA', '#4DD0E1', '#26C6DA'],
+      colors2: ['#FF9800', '#FB8C00', '#F57C00', '#EF6C00', '#E65100', '#FFF3E0', '#FFE0B2', '#FFCC80', '#FFB74D', '#FFA726'],
+      colors3: ['#E91E63', '#D81B60', '#C2185B', '#AD1457', '#880E4F', '#FCE4EC', '#F8BBD0', '#F48FB1', '#F06292', '#EC407A'],
     }
   },
   computed: {
@@ -285,7 +282,7 @@ export default {
     // 재분배 주기 문자열 리턴
     rebalncingValue(r) {
       if(r == -1) {
-        return "재분배하지 않음";
+        return "재분배 안 함";
       }
       else if(r == 12) {
         return "1년";

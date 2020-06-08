@@ -26,7 +26,7 @@ export default {
         labels: this.donut_chart_labels,
         plotOptions: {
           pie: {
-              customScale: 0.7,
+              customScale: 0.9,
               donut: {
                 labels: {
                     show: true,
