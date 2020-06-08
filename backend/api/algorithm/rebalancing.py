@@ -1,6 +1,6 @@
 from django.db import connection
 import datetime
-#import pymysql
+# import pymysql
 from dateutil.relativedelta import relativedelta
 import math
 
@@ -73,7 +73,8 @@ def rebalance(stock_list, s_date, e_date,assets,freq,buy_fee,sell_fee):
                         break
 
                     tempdate=getHypenDate(item[1])
-                    rret[tempdate]=assets
+                    if not tempdate in rret:
+                        rret[tempdate]=assets
                     if flag:
                         stock_amount=int(stock_asset/item[2])
                         sub_asset=math.ceil(stock_amount*item[2]*(1+buy_fee/100))
@@ -132,7 +133,8 @@ def rebalance(stock_list, s_date, e_date,assets,freq,buy_fee,sell_fee):
                             break
                         cp_idx[key]+=1
                         tempdate=getHypenDate(item[1])
-                        rret[tempdate]=cp_asset
+                        if not tempdate in rret:
+                            rret[tempdate]=cp_asset
                         if flag:
                             past_amount=0
                             if item[0] in stock_amount:
@@ -163,4 +165,4 @@ def rebalance(stock_list, s_date, e_date,assets,freq,buy_fee,sell_fee):
     
 
 if __name__=="__main__":
-    print(rebalance([{'A000040': 100}],20000101,20201231,10000000,3,0.015,0.015))
+    print(rebalance([{'A000070': 20, 'A000120':20, 'A000215':20, 'A000370':20, 'A000227':20},{'A000070': 25, 'A000120':15, 'A000215':30, 'A000370':10, 'A000227':20}],20000101,20201231,10000000,3,0.015,0.015))
