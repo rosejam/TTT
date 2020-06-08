@@ -421,7 +421,7 @@ export default {
 
     // 주식 목록 가져오는 함수
     async setStockList() {
-      await this.getStockList();
+      if(!this.stockList.stockList) await this.getStockList();
     },
 
     // 테스트 버튼 클릭 시 실행되는 함수

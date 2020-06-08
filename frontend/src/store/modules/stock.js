@@ -3,7 +3,7 @@ import api from "../../api";
 // initial state
 const state = {
 
-  stockList: [],
+  stockList: {},
   
 };
 
