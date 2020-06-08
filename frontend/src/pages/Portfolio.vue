@@ -53,6 +53,11 @@
           <!-- 자세히 보기 modal 창 -->
           <modal :show.sync="portfolio.detail" headerClasses="justify-content-center" style="color:black" modal-classes="modal-lg">
             <h1 slot="header">#{{portfolio.name}}</h1>
+            <div class="container text-right">
+              <strong>[적용 수수료]</strong><br/>
+              매수 0.015%, 매도 0.015%
+            </div>
+            <br/>
             <div class="row">
               <div class="col-md-1"></div>
               <div class="col-md-4">
