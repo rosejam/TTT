@@ -24,10 +24,10 @@ def rebalancing(request):
             stock_list[2][stockcode]=int(stocks[i]['portfolio3'])
         ret = []
         if(period=='M'):
-            ret=rebalance(stock_list, startYear*10000+startMonth*100+1,endYear*10000+endMonth*100+31,assets,rebalancefreq)
+            ret=rebalance(stock_list, startYear*10000+startMonth*100+1,endYear*10000+endMonth*100+31,assets,rebalancefreq,0.015,0.015)
             return HttpResponse(ret);
         else:
-            ret=rebalance(stock_list, startYear*10000+101,endYear*10000+1231,assets,rebalancefreq)
+            ret=rebalance(stock_list, startYear*10000+101,endYear*10000+1231,assets,rebalancefreq,0.015,0.015)
             return HttpResponse(ret);
 
     if request.method=="POST":
