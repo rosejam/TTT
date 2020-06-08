@@ -63,7 +63,7 @@
                 <span> ~ {{portfolio.endYear}} 년</span>
                 <span v-if="portfolio.period=='M'"> {{portfolio.endMonth}} 월</span>
                 <br/><br/><br/>
-                <p>시작 금액: {{portfolio.initAmount}} 원</p>
+                <p>시작 금액: {{portfolio.initAmount.toLocaleString()}} 원</p>
                 <p>재분배 주기: {{rebalncingValue(portfolio.rebalancing)}}</p>
               </div>
 
@@ -123,21 +123,33 @@
                     :title="title1"
                     :donut_chart_labels="portfolio.donut_chart_labels1"
                     :donut_chart_series="portfolio.donut_chart_series1"
+                    :colors="colors1"
                   ></donut-chart>
+                  <up-down
+                    :data="portfolio.portfolio1_data"
+                  ></up-down>
                 </card>
                 <card>
                   <donut-chart
                     :title="title2"
                     :donut_chart_labels="portfolio.donut_chart_labels2"
                     :donut_chart_series="portfolio.donut_chart_series2"
+                    :colors="colors2"
                   ></donut-chart>
+                  <up-down
+                    :data="portfolio.portfolio2_data"
+                  ></up-down>
                 </card>
                 <card>
                   <donut-chart
                     :title="title3"
                     :donut_chart_labels="portfolio.donut_chart_labels3"
                     :donut_chart_series="portfolio.donut_chart_series3"
+                    :colors="colors3"
                   ></donut-chart>
+                  <up-down
+                    :data="portfolio.portfolio3_data"
+                  ></up-down>
                 </card>
 
               </div>
@@ -191,6 +203,7 @@ import { Button,FormGroupInput, Modal } from '@/components';
 import { Card } from "@/components/index";
 import LineChart from '@/components/Charts/LineChart.vue';
 import DonutChart from '@/components/Charts/DonutChart.vue';
+import UpDown from '@/components/Charts/UpDown.vue';
 import { BSpinner } from 'bootstrap-vue';
 import test from "@/utils/test";
 
@@ -204,6 +217,7 @@ export default {
     Card,
     LineChart,
     DonutChart,
+    UpDown,
     BSpinner,
   },
   data() {
@@ -213,6 +227,12 @@ export default {
       title1: "#1",
       title2: "#2",
       title3: "#3",
+      colors1: ['#660000', '#990000', '#cc0000', '#ff0000', '#ff3333', '#ff6666', '#ff9999', '#ffcccc',
+                '#ffe6e6', '#800000', '#b30000', '#e60000', '#ff1a1a', '#ff4d4d', '#ff8080', '#ffb3b3'],
+      colors2: ['#000066', '#000099', '#0000cc', '#0000ff', '#3333ff', '#6666ff', '#9999ff', '#ccccff',
+                '#e6e6ff', '#000080', '#0000b3', '#0000e6', '#1a1aff', '#4d4dff', '#8080ff', '#b3b3ff'],
+      colors3: ['#006600', '#009900', '#00cc00', '#00ff00', '#33ff33', '#66ff66', '#99ff99', '#ccffcc',
+                '#e6ffe6', '#008000', '#00b300', '#00e600', '#1aff1a', '#4dff4d', '#80ff80', '#b3ffb3'],
     }
   },
   computed: {
@@ -290,8 +310,10 @@ export default {
       data.donut_chart_series1 = null;
       data.donut_chart_series2 = null;
       data.donut_chart_series3 = null;
-    }
+    },
+
   },
+
 };
 </script>
 <style></style>
