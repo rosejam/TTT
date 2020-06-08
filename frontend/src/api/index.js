@@ -1,7 +1,6 @@
 import axios from "axios";
 axios.defaults.withCredentials = true;
 const apiUrl = 'http://3.34.96.193:8000'
-// const apiUrl = 'http://localhost:8000'
 
 export default {
   ////// 주식 정보 관련 api //////
