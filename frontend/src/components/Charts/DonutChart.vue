@@ -36,8 +36,6 @@ export default {
           }
         },
         colors: this.colors
-        // colors:['#663d00', '#995c00', '#cc7a00', '#ff9900', '#ffad33', '#ffc266', '#ffd699', '#ffebcc']
-        // colors:['#0000cc', '#ffff00', '#ff3300', '#33cc33', '#993300', '#ffffcc', '#006666', '#66ccff', '#ff8566', '#cc6699']
       },
       series: this.donut_chart_series,
     }
