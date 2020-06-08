@@ -30,6 +30,14 @@
       </div>
 
       <div class="row">
+        <div class="col-md-10 text-right">
+          <strong>[적용 수수료]</strong><br/>
+          매수 0.015%, 매도 0.015%
+        </div>
+      </div>
+      <br/>
+
+      <div class="row">
         <div class="col-md-2"></div>
         <div class="row col-md-10">
 
@@ -38,15 +46,16 @@
             <p>기간 설정</p>
           </div>
           <div class="col-md-2">
-            <v-select v-model="testData.period" :options="periodOptions" :reduce="content => content.code" label="content" placeholder="테스트 기간 선택"/>
+            <v-select v-model="testData.period" ref="period" :options="periodOptions" :reduce="content => content.code" label="content" placeholder="테스트 기간 선택"/>
           </div>
 
           <!-- 시작 금액 설정 -->
           <div class="col-md-1">
-            <p>시작금액(원)</p>
+            <p>시작금액</p>
           </div>
           <div class="col-md-2">
-            <fg-input type="number" v-model="testData.initAmount"></fg-input>
+            <fg-input v-model="testData.initAmount" ref="initAmount" type="number"></fg-input>
+            {{testData.initAmount | currency}} 원
           </div>
 
           <!-- 자산 재분배 -->
@@ -236,23 +245,36 @@
                   :title="title1"
                   :donut_chart_labels="donut_chart_labels1"
                   :donut_chart_series="donut_chart_series1"
+                  :colors="colors1"
                 ></donut-chart>
+                <up-down
+                  :data="portfolio1_data"
+                ></up-down>
               </div>
               <div class="col-md-4">
                 <donut-chart
                   :title="title2"
                   :donut_chart_labels="donut_chart_labels2"
                   :donut_chart_series="donut_chart_series2"
+                  :colors="colors2"
                 ></donut-chart>
+                <up-down
+                  :data="portfolio2_data"
+                ></up-down>
               </div>
               <div class="col-md-4">
                 <donut-chart
                   :title="title3"
                   :donut_chart_labels="donut_chart_labels3"
                   :donut_chart_series="donut_chart_series3"
+                  :colors="colors3"
                 ></donut-chart>
+                <up-down
+                  :data="portfolio3_data"
+                ></up-down>
               </div>
             </div>
+            <br/>
 
             <!-- 포트폴리오 저장 버튼 -->
             <n-button type="primary" outline round @click.native="modals.save = true"
@@ -293,6 +315,7 @@ import { Button, FormGroupInput, Modal } from '@/components';
 import { Card } from "@/components/index";
 import LineChart from '@/components/Charts/LineChart.vue';
 import DonutChart from '@/components/Charts/DonutChart.vue';
+import UpDown from '@/components/Charts/UpDown.vue';
 import { BSpinner } from 'bootstrap-vue';
 import test from "@/utils/test";
 
@@ -306,9 +329,11 @@ export default {
     Card,
     LineChart,
     DonutChart,
+    UpDown,
     BSpinner,
   },
   data() {
+
     return {
       testClicked: false,   // 테스트 버튼 눌렀는지 여부
       periodOptions: [{code: 'Y', content: 'Year to Year'}, {code: 'M', content: 'Month to Month'}],
@@ -350,6 +375,12 @@ export default {
       title3: "#3",
       portName: '',
       loading: false,
+      colors1: ['#660000', '#990000', '#cc0000', '#ff0000', '#ff3333', '#ff6666', '#ff9999', '#ffcccc',
+                '#ffe6e6', '#800000', '#b30000', '#e60000', '#ff1a1a', '#ff4d4d', '#ff8080', '#ffb3b3'],
+      colors2: ['#000066', '#000099', '#0000cc', '#0000ff', '#3333ff', '#6666ff', '#9999ff', '#ccccff',
+                '#e6e6ff', '#000080', '#0000b3', '#0000e6', '#1a1aff', '#4d4dff', '#8080ff', '#b3b3ff'],
+      colors3: ['#006600', '#009900', '#00cc00', '#00ff00', '#33ff33', '#66ff66', '#99ff99', '#ccffcc',
+                '#e6ffe6', '#008000', '#00b300', '#00e600', '#1aff1a', '#4dff4d', '#80ff80', '#b3ffb3'],
     }
   },
   async mounted() {
@@ -411,12 +442,14 @@ export default {
       // 기간 선택 여부 검사
       if(!data.period) {
         alert('테스트 기간을 설정해주세요');
+        this.$refs.period.$el.focus();
         return false;
       }
 
       // 시작 금액 검사
-      if(data.initAmount=="") {
-        alert("시작 금액을 설정해주세요");
+      if(data.initAmount=="" || data.initAmount==null || Number(data.initAmount) < 1) {
+        alert("시작 금액을 0원보다 높게 설정해주세요");
+        this.$refs.initAmount.$el.focus();
         return;
       }
       else {
@@ -582,6 +615,7 @@ export default {
       this.portName = "";
       this.modals.complete = true;
     },
+
   },
   computed: {
     ...mapState("user", ["userInfo"]),
@@ -596,7 +630,16 @@ export default {
       return this.calc(3);
     },
   },
+  filters: {
+    // 숫자 3자리마다 , 찍기
+    currency: value => {
+      let num = Number(value);
+      if (!num) return '';
+      return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
+    } 
+  },
 };
+
 </script>
 <style scoped>
 .table-container {
