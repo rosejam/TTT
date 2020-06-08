@@ -134,17 +134,21 @@ export default {
 
       }
 
+      // 최고 금액 날짜
       let date = new Date(highDay);
-      highDay = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      highDay = this.getDay(date);
 
+      // 최저 금액 날짜
       date = new Date(lowDay);
-      lowDay = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      lowDay = this.getDay(date);
 
+      // 시작 금액 날짜
       date = new Date(this.data[0][0]);
-      const startDay = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      const startDay = this.getDay(date);
 
+      // 종료 금액 날짜
       date = new Date(this.data[this.data.length-1][0]);
-      const endDay = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      const endDay = this.getDay(date);
 
       return {
         highDay: highDay,
@@ -155,8 +159,16 @@ export default {
         endDay: endDay,
       };
 
-    }
+    },
     
+    getDay(date) {
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+      if(month < 10) month = "0" + month;
+      if(day < 10) day = "0" + day;
+      return year + "-" + month + "-" + day;
+    }
   },
 
   filters: {
