@@ -1,6 +1,6 @@
 from django.db import connection
 import datetime
-# import pymysql
+#import pymysql
 from dateutil.relativedelta import relativedelta
 import math
 
@@ -76,7 +76,7 @@ def rebalance(stock_list, s_date, e_date,assets,freq,buy_fee,sell_fee):
                     rret[tempdate]=assets
                     if flag:
                         stock_amount=int(stock_asset/item[2])
-                        sub_asset=math.ceil(stock_amount*item[2]*(1+buy_fee)/100)
+                        sub_asset=math.ceil(stock_amount*item[2]*(1+buy_fee/100))
                         flag=False
                     else:
                         rret[tempdate]=rret[tempdate]-sub_asset+stock_amount*item[2]
@@ -163,4 +163,4 @@ def rebalance(stock_list, s_date, e_date,assets,freq,buy_fee,sell_fee):
     
 
 if __name__=="__main__":
-    print(rebalance([{'A000050': 95, "A000087":5}],20140101,20201231,10000000,3,0.015,0.015))
+    print(rebalance([{'A000040': 100}],20000101,20201231,10000000,3,0.015,0.015))
