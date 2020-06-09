@@ -51,7 +51,7 @@
           </div>
 
           <!-- 자세히 보기 modal 창 -->
-          <modal :show.sync="portfolio.detail" headerClasses="justify-content-center" style="color:black" modal-classes="modal-lg">
+          <modal :show.sync="portfolio.detail" headerClasses="justify-content-center" style="color:black" modal-classes="modal-xl">
             <h1 slot="header">#{{portfolio.name}}</h1>
             <div class="container text-right">
               <strong>[적용 수수료]</strong><br/>
