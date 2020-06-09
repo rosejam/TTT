@@ -2,14 +2,17 @@ import api from "../../api";
 
 // initial state
 const state = {
+  
   userInfo: {
     uid: null,
     portfolio: null,
   },
+
 };
 
 // actions
 const actions = {
+  
   async getUserInfo({ commit }) {
     const uid = localStorage.getItem("user");
     const userInfo = await api.getUserInfo(uid);
@@ -18,12 +21,19 @@ const actions = {
 
   async postPortfolio({commit}, data) {
     await api.postPortfolio(data);
-  }
+  },
+
+  async deletePortfolio({commit}, id) {
+    await api.deletePortfolio(id);
+  },
+
 };
 
 // mutations
 const mutations = {
+
   setUserInfo(state, userInfo) {
+
     if(userInfo == null) {
       state.userInfo = {
         ...state.userInfo,
@@ -38,12 +48,16 @@ const mutations = {
         portfolio: userInfo.portfolio,
       }
     }
+
   },
+
 };
 
 export default {
+
   namespaced: true,
   state,
   actions,
   mutations,
+  
 };
