@@ -51,7 +51,7 @@
           </div>
 
           <!-- 자세히 보기 modal 창 -->
-          <modal :show.sync="portfolio.detail" headerClasses="justify-content-center" style="color:black" modal-classes="modal-lg">
+          <modal :show.sync="portfolio.detail" headerClasses="justify-content-center" style="color:black" modal-classes="modal-xl">
             <h1 slot="header">#{{portfolio.name}}</h1>
             <div class="container text-right">
               <strong>[적용 수수료]</strong><br/>
@@ -163,14 +163,28 @@
             <div class="row">
               <!-- 포트폴리오 삭제 버튼 -->
               <div class="text-left col-6">
-                <n-button v-if="!loading" @click="portfolio.del=true" round>삭제</n-button>
+                <n-button v-if="!loading" @click="portfolio.del=true" round>
+                  삭제 <i class="fa fa-trash-alt"></i>
+                </n-button>
               </div>
 
               <!-- 차트 보기/닫기 버튼 -->
               <div class="text-right col-6">
-                <n-button type="primary" v-if="!portfolio.testClicked && !loading" @click="test(portfolio)" round>차트 보기</n-button>
-                <n-button type="primary" v-if="portfolio.testClicked" @click="closeChart(portfolio)" round>차트 닫기</n-button>
+                <n-button type="primary" v-if="!portfolio.testClicked && !loading" @click="test(portfolio)" outline round>
+                  차트 보기 <i class="now-ui-icons arrows-1_minimal-down"></i>
+                </n-button>
+                <n-button type="primary" v-if="portfolio.testClicked" @click="closeChart(portfolio)" outline round>
+                  차트 닫기 <i class="now-ui-icons arrows-1_minimal-up"></i>
+                </n-button>
               </div>
+
+            </div>
+
+            <!-- 창 닫기 버튼 -->
+            <div class="text-right">
+              <n-button @click="portfolio.detail=false" icon round>
+                <i class="now-ui-icons ui-1_simple-remove"></i>
+              </n-button>
             </div>
 
             <!-- 로딩창 -->
