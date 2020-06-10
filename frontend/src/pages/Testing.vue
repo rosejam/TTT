@@ -499,7 +499,8 @@ export default {
       // 종료일자 검사
       const year = new Date().getFullYear();
       const month = new Date().getMonth();
-      if(data.endYear >= year && data.endMonth > month) {
+
+      if(data.period=="M" && data.endYear >= year && data.endMonth > month) {
         let msg = "종료일자는 " + year.toString() + "년 " + month.toString() + "월 이전으로 설정해주세요"
         alert("종료일자는 " + year.toString() + "년 " + month.toString() + "월 이전으로 설정해주세요");
         return false;
