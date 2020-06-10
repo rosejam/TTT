@@ -29,7 +29,7 @@ def rebalance(stock_list, s_date, e_date,assets,freq,buy_fee,sell_fee):
     cursor=connection.cursor()
     
     # 디버깅용 pymysql connection
-    #cursor=temp_db.cursor()
+    # cursor=temp_db.cursor()
 
     rret=0;
     ret=[]
@@ -111,17 +111,20 @@ def rebalance(stock_list, s_date, e_date,assets,freq,buy_fee,sell_fee):
             # cp_asset을 이용하여 자산 크기 계산
             cp_asset=assets
             ccp_asset=assets
+
             for j in range(int(subMonth/freq)+1):
                 #drebal_date datetime 형식으로 작성한 rebalancing 날짜에 rebalancing 주기만큼 개월수를 더함(개월수 계산을 편하게 하기 위해 datetime을 이용함)
                 drebal_date=drebal_date+relativedelta(months=freq)
                 rebal_date=min(int(drebal_date.strftime("%Y%m%d")),e_date)
+
                 for key,value in stocks.items():
                     if(value==0):
                         continue
-                    stock_asset=assets*value/100
+                    stock_asset=cp_asset*value/100
                     # flag 변수를 이용하여 리밸런스 주기중 첫날만 주식을 구매하고 팔게 지정
                     flag=True
                     sub_asset=0
+                    last_date=0
                     for item in stock_data[cp_idx[key]:]:
                         if item[0]!=key:
                             break
@@ -132,6 +135,7 @@ def rebalance(stock_list, s_date, e_date,assets,freq,buy_fee,sell_fee):
                         if item[1]>rebal_date:
                             break
                         cp_idx[key]+=1
+                        last_date=item[1]
                         tempdate=getHypenDate(item[1])
                         if not tempdate in rret:
                             rret[tempdate]=cp_asset
@@ -150,9 +154,9 @@ def rebalance(stock_list, s_date, e_date,assets,freq,buy_fee,sell_fee):
                         else:
                             rret[tempdate]=rret[tempdate]-sub_asset+stock_amount[item[0]]*item[2]
                             ccp_asset=rret[tempdate]
-                            
+                    cp_idx[key]-=1
                 cp_asset=ccp_asset
-                cp_sdate=rebal_date
+                cp_sdate=last_date
 
             tempdate=getHypenDate(e_date)
             if len(rret)==1:
@@ -165,4 +169,4 @@ def rebalance(stock_list, s_date, e_date,assets,freq,buy_fee,sell_fee):
     
 
 if __name__=="__main__":
-    print(rebalance([{'A000070': 20, 'A000120':20, 'A000215':20, 'A000370':20, 'A000227':20},{'A000070': 25, 'A000120':15, 'A000215':30, 'A000370':10, 'A000227':20}],20000101,20201231,10000000,3,0.015,0.015))
+    print(rebalance([{'A000070': 100}],20000101,20001231,10000000,6,0,0))
