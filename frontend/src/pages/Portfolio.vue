@@ -180,13 +180,6 @@
 
             </div>
 
-            <!-- 창 닫기 버튼 -->
-            <div class="text-right">
-              <n-button @click="portfolio.detail=false" icon round>
-                <i class="now-ui-icons ui-1_simple-remove"></i>
-              </n-button>
-            </div>
-
             <!-- 로딩창 -->
             <div v-if="loading" class="text-center">
               <b-spinner variant="secondary" style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
