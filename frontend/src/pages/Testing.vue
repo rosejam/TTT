@@ -40,29 +40,29 @@
         <div class="row">
 
           <!-- 기간 select -->
-          <div class="col-md-2">
+          <div class="col-lg-2">
             <p>기간 설정</p>
           </div>
-          <div class="col-md-2">
+          <div class="col-lg-2">
             <v-select v-model="testData.period" ref="period" :options="periodOptions" :reduce="content => content.code" label="content" placeholder="테스트 기간 선택"/>
             <br/>
           </div>
 
           <!-- 시작 금액 설정 -->
-          <div class="col-md-2">
+          <div class="col-lg-2">
             <p>시작금액</p>
           </div>
-          <div class="col-md-2">
+          <div class="col-lg-2">
             <fg-input v-model="testData.initAmount" ref="initAmount" type="number"></fg-input>
             {{testData.initAmount | currency}} 원
             <br/><br/>
           </div>
 
           <!-- 자산 재분배 -->
-          <div class="col-md-2">
+          <div class="col-lg-2">
             <p>재분배 주기</p>
           </div>
-          <div class="col-md-2">
+          <div class="col-lg-2">
             <v-select v-model="testData.rebalancing" :options="rebalancingOptions" :reduce="content => content.code" label="content" placeholder="재분배 주기 선택"/>
           </div>
 
@@ -75,33 +75,33 @@
         <div class="row">
 
           <!-- 시작일 select -->
-          <div class="col-md-1">
+          <div class="col-lg-1">
             <p>시작 연도</p>
           </div>
-          <div class="col-md-2">
+          <div class="col-lg-2">
             <v-select v-model="testData.startYear" :options=yearOptions></v-select>
             <br/>
           </div>
-          <div class="col-md-1" v-if="testData.period == 'M'">
+          <div class="col-lg-1" v-if="testData.period == 'M'">
             <p>시작 월</p>
           </div>
-          <div class="col-md-2" v-if="testData.period == 'M'">
+          <div class="col-lg-2" v-if="testData.period == 'M'">
             <v-select v-model="testData.startMonth" :options=monthOptions></v-select>
             <br/>
           </div>
 
           <!-- 종료일 -->
-          <div class="col-md-1">
+          <div class="col-lg-1">
             <p>종료 연도</p>
           </div>
-          <div class="col-md-2">
+          <div class="col-lg-2">
             <v-select v-model="testData.endYear" :options=yearOptions></v-select>
             <br/>
           </div>
-          <div class="col-md-1" v-if="testData.period == 'M'">
+          <div class="col-lg-1" v-if="testData.period == 'M'">
             <p>종료 월</p>
           </div>
-          <div class="col-md-2" v-if="testData.period == 'M'">
+          <div class="col-lg-2" v-if="testData.period == 'M'">
             <v-select v-model="testData.endMonth" :options=monthOptions></v-select>
             <br/>
           </div>
