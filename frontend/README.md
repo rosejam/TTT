@@ -2,7 +2,7 @@
 yarn install      
 yarn run serve
 
-http://localhost:8000에서 접속 확인
+http://localhost:8080에서 접속 확인
 
 ## build
 yarn run build 
