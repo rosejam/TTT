@@ -167,9 +167,14 @@
                   삭제 <i class="fa fa-trash-alt"></i>
                 </n-button>
               </div>
-
+            
               <!-- 차트 보기/닫기 버튼 -->
               <div class="text-right col-6">
+                <!-- 동주 추가 차트 불러오기 -->
+                <n-button type="primary" @click="load(portfolio)" outline round>
+                  불러오기
+                </n-button>
+                &nbsp;
                 <n-button type="primary" v-if="!portfolio.testClicked && !loading" @click="test(portfolio)" outline round>
                   차트 보기 <i class="now-ui-icons arrows-1_minimal-down"></i>
                 </n-button>
@@ -285,6 +290,10 @@ export default {
       data.testClicked = true;
     },
 
+    //동주 추가 포트폴리오 불러오기
+    async load(data) {
+      
+    },  
     // 포트폴리오 삭제
     async delPortfolio(i, portfolio) {
       await this.deletePortfolio(portfolio.id);
